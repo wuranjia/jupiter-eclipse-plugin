@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<site> <description url="index.html">The Jupiter Update Site contains feature 
+and plug-in versions for Juipter project releases. </description>
+
+  <feature url="features/csdl.jupiter_@VERSION@.jar" id="csdl.jupiter" version="@VERSION@">
+    <category name="Jupiter"/>
+  </feature>
+  <archive url="plugins/csdl.jupiter_@VERSION@.jar" path="plugins/csdl.jupiter_@VERSION@.jar"/>
+
+  <category-def label="Jupiter for Eclipse" name="Jupiter">
+    <description>
+This category contains the features of the Jupiter for Eclipse.
+    </description>
+  </category-def>
+</site>
