@@ -18,7 +18,7 @@ University of Hawaii
  # Configuration Phase
  # Individual Review Phase
  # Team Review Phase
- # [Rework Rework Phase] 
+ # [#Rework Rework Phase] 
  # Preference filter configuration
  # Item Reference 
 
@@ -46,7 +46,6 @@ University of Hawaii
 = Item Reference =
 
 [JupiterReleaseHistory Previous Release]
-
 
 
 
