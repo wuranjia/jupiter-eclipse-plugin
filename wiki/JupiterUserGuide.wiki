@@ -26,9 +26,9 @@ University of Hawaii
 == Why use a review tool? ==
 Why should you use a review tool? There are a few reasons:
 
-# Review can find many faults during requirements, design and coding;
-# Early detection of errors can improve productivity;
-#Review helps members of the team learn about other parts of the system, and can increase their overall programming skill.
+ # Review can find many faults during requirements, design and coding;
+ # Early detection of errors can improve productivity;
+ # Review helps members of the team learn about other parts of the system, and can increase their overall programming skill.
 Both review and testing are complementary and should be a part of a high quality software development process.  Many studies have shown the effectiveness of review for error detection:
 
  * _"Fagan (1976) performed an experiment in which 67 percent of the system's faults eventually detected were found before unit testing using inspections."_
