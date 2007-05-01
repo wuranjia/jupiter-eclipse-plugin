@@ -11,7 +11,7 @@ University of Hawaii
 
 == Content ==
  # Introduction
- # Installation
+ # [InstallationGuide Installation]
  # Review Perspective
  # The Jupiter Review Process
  # Review ID configuration defaults
@@ -52,6 +52,7 @@ Some of the features of Jupiter include:
 
 == History of Jupiter ==
 Jupiter is the result of over ten years of research of software review tools and techniques by the Collaborative Software Development Laboratory at the University of Hawaii. In the early 1990's, we developed CSRS (Collaborative Software Review System). CSRS provided sophisticated support for software review, including a configurable review process modeling language, a back-end hypertext database for persistency, an Emacs-based user interface, and fine-grained metrics collection.  While extremely sophisticated, CSRS was complicated to install, use, and maintain, all of which hindered its adoption.  In the late 1990's, we developed a much simpler code review system as part of the Leap toolkit for software engineering measurement and analysis. This tool was Java-based and independent of any editor.  While much simpler to use, its lack of integration with a software development environment made it less functional and created more overhead for users.  Jupiter is our third generation approach.  With Jupiter, we are exploiting the Eclipse IDE framework to provide highly usable code annotation that is much simpler to install and use than CSRS.  Jupiter implements a very simple, lightweight "process" for code review that should suffice for most users.  Rather than incur the overhead of a back-end database for persistency, which we learned will greatly hinder adoption, Jupiter stores review comments in simple XML files which developers are responsible for managing and sharing via their configuration management system. In other words, Jupiter files must be managed and shared just as source code files must be managed and shared.  Finally,  rather than build metrics collection and analysis directly into Jupiter, we developed a Jupiter sensor for the Hackystat software engineering measurement system.  The sensor allows review metrics to be unobtrusively collected and sent to the user's account at a Hackystat server, where it can be combined with other software engineering metrics collected for this user and their development group.   Our hope is that the design of Jupiter hits a "sweet spot" in the many trade-offs that must be made between functionality and usability in code review, one that makes it useful to large segment of the software engineering community.
+
 
 
 
