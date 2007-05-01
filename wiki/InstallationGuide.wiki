@@ -1,5 +1,27 @@
 #summary Installing and Uninstalling Jupiter
 
+= Jupiter User's Guide =
+[http://csdl.ics.hawaii.edu/Members/TakuyaYamashita.html Takuya Yamashita] [http://csdl.ics.hawaii.edu/~hongbing Hongbing Kou]
+
+[http://csdl.ics.hawaii.edu/ Collaborative Software Development Laboratory]
+
+Department of Information and Computer Sciences
+
+University of Hawaii
+
+== Content ==
+ # [JupiterUserGuide Introduction]
+ # Installation
+ # Review Perspective
+ # The Jupiter Review Process
+ # Review ID configuration defaults
+ # Configuration Phase
+ # Individual Review Phase
+ # Team Review Phase
+ # Rework Rework Phase
+ # Preference filter configuration
+ # Item Reference
+
 = Introduction =
 
 Add your content here.
@@ -11,5 +33,4 @@ Add your content here.  Format your content with:
   * Text in *bold* or _italic_
   * Headings, paragraphs, and lists
   * Automatic links to other wiki pages
-
 
