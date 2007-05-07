@@ -9,7 +9,7 @@ Department of Information and Computer Sciences
 
 University of Hawaii
 
-http://csdl.ics.hawaii.edu/Tools/Jupiter/Core/doc/images/JupiterThumbnail.jpg
+http://jupiter-eclipse-plugin.googlecode.com/svn/trunk/doc/images/JupiterThumbnail.jpg
 
 == Content ==
  # Introduction
