@@ -1,0 +1,37 @@
+#summary Jupiter's Review Perspective in the Eclipse IDE
+
+= Review Perspective =
+[http://csdl.ics.hawaii.edu/Members/TakuyaYamashita.html Takuya Yamashita] [http://csdl.ics.hawaii.edu/~hongbing Hongbing Kou]
+
+[http://csdl.ics.hawaii.edu/ Collaborative Software Development Laboratory]
+
+Department of Information and Computer Sciences
+
+University of Hawaii
+
+== Content ==
+ # [JupiterUserGuide Introduction]
+ # [InstallationGuide Installation]
+ # Review Perspective
+ # The Jupiter Review Process
+ # Review ID configuration defaults
+ # Configuration Phase
+ # Individual Review Phase
+ # Team Review Phase
+ # Rework Rework Phase
+ # Preference filter configuration
+ # Item Reference
+
+
+= Review Perspective in Eclipse =
+The Jupiter plugin provides a new perspective called "Review".  You can open the perspective by selecting "Window | Open Perspective | Other... | Review".
+
+ * *Review Perspective* - Provides Review Table and Review Editor windows.
+ * *Review Editor* - Supports entry of new Review Issues.  Typically, you will place the cursor (or select a region of text) where you wish to document an issue, right-click, and select "Add Jupiter Issue".
+ * *Review Table* - Supports display and modification of all created issues.  The review table helps users to see a summary of all the review issues entries at a glance, allows them to switch review phase, enables them to sort by item category by slicking the header of a column name, and enables filtering by certain item conditions.
+ * *Phase section* - Provides the selection of the review phases which are individual, team, and rework phase.  The phase selection icons are located in the main tool bar and the review table's tool bar.  The item categories (columns) in the review table and the tab in the review editor will be changed corresponding to the phase selection.  This will optimize the review for each review stage.
+
+[http://jupiter-eclipse-plugin.googlecode.com/svn/trunk/doc/images/JupiterFeature.jpg]
+
+
+
