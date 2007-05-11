@@ -1,0 +1,25 @@
+#summary The rework phase in Jupiter.
+
+= Jupiter's Rework Phase =
+[http://csdl.ics.hawaii.edu/Members/TakuyaYamashita.html Takuya Yamashita] [http://csdl.ics.hawaii.edu/~hongbing Hongbing Kou]
+
+[http://csdl.ics.hawaii.edu/ Collaborative Software Development Laboratory]
+
+Department of Information and Computer Sciences
+
+University of Hawaii
+
+== Content ==
+ # [JupiterUserGuide Introduction]
+ # [InstallationGuide Installation]
+ # [ReviewPerspective Review Perspective]
+ # [ReviewProcess The Jupiter Review Process]
+ # [ReviewConfiguration Review ID configuration defaults]
+ # [ReviewConfiguration Configuration Phase]
+ # [IndividualReviewPhase Individual Review Phase]
+ # [TeamReviewPhase Team Review Phase]
+ # _Rework Phase_
+ # [PreferenceFilter Preference filter configuration]
+ # [ItemReference Item Reference]
+
+= Rework Phase =
