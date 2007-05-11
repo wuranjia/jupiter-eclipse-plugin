@@ -56,6 +56,6 @@ http://jupiter-eclipse-plugin.googlecode.com/svn/trunk/doc/images/Markers.jpg
 
 If you single-click on the purple marker in the left hand side of the text editor, you can see the review issue summary in the resolution selection window with the purple marker. When you select the issue summary, you can see the description of the review issue in the right hand side. To see the full information of the review issue, you can just single-click on the review summary, then the review issue will be filled in the review editor view.
 
-Note that markers obey the current filter settings.  For example, if review issues are filtered to only those containing "Unset" in the Resolution field, then the marker for an issue will disappear as soon as its Resolution field is changed to another value such as "Valid-NeedsFixing".  This is a good way to keep track of the issues that you haven't yet dealt with during the Team Review Phase. 
+Note that markers obey the current filter settings.  For example, if review issues are filtered to only those containing "Unset" in the Resolution field, then the marker for an issue will disappear as soon as its Resolution field is changed to another value such as "Valid-!NeedsFixing".  This is a good way to keep track of the issues that you haven't yet dealt with during the Team Review Phase. 
 
 Finally, don't forget to commit the modified .review files to your configuration management repository at the end of the Team Review Phase. These files are located in the review directory which you specified during the configuration phase. 
