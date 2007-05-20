@@ -12,17 +12,17 @@ University of Hawaii
 http://jupiter-eclipse-plugin.googlecode.com/svn/trunk/doc/images/JupiterThumbnail.jpg
 
 == Content ==
- # Introduction
+ # _Introduction_
  # [InstallationGuide Installation]
- # Review Perspective
- # The Jupiter Review Process
- # Review ID configuration defaults
- # Configuration Phase
- # Individual Review Phase
- # Team Review Phase
- # Rework Rework Phase
- # Preference filter configuration
- # Item Reference
+ # [ReviewPerspective Review Perspective]
+ # [ReviewProcess The Jupiter Review Process]
+ # [ReviewConfiguration Review ID configuration defaults]
+ # [ReviewConfiguration Configuration Phase]
+ # [IndividualReviewPhase Individual Review Phase]
+ # [TeamReviewPhase Team Review Phase]
+ # [ReworkPhase Rework Phase]
+ # [PreferenceFilter Preference filter configuration]
+ # [ItemReference Item Reference]
 
 = Introduction =
 == Why use a review tool? ==
