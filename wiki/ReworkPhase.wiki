@@ -23,3 +23,18 @@ University of Hawaii
  # [ItemReference Item Reference]
 
 = Rework Phase =
+After the team review phase, the Jupiter plugin can help you work through the fixes to the code identified through the review.  For this rework phase, you might want to see which issues are assigned to you, and which issues you have not done yet so that you can work on what you have to do efficiently.
+
+[http://jupiter-eclipse-plugin.googlecode.com/svn/trunk/doc/images/ReworkSelection.jpg]
+
+You can select the "Rework Phase" mode and select the proper review ID and reviewer ID.
+
+[http://jupiter-eclipse-plugin.googlecode.com/svn/trunk/doc/images/ReviewIdSelection.jpg]
+
+In rework phase, the Jupiter editor view contains the status, resolution, and revision field.
+
+Status field provides the status of the issue. You can change the status from "Unsolved" to "Solved" after fixing the issue. You might want to fix the issue in a different way than was suggested during the review after examining it more carefully. In this case, you can provide a comment documenting your new approach in the Revision field. 
+
+[http://jupiter-eclipse-plugin.googlecode.com/svn/trunk/doc/images/EditorRework.jpg]
+
+Once again, make sure you commit your changed .review files to your configuration management repository. 

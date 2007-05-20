@@ -19,8 +19,8 @@ University of Hawaii
  # [IndividualReviewPhase Individual Review Phase]
  # [TeamReviewPhase Team Review Phase]
  # [ReworkPhase Rework Phase]
- # Preference filter configuration
- # Item Reference
+ # [PreferenceFilter Preference filter configuration]
+ # [ItemReference Item Reference]
 
 = Installation =
 == Installing Jupiter Using the Jupiter Update Site ==

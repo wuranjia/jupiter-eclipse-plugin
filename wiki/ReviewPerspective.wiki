@@ -12,15 +12,15 @@ University of Hawaii
 == Content ==
  # [JupiterUserGuide Introduction]
  # [InstallationGuide Installation]
- # Review Perspective
- # The Jupiter Review Process
- # Review ID configuration defaults
- # Configuration Phase
- # Individual Review Phase
- # Team Review Phase
- # Rework Rework Phase
- # Preference filter configuration
- # Item Reference
+ # _Review Perspective_
+ # [ReviewProcess The Jupiter Review Process]
+ # [ReviewConfiguration Review ID configuration defaults]
+ # [ReviewConfiguration Configuration Phase]
+ # [IndividualReviewPhase Individual Review Phase]
+ # [TeamReviewPhase Team Review Phase]
+ # [ReworkPhase Rework Phase]
+ # [PreferenceFilter Preference filter configuration]
+ # [ItemReference Item Reference]
 
 
 = Review Perspective in Eclipse =

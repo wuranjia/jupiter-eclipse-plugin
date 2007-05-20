@@ -16,11 +16,11 @@ University of Hawaii
  # [ReviewProcess The Jupiter Review Process]
  # _Review ID configuration defaults_
  # _Configuration Phase_
- # Individual Review Phase
- # Team Review Phase
- # Rework Rework Phase
- # Preference filter configuration
- # Item Reference
+ # [IndividualReviewPhase Individual Review Phase]
+ # [TeamReviewPhase Team Review Phase]
+ # [ReworkPhase Rework Phase]
+ # [PreferenceFilter Preference filter configuration]
+ # [ItemReference Item Reference]
 
 = Review ID Configuration Defaults =
 For teams that perform many reviews, it can become tiresome to configure a review ID from scratch each time.  To simplify this process, Jupiter provides a "Master" review ID that is stored in the property.xml file in the Jupiter plugin directory.  The settings stored in this DEFAULT review ID for reviewer names, issue types, the review file directory, and so forth become the default values when creating regular review IDs.  Thus, by configuring the special DEFAULT review ID, you can provide values to be used each time you create a normal review ID.  

@@ -13,14 +13,14 @@ University of Hawaii
  # [JupiterUserGuide Introduction]
  # [InstallationGuide Installation]
  # [ReviewPerspective Review Perspective]
- # The Jupiter Review Process
- # Review ID configuration defaults
- # Configuration Phase
- # Individual Review Phase
- # Team Review Phase
- # Rework Rework Phase
- # Preference filter configuration
- # Item Reference
+ # _The Jupiter Review Process_
+ # [ReviewConfiguration Review ID configuration defaults]
+ # [ReviewConfiguration Configuration Phase]
+ # [IndividualReviewPhase Individual Review Phase]
+ # [TeamReviewPhase Team Review Phase]
+ # [ReworkPhase Rework Phase]
+ # [PreferenceFilter Preference filter configuration]
+ # [ItemReference Item Reference]
 
 = Jupiter's Four Step Process =
 A code review in Jupiter involves the following four step process:
