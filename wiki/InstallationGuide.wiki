@@ -1,6 +1,6 @@
 #summary Installing and Uninstalling Jupiter
 
-= Installation Guide =
+= Jupiter Installation Guide =
 [http://csdl.ics.hawaii.edu/Members/TakuyaYamashita.html Takuya Yamashita] [http://csdl.ics.hawaii.edu/~hongbing Hongbing Kou]
 
 [http://csdl.ics.hawaii.edu/ Collaborative Software Development Laboratory]
@@ -11,25 +11,64 @@ University of Hawaii
 
 == Content ==
  # [JupiterUserGuide Introduction]
- # Installation
- # Review Perspective
- # The Jupiter Review Process
- # Review ID configuration defaults
- # Configuration Phase
- # Individual Review Phase
- # Team Review Phase
- # Rework Rework Phase
+ # _Installation_
+ # [ReviewPerspective Review Perspective]
+ # [ReviewProcess The Jupiter Review Process]
+ # [ReviewConfiguation Review ID configuration defaults]
+ # [ReviewConfiguration Configuration Phase]
+ # [IndividualReviewPhase Individual Review Phase]
+ # [TeamReviewPhase Team Review Phase]
+ # [ReworkPhase Rework Phase]
  # Preference filter configuration
  # Item Reference
 
-= Introduction =
+= Installation =
+== Installing Jupiter Using the Jupiter Update Site ==
+The best way to install Jupiter is to use the Software Update mechanism in Eclipse. This feature enables you to install or update Jupiter easily when updates to the package occur.
 
-Add your content here.
+Select "Help | Software Updates | Find and Install..", check " Search for new features to install", and then add update site, clicking on the "Add Update Site" button. Provide a name such as "Jupiter Update Server" and use the URL ~~ http://csdl.ics.hawaii.edu/Tools/Jupiter/Download ~~.
+
+*PLEASE NOTE THAT WE ARE IN THE PROCESS OF CREATING A NEW UPDATE SITE FOR POST 3.2.1 VERSIONS.*
+
+[http://jupiter-eclipse-plugin.googlecode.com/svn/trunk/doc/images/NewSite.jpg]
+
+Check the new created Jupiter site, then follow the wizards to complete the installation process. 
+
+== Installing Jupiter From Downloaded Zipfile ==
+These instructions assume that you have unzipped the zip file to create a directory containing the plug-in components.
+
+ # Please make sure the following are done before the installation process:
+   # The *Java 5 or above level Java runtime (JRE) or Java development kit (JDK) is installed* on your environment.  If you are using a version prior to 1.5, install 1.5 or above and specify the "vm" option to start up your eclipse with the 1.5.
+    # Your Eclipse version is suitable for Jupiter version downloaded.  The zipfile should contain more detailed version information.
+    # Your Eclipse is shut down. 
+ # Copy both ./plugins/csdl.jupiter_3.2.1 and ./features/csdl.jupiter_3.2.1 into <installed_eclipse_dir>/plugins and <installed_eclipse_dir>/features respectively (NOTE: this applies to any version of Jupiter and not just 3.2.1).  The ./features/csdl.jupiter_3.2.1 helps you to configure Jupiter plug-in such as disablity and/or unistallation of it gracefully. Othewise you might see some error messages in the error log of Eclipse because the Jupiter related view and action button would be still stored in the workbench just after the Jupiter plug-in deletion. 
+ # Start your Eclipse.
+ # Show "Open Jupiter Issue View" button in either way:
+   # Select "Window | Reset Perspective" in the main tool bar.
+   # Select "Window | Customize Perspective", check "Jupiter" (the check box is located in "Commands" tab. 
+ # Click the appeared button to open Jupiter Issue View.
+
+= Uninstallation =
+To unistall Jupiter plug-in, please follow the instrcutions carefully.  Otherwise you might have some error messages in the error log of the Eclipse.
+
+ # *Make sure all Jupiter related extensions are closed:*
+   # *Close Jupiter view* by unchecking "Jupiter" in the "Window | Customize Perspective | Window > Show View ".
+   # *Close Jupiter action* button by unchecking "Jupiter" in the "Window | Customize Perspective | Other".
+ # Select "Help | Software Updates | Manage Configuration...", click the installed "Jupiter for Eclipse 3.x stream..." traversing "Eclipse Platform | file:...".
+ # Select the "Disable" link to follow the instrcution, and restart your Eclipse. 
+ # Select "Help | Software Updates | Manage Configuration...", click "Show disable features" button in the third icon from the left of the main icon bar in order to see the disable Jupiter plug-in. 
+ # Select it and "Unistall" link to follow the instrcution, and restart your Eclipse.
 
 
-= Details =
 
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+
+
+
+
+
+
+
+
+
+
+
