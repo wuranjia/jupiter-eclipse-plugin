@@ -14,7 +14,7 @@ University of Hawaii
  # _Installation_
  # [ReviewPerspective Review Perspective]
  # [ReviewProcess The Jupiter Review Process]
- # [ReviewConfiguation Review ID configuration defaults]
+ # [ReviewConfiguration Review ID configuration defaults]
  # [ReviewConfiguration Configuration Phase]
  # [IndividualReviewPhase Individual Review Phase]
  # [TeamReviewPhase Team Review Phase]
@@ -58,7 +58,6 @@ To unistall Jupiter plug-in, please follow the instrcutions carefully.  Otherwis
  # Select the "Disable" link to follow the instrcution, and restart your Eclipse. 
  # Select "Help | Software Updates | Manage Configuration...", click "Show disable features" button in the third icon from the left of the main icon bar in order to see the disable Jupiter plug-in. 
  # Select it and "Unistall" link to follow the instrcution, and restart your Eclipse.
-
 
 
 
