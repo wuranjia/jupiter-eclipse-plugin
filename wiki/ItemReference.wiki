@@ -67,7 +67,7 @@ Each issue has five different status. The following is the typical story to use 
  * *Suggestion* - Constructive suggestion.
  * *Other* - Other types that are not fitted above.
 
-= Severity =
+= Resolution =
  * *Unset* - Not set.
  * *Valid Needs Fixing* - The review issue provides valid argument and it needs to be fixed.
  * *Valid Fix later* - The review issue provides valid argument, but it is to be fixed later.
@@ -76,7 +76,7 @@ Each issue has five different status. The following is the typical story to use 
  * *Invalid Won't Fix* - The review issue provides invalid argument so that it does not need to be fixed.
  * *Unsure validity* - It is not sure that the review issue provides valid or invalid argument.
 
-= Resolution =
+= Status =
  * *Open* - A new review issue was opened.
  * *Resolved* - The review issue was resolved.
  * *Closed* - The resolved review issue was closed (approved).
