@@ -67,6 +67,14 @@ Each issue has five different status. The following is the typical story to use 
  * *Suggestion* - Constructive suggestion.
  * *Other* - Other types that are not fitted above.
 
+= Severity =
+ * *Unset* - Not set.
+ * *Critical*
+ * *Major*
+ * *Normal*
+ * *Minor*
+ * *Trivial*
+
 = Resolution =
  * *Unset* - Not set.
  * *Valid Needs Fixing* - The review issue provides valid argument and it needs to be fixed.
