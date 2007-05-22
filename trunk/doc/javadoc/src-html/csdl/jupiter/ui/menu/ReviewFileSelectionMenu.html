@@ -1,0 +1,159 @@
+<HTML>
+<BODY BGCOLOR="white">
+<PRE>
+<FONT color="green">001</FONT>    package csdl.jupiter.ui.menu;<a name="line.1"></a>
+<FONT color="green">002</FONT>    <a name="line.2"></a>
+<FONT color="green">003</FONT>    import java.util.Iterator;<a name="line.3"></a>
+<FONT color="green">004</FONT>    import java.util.Set;<a name="line.4"></a>
+<FONT color="green">005</FONT>    <a name="line.5"></a>
+<FONT color="green">006</FONT>    import org.eclipse.core.resources.IFile;<a name="line.6"></a>
+<FONT color="green">007</FONT>    import org.eclipse.core.resources.IProject;<a name="line.7"></a>
+<FONT color="green">008</FONT>    import org.eclipse.swt.SWT;<a name="line.8"></a>
+<FONT color="green">009</FONT>    import org.eclipse.swt.events.SelectionAdapter;<a name="line.9"></a>
+<FONT color="green">010</FONT>    import org.eclipse.swt.events.SelectionEvent;<a name="line.10"></a>
+<FONT color="green">011</FONT>    import org.eclipse.swt.widgets.Menu;<a name="line.11"></a>
+<FONT color="green">012</FONT>    import org.eclipse.swt.widgets.MenuItem;<a name="line.12"></a>
+<FONT color="green">013</FONT>    <a name="line.13"></a>
+<FONT color="green">014</FONT>    import csdl.jupiter.ReviewI18n;<a name="line.14"></a>
+<FONT color="green">015</FONT>    import csdl.jupiter.file.FileResource;<a name="line.15"></a>
+<FONT color="green">016</FONT>    import csdl.jupiter.file.PropertyResource;<a name="line.16"></a>
+<FONT color="green">017</FONT>    import csdl.jupiter.file.ReviewResource;<a name="line.17"></a>
+<FONT color="green">018</FONT>    import csdl.jupiter.model.review.ReviewId;<a name="line.18"></a>
+<FONT color="green">019</FONT>    import csdl.jupiter.model.review.ReviewModel;<a name="line.19"></a>
+<FONT color="green">020</FONT>    <a name="line.20"></a>
+<FONT color="green">021</FONT>    /**<a name="line.21"></a>
+<FONT color="green">022</FONT>     * Provides review file selection menu.<a name="line.22"></a>
+<FONT color="green">023</FONT>     * @author Takuya Yamashita<a name="line.23"></a>
+<FONT color="green">024</FONT>     * @version $Id: ReviewFileSelectionMenu.java,v 1.8 2005/05/06 05:22:47 takuyay Exp $<a name="line.24"></a>
+<FONT color="green">025</FONT>     */<a name="line.25"></a>
+<FONT color="green">026</FONT>    public class ReviewFileSelectionMenu {<a name="line.26"></a>
+<FONT color="green">027</FONT>    <a name="line.27"></a>
+<FONT color="green">028</FONT>      /**<a name="line.28"></a>
+<FONT color="green">029</FONT>       * Creates file selection pulldown menu.<a name="line.29"></a>
+<FONT color="green">030</FONT>       * @param menu the menu of the parent.<a name="line.30"></a>
+<FONT color="green">031</FONT>       * @return the menu of the pulldown menu.<a name="line.31"></a>
+<FONT color="green">032</FONT>       */<a name="line.32"></a>
+<FONT color="green">033</FONT>      public static Menu createPulldownMenu(Menu menu) {<a name="line.33"></a>
+<FONT color="green">034</FONT>        create(menu);<a name="line.34"></a>
+<FONT color="green">035</FONT>        return menu;<a name="line.35"></a>
+<FONT color="green">036</FONT>      }<a name="line.36"></a>
+<FONT color="green">037</FONT>      <a name="line.37"></a>
+<FONT color="green">038</FONT>      /**<a name="line.38"></a>
+<FONT color="green">039</FONT>       * Creates target file selection menu.<a name="line.39"></a>
+<FONT color="green">040</FONT>       * @param menu the menu of the parent.<a name="line.40"></a>
+<FONT color="green">041</FONT>       */<a name="line.41"></a>
+<FONT color="green">042</FONT>      private static void create(Menu menu) {<a name="line.42"></a>
+<FONT color="green">043</FONT>        ReviewModel reviewModel = ReviewModel.getInstance();<a name="line.43"></a>
+<FONT color="green">044</FONT>        final IProject project = reviewModel.getProjectManager().getProject();<a name="line.44"></a>
+<FONT color="green">045</FONT>        ReviewId reviewId = reviewModel.getReviewIdManager().getReviewId(); <a name="line.45"></a>
+<FONT color="green">046</FONT>        if (project != null &amp;&amp; reviewId != null) {<a name="line.46"></a>
+<FONT color="green">047</FONT>          PropertyResource propertyResource = PropertyResource.getInstance(project, false);<a name="line.47"></a>
+<FONT color="green">048</FONT>          String reviewIdString = reviewId.getReviewId();<a name="line.48"></a>
+<FONT color="green">049</FONT>          ReviewResource reviewResource = propertyResource.getReviewResource(reviewIdString, true);<a name="line.49"></a>
+<FONT color="green">050</FONT>          <a name="line.50"></a>
+<FONT color="green">051</FONT>          // Get current editor file to highlight it if it is in the list of<a name="line.51"></a>
+<FONT color="green">052</FONT>          // our review files<a name="line.52"></a>
+<FONT color="green">053</FONT>          IFile activeFile = FileResource.getActiveFile();<a name="line.53"></a>
+<FONT color="green">054</FONT>          String activeFileName = null;<a name="line.54"></a>
+<FONT color="green">055</FONT>          if (activeFile != null) {<a name="line.55"></a>
+<FONT color="green">056</FONT>            activeFileName = activeFile.getProjectRelativePath().toString();        <a name="line.56"></a>
+<FONT color="green">057</FONT>          }<a name="line.57"></a>
+<FONT color="green">058</FONT>    <a name="line.58"></a>
+<FONT color="green">059</FONT>          if (reviewResource != null) {<a name="line.59"></a>
+<FONT color="green">060</FONT>            Set targetFileSet = reviewResource.getFileSet();<a name="line.60"></a>
+<FONT color="green">061</FONT>            int index = 0;<a name="line.61"></a>
+<FONT color="green">062</FONT>            if (targetFileSet.size() &gt; 0) {<a name="line.62"></a>
+<FONT color="green">063</FONT>              for (Iterator i = targetFileSet.iterator(); i.hasNext(); index++) {<a name="line.63"></a>
+<FONT color="green">064</FONT>                MenuItem menuItem = new MenuItem(menu, SWT.NONE);<a name="line.64"></a>
+<FONT color="green">065</FONT>                String targetFile = (String) i.next();<a name="line.65"></a>
+<FONT color="green">066</FONT>                menuItem.setText((index + 1) + " " + targetFile);<a name="line.66"></a>
+<FONT color="green">067</FONT>                menuItem.setData(targetFile);<a name="line.67"></a>
+<FONT color="green">068</FONT>                if (targetFile.equalsIgnoreCase(activeFileName)) {<a name="line.68"></a>
+<FONT color="green">069</FONT>                  // Highlight current editor file<a name="line.69"></a>
+<FONT color="green">070</FONT>                  menu.setDefaultItem(menuItem);<a name="line.70"></a>
+<FONT color="green">071</FONT>                }<a name="line.71"></a>
+<FONT color="green">072</FONT>    <a name="line.72"></a>
+<FONT color="green">073</FONT>                menuItem.addSelectionListener(new SelectionAdapter() {<a name="line.73"></a>
+<FONT color="green">074</FONT>                  public void widgetSelected(SelectionEvent event) {<a name="line.74"></a>
+<FONT color="green">075</FONT>                    String targetFile = (String) event.widget.getData();<a name="line.75"></a>
+<FONT color="green">076</FONT>                    if (!targetFile.equals("")) {<a name="line.76"></a>
+<FONT color="green">077</FONT>                      IFile targetIFile = project.getFile(targetFile);<a name="line.77"></a>
+<FONT color="green">078</FONT>                      int lineNumber =  0;<a name="line.78"></a>
+<FONT color="green">079</FONT>                      FileResource.goToLine(targetIFile, lineNumber);<a name="line.79"></a>
+<FONT color="green">080</FONT>                    }<a name="line.80"></a>
+<FONT color="green">081</FONT>                  }<a name="line.81"></a>
+<FONT color="green">082</FONT>                });<a name="line.82"></a>
+<FONT color="green">083</FONT>              }<a name="line.83"></a>
+<FONT color="green">084</FONT>            }<a name="line.84"></a>
+<FONT color="green">085</FONT>            else {<a name="line.85"></a>
+<FONT color="green">086</FONT>              MenuItem menuItem = new MenuItem(menu, SWT.NONE);<a name="line.86"></a>
+<FONT color="green">087</FONT>              menuItem.setText(ReviewI18n.getString("ReviewFileSelectionMenu.menuItem.none"));<a name="line.87"></a>
+<FONT color="green">088</FONT>            }<a name="line.88"></a>
+<FONT color="green">089</FONT>          }<a name="line.89"></a>
+<FONT color="green">090</FONT>        }<a name="line.90"></a>
+<FONT color="green">091</FONT>      }<a name="line.91"></a>
+<FONT color="green">092</FONT>    <a name="line.92"></a>
+<FONT color="green">093</FONT>    }<a name="line.93"></a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</PRE>
+</BODY>
+</HTML>

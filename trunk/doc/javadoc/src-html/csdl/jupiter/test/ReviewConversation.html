@@ -1,0 +1,119 @@
+<HTML>
+<BODY BGCOLOR="white">
+<PRE>
+<FONT color="green">001</FONT>    package csdl.jupiter.test;<a name="line.1"></a>
+<FONT color="green">002</FONT>    <a name="line.2"></a>
+<FONT color="green">003</FONT>    import org.eclipse.core.resources.IFile;<a name="line.3"></a>
+<FONT color="green">004</FONT>    import org.eclipse.core.resources.IProject;<a name="line.4"></a>
+<FONT color="green">005</FONT>    import org.eclipse.core.runtime.CoreException;<a name="line.5"></a>
+<FONT color="green">006</FONT>    import org.eclipse.ui.IWorkbenchWindow;<a name="line.6"></a>
+<FONT color="green">007</FONT>    <a name="line.7"></a>
+<FONT color="green">008</FONT>    import csdl.jupiter.ReviewPlugin;<a name="line.8"></a>
+<FONT color="green">009</FONT>    <a name="line.9"></a>
+<FONT color="green">010</FONT>    <a name="line.10"></a>
+<FONT color="green">011</FONT>    /**<a name="line.11"></a>
+<FONT color="green">012</FONT>     * Provides review conversation.<a name="line.12"></a>
+<FONT color="green">013</FONT>     * @author Takuya Yamashita<a name="line.13"></a>
+<FONT color="green">014</FONT>     * @version $Id: ReviewConversation.java,v 1.2 2005/03/25 19:07:46 takuyay Exp $<a name="line.14"></a>
+<FONT color="green">015</FONT>     */<a name="line.15"></a>
+<FONT color="green">016</FONT>    public class ReviewConversation {<a name="line.16"></a>
+<FONT color="green">017</FONT>      protected ProjectMockup fooProjectMockup;<a name="line.17"></a>
+<FONT color="green">018</FONT>      <a name="line.18"></a>
+<FONT color="green">019</FONT>      protected ProjectMockup barProjectMockup;<a name="line.19"></a>
+<FONT color="green">020</FONT>      <a name="line.20"></a>
+<FONT color="green">021</FONT>      protected ProjectMockup bazProjectMockup;<a name="line.21"></a>
+<FONT color="green">022</FONT>      <a name="line.22"></a>
+<FONT color="green">023</FONT>      protected static final String REVIEW_DIR = "review";<a name="line.23"></a>
+<FONT color="green">024</FONT>      protected static final String FOO_REVIEW = "foo.review";<a name="line.24"></a>
+<FONT color="green">025</FONT>      protected static final String BAR_REVIEW = "bar.review";<a name="line.25"></a>
+<FONT color="green">026</FONT>      protected static final String BAZ_REVIEW = "baz.review";<a name="line.26"></a>
+<FONT color="green">027</FONT>      protected static final String FOO_REVIEW_PATH = REVIEW_DIR + "/" +  FOO_REVIEW;<a name="line.27"></a>
+<FONT color="green">028</FONT>      protected static final String BAR_REVIEW_PATH = REVIEW_DIR + "/" +  BAR_REVIEW;<a name="line.28"></a>
+<FONT color="green">029</FONT>      protected static final String BAZ_REVIEW_PATH = REVIEW_DIR + "/" +  BAZ_REVIEW;<a name="line.29"></a>
+<FONT color="green">030</FONT>      protected static final String FOO_PROJECT = "fooProject";<a name="line.30"></a>
+<FONT color="green">031</FONT>      protected static final String BAR_PROJECT = "barProject";  <a name="line.31"></a>
+<FONT color="green">032</FONT>      protected static final String BAZ_PROJECT = "bazProject"; <a name="line.32"></a>
+<FONT color="green">033</FONT>      <a name="line.33"></a>
+<FONT color="green">034</FONT>    <a name="line.34"></a>
+<FONT color="green">035</FONT>      /**<a name="line.35"></a>
+<FONT color="green">036</FONT>       * Sets up <a name="line.36"></a>
+<FONT color="green">037</FONT>       * @throws CoreException if problems occur.<a name="line.37"></a>
+<FONT color="green">038</FONT>       */<a name="line.38"></a>
+<FONT color="green">039</FONT>      public ReviewConversation() throws CoreException {<a name="line.39"></a>
+<FONT color="green">040</FONT>        ReviewPlugin plugin = ReviewPlugin.getInstance();<a name="line.40"></a>
+<FONT color="green">041</FONT>        IWorkbenchWindow[] windows = plugin.getWorkbench().getWorkbenchWindows();<a name="line.41"></a>
+<FONT color="green">042</FONT>        this.fooProjectMockup = new ProjectMockup(FOO_PROJECT, "bin");<a name="line.42"></a>
+<FONT color="green">043</FONT>        this.barProjectMockup = new ProjectMockup(BAR_PROJECT, "bin");<a name="line.43"></a>
+<FONT color="green">044</FONT>        this.bazProjectMockup = new ProjectMockup(BAZ_PROJECT, "bin");<a name="line.44"></a>
+<FONT color="green">045</FONT>        IProject fooProject = this.fooProjectMockup.getProject();<a name="line.45"></a>
+<FONT color="green">046</FONT>        IProject barProject = this.barProjectMockup.getProject();<a name="line.46"></a>
+<FONT color="green">047</FONT>        IProject bazProject = this.bazProjectMockup.getProject();<a name="line.47"></a>
+<FONT color="green">048</FONT>        this.fooProjectMockup.copy(FOO_REVIEW, FOO_REVIEW_PATH);<a name="line.48"></a>
+<FONT color="green">049</FONT>        this.barProjectMockup.copy(BAR_REVIEW, BAR_REVIEW_PATH);<a name="line.49"></a>
+<FONT color="green">050</FONT>        IFile fooReviewFile = fooProject.getFile(FOO_REVIEW_PATH);<a name="line.50"></a>
+<FONT color="green">051</FONT>        IFile barReviewFile = barProject.getFile(BAR_REVIEW_PATH);<a name="line.51"></a>
+<FONT color="green">052</FONT>      }<a name="line.52"></a>
+<FONT color="green">053</FONT>    }<a name="line.53"></a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,311 @@
+<HTML>
+<BODY BGCOLOR="white">
+<PRE>
+<FONT color="green">001</FONT>    package csdl.jupiter.ui.view.table;<a name="line.1"></a>
+<FONT color="green">002</FONT>    <a name="line.2"></a>
+<FONT color="green">003</FONT>    import org.eclipse.core.resources.IProject;<a name="line.3"></a>
+<FONT color="green">004</FONT>    import org.eclipse.jface.preference.IPreferenceStore;<a name="line.4"></a>
+<FONT color="green">005</FONT>    import org.eclipse.jface.viewers.StructuredViewer;<a name="line.5"></a>
+<FONT color="green">006</FONT>    import org.eclipse.jface.viewers.ViewerFilter;<a name="line.6"></a>
+<FONT color="green">007</FONT>    <a name="line.7"></a>
+<FONT color="green">008</FONT>    import csdl.jupiter.ReviewI18n;<a name="line.8"></a>
+<FONT color="green">009</FONT>    import csdl.jupiter.ReviewPlugin;<a name="line.9"></a>
+<FONT color="green">010</FONT>    import csdl.jupiter.file.PropertyConstraints;<a name="line.10"></a>
+<FONT color="green">011</FONT>    import csdl.jupiter.file.PropertyResource;<a name="line.11"></a>
+<FONT color="green">012</FONT>    import csdl.jupiter.file.ReviewResource;<a name="line.12"></a>
+<FONT color="green">013</FONT>    import csdl.jupiter.model.review.ReviewId;<a name="line.13"></a>
+<FONT color="green">014</FONT>    import csdl.jupiter.model.review.ReviewModel;<a name="line.14"></a>
+<FONT color="green">015</FONT>    import csdl.jupiter.model.review.ReviewerId;<a name="line.15"></a>
+<FONT color="green">016</FONT>    import csdl.jupiter.model.reviewissue.Resolution;<a name="line.16"></a>
+<FONT color="green">017</FONT>    import csdl.jupiter.model.reviewissue.ResolutionKeyManager;<a name="line.17"></a>
+<FONT color="green">018</FONT>    import csdl.jupiter.model.reviewissue.Severity;<a name="line.18"></a>
+<FONT color="green">019</FONT>    import csdl.jupiter.model.reviewissue.SeverityKeyManager;<a name="line.19"></a>
+<FONT color="green">020</FONT>    import csdl.jupiter.model.reviewissue.Status;<a name="line.20"></a>
+<FONT color="green">021</FONT>    import csdl.jupiter.model.reviewissue.StatusKeyManager;<a name="line.21"></a>
+<FONT color="green">022</FONT>    import csdl.jupiter.model.reviewissue.Type;<a name="line.22"></a>
+<FONT color="green">023</FONT>    import csdl.jupiter.model.reviewissue.TypeKeyManager;<a name="line.23"></a>
+<FONT color="green">024</FONT>    import csdl.jupiter.ui.preference.FilterPreferencePage;<a name="line.24"></a>
+<FONT color="green">025</FONT>    <a name="line.25"></a>
+<FONT color="green">026</FONT>    /**<a name="line.26"></a>
+<FONT color="green">027</FONT>     * Provides the manager for the &lt;code&gt;ReviewFilter&lt;/code&gt; instance. Clients can check the <a name="line.27"></a>
+<FONT color="green">028</FONT>     * filter status (if the filter instance is created and added to the view or not), and/or<a name="line.28"></a>
+<FONT color="green">029</FONT>     * add/remove the filter instance to/from the &lt;code&gt;ReviewTableView&lt;/code&gt; view.<a name="line.29"></a>
+<FONT color="green">030</FONT>     * <a name="line.30"></a>
+<FONT color="green">031</FONT>     * @author Takuya Yamashita<a name="line.31"></a>
+<FONT color="green">032</FONT>     * @version $Id: ReviewFilterManager.java,v 1.15 2005/03/28 14:39:30 takuyay Exp $<a name="line.32"></a>
+<FONT color="green">033</FONT>     */<a name="line.33"></a>
+<FONT color="green">034</FONT>    public class ReviewFilterManager {<a name="line.34"></a>
+<FONT color="green">035</FONT>      /** Singleton instance. */<a name="line.35"></a>
+<FONT color="green">036</FONT>      private static ReviewFilterManager theInstance = new ReviewFilterManager();<a name="line.36"></a>
+<FONT color="green">037</FONT>      /** The &lt;code&gt;ViewerFilter&lt;/code&gt; instance. */<a name="line.37"></a>
+<FONT color="green">038</FONT>      private ViewerFilter viewerFilter;<a name="line.38"></a>
+<FONT color="green">039</FONT>      private StructuredViewer viewer;<a name="line.39"></a>
+<FONT color="green">040</FONT>      /** The boolean flag to check if the filter is created or not. */<a name="line.40"></a>
+<FONT color="green">041</FONT>      private boolean isCreated;<a name="line.41"></a>
+<FONT color="green">042</FONT>      /**<a name="line.42"></a>
+<FONT color="green">043</FONT>       * Creates &lt;code&gt;ReviewFilterManager&lt;/code&gt; instance.<a name="line.43"></a>
+<FONT color="green">044</FONT>       * The field instance is set as null for &lt;code&gt;viewerFilter&lt;/code&gt; and false for<a name="line.44"></a>
+<FONT color="green">045</FONT>       * &lt;code&gt;isCreated&lt;/code&gt;<a name="line.45"></a>
+<FONT color="green">046</FONT>       */<a name="line.46"></a>
+<FONT color="green">047</FONT>      private ReviewFilterManager() {<a name="line.47"></a>
+<FONT color="green">048</FONT>        viewerFilter = new ReviewFilter();<a name="line.48"></a>
+<FONT color="green">049</FONT>      }<a name="line.49"></a>
+<FONT color="green">050</FONT>      <a name="line.50"></a>
+<FONT color="green">051</FONT>      /**<a name="line.51"></a>
+<FONT color="green">052</FONT>       * Gets the &lt;code&gt;ReviewFilterManager&lt;/code&gt; singleton instance.<a name="line.52"></a>
+<FONT color="green">053</FONT>       * @param structuredViewer the structure viewer.<a name="line.53"></a>
+<FONT color="green">054</FONT>       * @param viewerFilter the &lt;code&gt;ViewerFilter&lt;/code&gt; instance.<a name="line.54"></a>
+<FONT color="green">055</FONT>       * @return the the &lt;code&gt;ReviewFilterManager&lt;/code&gt; singleton instance.<a name="line.55"></a>
+<FONT color="green">056</FONT>       */<a name="line.56"></a>
+<FONT color="green">057</FONT>      public static ReviewFilterManager getInstance(StructuredViewer structuredViewer, <a name="line.57"></a>
+<FONT color="green">058</FONT>                                                    ViewerFilter viewerFilter) {<a name="line.58"></a>
+<FONT color="green">059</FONT>        theInstance.viewer = structuredViewer;<a name="line.59"></a>
+<FONT color="green">060</FONT>        theInstance.setFilter(viewerFilter);<a name="line.60"></a>
+<FONT color="green">061</FONT>        return theInstance;<a name="line.61"></a>
+<FONT color="green">062</FONT>      }<a name="line.62"></a>
+<FONT color="green">063</FONT>      <a name="line.63"></a>
+<FONT color="green">064</FONT>      /**<a name="line.64"></a>
+<FONT color="green">065</FONT>       * Gets the &lt;code&gt;ReviewFilterManager&lt;/code&gt; singleton instance.<a name="line.65"></a>
+<FONT color="green">066</FONT>       * @param structuredViewer the structure viewer.<a name="line.66"></a>
+<FONT color="green">067</FONT>       * @return the the &lt;code&gt;ReviewFilterManager&lt;/code&gt; singleton instance.<a name="line.67"></a>
+<FONT color="green">068</FONT>       */<a name="line.68"></a>
+<FONT color="green">069</FONT>      public static ReviewFilterManager getInstance(StructuredViewer structuredViewer) {<a name="line.69"></a>
+<FONT color="green">070</FONT>        theInstance.viewer = structuredViewer;<a name="line.70"></a>
+<FONT color="green">071</FONT>        return theInstance;<a name="line.71"></a>
+<FONT color="green">072</FONT>      }<a name="line.72"></a>
+<FONT color="green">073</FONT>      <a name="line.73"></a>
+<FONT color="green">074</FONT>      /**<a name="line.74"></a>
+<FONT color="green">075</FONT>       * Sets the &lt;code&gt;ViewerFilter&lt;/code&gt; instance.<a name="line.75"></a>
+<FONT color="green">076</FONT>       * @param viewerFilter the &lt;code&gt;ViewerFilter&lt;/code&gt; instance.<a name="line.76"></a>
+<FONT color="green">077</FONT>       */<a name="line.77"></a>
+<FONT color="green">078</FONT>      private void setFilter(ViewerFilter viewerFilter) {<a name="line.78"></a>
+<FONT color="green">079</FONT>        if (this.viewerFilter != viewerFilter) {<a name="line.79"></a>
+<FONT color="green">080</FONT>          this.viewer.removeFilter(this.viewerFilter);<a name="line.80"></a>
+<FONT color="green">081</FONT>        }<a name="line.81"></a>
+<FONT color="green">082</FONT>        this.viewerFilter = viewerFilter;<a name="line.82"></a>
+<FONT color="green">083</FONT>      }<a name="line.83"></a>
+<FONT color="green">084</FONT>      <a name="line.84"></a>
+<FONT color="green">085</FONT>      /**<a name="line.85"></a>
+<FONT color="green">086</FONT>       * Adds filter.<a name="line.86"></a>
+<FONT color="green">087</FONT>       */<a name="line.87"></a>
+<FONT color="green">088</FONT>      public void addFilter() {<a name="line.88"></a>
+<FONT color="green">089</FONT>        this.viewer.addFilter(this.viewerFilter);<a name="line.89"></a>
+<FONT color="green">090</FONT>      }<a name="line.90"></a>
+<FONT color="green">091</FONT>      <a name="line.91"></a>
+<FONT color="green">092</FONT>      /**<a name="line.92"></a>
+<FONT color="green">093</FONT>       * Removes filter.<a name="line.93"></a>
+<FONT color="green">094</FONT>       */<a name="line.94"></a>
+<FONT color="green">095</FONT>      public void removeFilter() {<a name="line.95"></a>
+<FONT color="green">096</FONT>        this.viewer.removeFilter(this.viewerFilter);<a name="line.96"></a>
+<FONT color="green">097</FONT>      }<a name="line.97"></a>
+<FONT color="green">098</FONT>      <a name="line.98"></a>
+<FONT color="green">099</FONT>      /**<a name="line.99"></a>
+<FONT color="green">100</FONT>       * Gets the new &lt;code&gt;ReviewFilter&lt;/code&gt; instance, whose filter is retrieved from preference<a name="line.100"></a>
+<FONT color="green">101</FONT>       * setting.<a name="line.101"></a>
+<FONT color="green">102</FONT>       *<a name="line.102"></a>
+<FONT color="green">103</FONT>       * @return the new &lt;code&gt;ReviewFilter&lt;/code&gt; instance.<a name="line.103"></a>
+<FONT color="green">104</FONT>       */<a name="line.104"></a>
+<FONT color="green">105</FONT>      public static ViewerFilter createFilterFromPreference() {<a name="line.105"></a>
+<FONT color="green">106</FONT>        ReviewFilter filter = new ReviewFilter();<a name="line.106"></a>
+<FONT color="green">107</FONT>        IPreferenceStore store = ReviewPlugin.getInstance().getPreferenceStore();<a name="line.107"></a>
+<FONT color="green">108</FONT>        boolean isFilterEanbled = store.getBoolean(FilterPreferencePage.ENABLE_FILTER_STORE_KEY);<a name="line.108"></a>
+<FONT color="green">109</FONT>        if (isFilterEanbled) {<a name="line.109"></a>
+<FONT color="green">110</FONT>          ReviewModel reviewModel = ReviewModel.getInstance();<a name="line.110"></a>
+<FONT color="green">111</FONT>          IProject project = reviewModel.getProjectManager().getProject();<a name="line.111"></a>
+<FONT color="green">112</FONT>          ReviewId reviewId = reviewModel.getReviewIdManager().getReviewId();<a name="line.112"></a>
+<FONT color="green">113</FONT>          if (store.getBoolean(FilterPreferencePage.ENABLE_FILTER_SEVERITY_STORE_KEY)) {<a name="line.113"></a>
+<FONT color="green">114</FONT>            String severityKey = store.getString(FilterPreferencePage.FILTER_SEVERITY_COMBO_KEY);<a name="line.114"></a>
+<FONT color="green">115</FONT>            SeverityKeyManager severityKeyManager = SeverityKeyManager.getInstance(project, reviewId);<a name="line.115"></a>
+<FONT color="green">116</FONT>            int serverityOrdinal = severityKeyManager.getOrdinal(severityKey);<a name="line.116"></a>
+<FONT color="green">117</FONT>            filter.setSeverityFilter(new Severity(severityKey, serverityOrdinal));<a name="line.117"></a>
+<FONT color="green">118</FONT>          }<a name="line.118"></a>
+<FONT color="green">119</FONT>          if (store.getBoolean(FilterPreferencePage.ENABLE_FILTER_STATUS_STORE_KEY)) {<a name="line.119"></a>
+<FONT color="green">120</FONT>            String statusKey = store.getString(FilterPreferencePage.FILTER_STATUS_COMBO_KEY);<a name="line.120"></a>
+<FONT color="green">121</FONT>            StatusKeyManager statusKeyManager = StatusKeyManager.getInstance(project, reviewId);<a name="line.121"></a>
+<FONT color="green">122</FONT>            int statusOrdinal = statusKeyManager.getOrdinal(statusKey);<a name="line.122"></a>
+<FONT color="green">123</FONT>            filter.setStatusFilter(new Status(statusKey, statusOrdinal));<a name="line.123"></a>
+<FONT color="green">124</FONT>          }<a name="line.124"></a>
+<FONT color="green">125</FONT>          if (store.getBoolean(FilterPreferencePage.ENABLE_FILTER_RESOLUTION_STORE_KEY)) {<a name="line.125"></a>
+<FONT color="green">126</FONT>            String resolutionKey = store.getString(FilterPreferencePage.FILTER_RESOLUTION_COMBO_KEY);<a name="line.126"></a>
+<FONT color="green">127</FONT>            ResolutionKeyManager resolutionKeyManager = ResolutionKeyManager.getInstance(project,<a name="line.127"></a>
+<FONT color="green">128</FONT>                                                                                         reviewId);<a name="line.128"></a>
+<FONT color="green">129</FONT>            int resolutionOrdinal = resolutionKeyManager.getOrdinal(resolutionKey);<a name="line.129"></a>
+<FONT color="green">130</FONT>            filter.setResolutionFilter(new Resolution(resolutionKey, resolutionOrdinal));<a name="line.130"></a>
+<FONT color="green">131</FONT>          }<a name="line.131"></a>
+<FONT color="green">132</FONT>          if (store.getBoolean(FilterPreferencePage.ENABLE_FILTER_TYPE_STORE_KEY)) {<a name="line.132"></a>
+<FONT color="green">133</FONT>            String typeKey = store.getString(FilterPreferencePage.FILTER_TYPE_COMBO_KEY);<a name="line.133"></a>
+<FONT color="green">134</FONT>            TypeKeyManager typeKeyManager = TypeKeyManager.getInstance(project, reviewId);<a name="line.134"></a>
+<FONT color="green">135</FONT>            int typeOrdinal = typeKeyManager.getOrdinal(typeKey);<a name="line.135"></a>
+<FONT color="green">136</FONT>            filter.setTypeFilter(new Type(typeKey, typeOrdinal));<a name="line.136"></a>
+<FONT color="green">137</FONT>          }<a name="line.137"></a>
+<FONT color="green">138</FONT>          if (store.getBoolean(FilterPreferencePage.ENABLE_FILTER_ASSIGNED_TO_STORE_KEY)) {<a name="line.138"></a>
+<FONT color="green">139</FONT>            String assignedTo = store.getString(FilterPreferencePage.FILTER_ASSIGNED_TO_COMBO_KEY);<a name="line.139"></a>
+<FONT color="green">140</FONT>            filter.setAssignedToFilter(assignedTo);<a name="line.140"></a>
+<FONT color="green">141</FONT>          }<a name="line.141"></a>
+<FONT color="green">142</FONT>          if (store.getBoolean(FilterPreferencePage.ENABLE_FILTER_REVIEWER_STORE_KEY)) {<a name="line.142"></a>
+<FONT color="green">143</FONT>            String reviewer = store.getString(FilterPreferencePage.FILTER_REVIEWER_COMBO_KEY);<a name="line.143"></a>
+<FONT color="green">144</FONT>            filter.setReviewerFilter(reviewer);<a name="line.144"></a>
+<FONT color="green">145</FONT>          }<a name="line.145"></a>
+<FONT color="green">146</FONT>          if (store.getBoolean(FilterPreferencePage.ENABLE_FILTER_FILE_STORE_KEY)) {<a name="line.146"></a>
+<FONT color="green">147</FONT>            String file = store.getString(FilterPreferencePage.FILTER_FILE_COMBO_KEY);<a name="line.147"></a>
+<FONT color="green">148</FONT>            filter.setFileFilter(file);<a name="line.148"></a>
+<FONT color="green">149</FONT>          }<a name="line.149"></a>
+<FONT color="green">150</FONT>          if (store.getBoolean(FilterPreferencePage.ENABLE_FILTER_INTERVAL_STORE_KEY)) {<a name="line.150"></a>
+<FONT color="green">151</FONT>            String intervalString = store.getString(FilterPreferencePage.FILTER_INTERVAL_TEXT_KEY);<a name="line.151"></a>
+<FONT color="green">152</FONT>            int interval = 0;<a name="line.152"></a>
+<FONT color="green">153</FONT>            try {<a name="line.153"></a>
+<FONT color="green">154</FONT>              interval = Integer.parseInt(intervalString);<a name="line.154"></a>
+<FONT color="green">155</FONT>              interval = (interval &gt;= 0) ? interval : 0;<a name="line.155"></a>
+<FONT color="green">156</FONT>            }<a name="line.156"></a>
+<FONT color="green">157</FONT>            catch (NumberFormatException e) {<a name="line.157"></a>
+<FONT color="green">158</FONT>              // use interval = 0.<a name="line.158"></a>
+<FONT color="green">159</FONT>            }<a name="line.159"></a>
+<FONT color="green">160</FONT>            filter.setIntervalFilter(interval);<a name="line.160"></a>
+<FONT color="green">161</FONT>          }<a name="line.161"></a>
+<FONT color="green">162</FONT>        }<a name="line.162"></a>
+<FONT color="green">163</FONT>        return filter;<a name="line.163"></a>
+<FONT color="green">164</FONT>      }<a name="line.164"></a>
+<FONT color="green">165</FONT>      <a name="line.165"></a>
+<FONT color="green">166</FONT>      /**<a name="line.166"></a>
+<FONT color="green">167</FONT>       * Creates the &lt;code&gt;ViewerFilter&lt;/code&gt; from property setting.<a name="line.167"></a>
+<FONT color="green">168</FONT>       * @param project the project.<a name="line.168"></a>
+<FONT color="green">169</FONT>       * @param reviewId the review id.<a name="line.169"></a>
+<FONT color="green">170</FONT>       * @param phaseNameKey the phase name key. e.g. phase.individual, etc.<a name="line.170"></a>
+<FONT color="green">171</FONT>       * @return the &lt;code&gt;ViewerFilter&lt;/code&gt; from property setting.<a name="line.171"></a>
+<FONT color="green">172</FONT>       */<a name="line.172"></a>
+<FONT color="green">173</FONT>      public static ViewerFilter createFilterFromProperty(IProject project, ReviewId reviewId,<a name="line.173"></a>
+<FONT color="green">174</FONT>                                                         String phaseNameKey) {<a name="line.174"></a>
+<FONT color="green">175</FONT>        ReviewFilter filter = new ReviewFilter();<a name="line.175"></a>
+<FONT color="green">176</FONT>        PropertyResource propertyResource = PropertyResource.getInstance(project, true);<a name="line.176"></a>
+<FONT color="green">177</FONT>        String reviewIdString = reviewId.getReviewId();<a name="line.177"></a>
+<FONT color="green">178</FONT>        ReviewResource reviewResource = propertyResource.getReviewResource(reviewIdString, true);<a name="line.178"></a>
+<FONT color="green">179</FONT>        FilterPhase filterPhase = reviewResource.getFilterPhase(phaseNameKey);<a name="line.179"></a>
+<FONT color="green">180</FONT>        if (reviewResource != null &amp;&amp; filterPhase.isEnabled()) {<a name="line.180"></a>
+<FONT color="green">181</FONT>          String intervalName = PropertyConstraints.ATTRIBUTE_VALUE_INTERVAL;<a name="line.181"></a>
+<FONT color="green">182</FONT>          FilterEntry entry = filterPhase.getFilterEntry(intervalName);<a name="line.182"></a>
+<FONT color="green">183</FONT>          if (entry != null &amp;&amp; entry.isEnabled()) {<a name="line.183"></a>
+<FONT color="green">184</FONT>            int interval = 0;<a name="line.184"></a>
+<FONT color="green">185</FONT>            try {<a name="line.185"></a>
+<FONT color="green">186</FONT>              interval = Integer.parseInt(entry.getValueKey());<a name="line.186"></a>
+<FONT color="green">187</FONT>              interval = (interval &gt;= 0) ? interval : 0;<a name="line.187"></a>
+<FONT color="green">188</FONT>            }<a name="line.188"></a>
+<FONT color="green">189</FONT>            catch (NumberFormatException e) {<a name="line.189"></a>
+<FONT color="green">190</FONT>              // use interval = 0;<a name="line.190"></a>
+<FONT color="green">191</FONT>            }<a name="line.191"></a>
+<FONT color="green">192</FONT>            filter.setIntervalFilter(interval);<a name="line.192"></a>
+<FONT color="green">193</FONT>          }<a name="line.193"></a>
+<FONT color="green">194</FONT>          entry = filterPhase.getFilterEntry(PropertyConstraints.ATTRIBUTE_VALUE_REVIEWER);<a name="line.194"></a>
+<FONT color="green">195</FONT>          if (entry != null &amp;&amp; entry.isEnabled()) {<a name="line.195"></a>
+<FONT color="green">196</FONT>            String reviewer = entry.getValueKey();<a name="line.196"></a>
+<FONT color="green">197</FONT>            if (reviewer.equals(ReviewerId.AUTOMATIC_KEY)) {<a name="line.197"></a>
+<FONT color="green">198</FONT>              ReviewModel reviewModel = ReviewModel.getInstance();<a name="line.198"></a>
+<FONT color="green">199</FONT>              ReviewerId reviewerId = reviewModel.getReviewerIdManager().getReviewerId();<a name="line.199"></a>
+<FONT color="green">200</FONT>              reviewer = reviewerId.getReviewerId();<a name="line.200"></a>
+<FONT color="green">201</FONT>            }<a name="line.201"></a>
+<FONT color="green">202</FONT>            filter.setReviewerFilter(reviewer);<a name="line.202"></a>
+<FONT color="green">203</FONT>          }<a name="line.203"></a>
+<FONT color="green">204</FONT>          entry = filterPhase.getFilterEntry(PropertyConstraints.ATTRIBUTE_VALUE_TYPE);<a name="line.204"></a>
+<FONT color="green">205</FONT>          if (entry != null &amp;&amp; entry.isEnabled()) {<a name="line.205"></a>
+<FONT color="green">206</FONT>            TypeKeyManager manager = TypeKeyManager.getInstance(project, reviewId);<a name="line.206"></a>
+<FONT color="green">207</FONT>            Type type = (Type) manager.getItemObject(entry.getValueKey());<a name="line.207"></a>
+<FONT color="green">208</FONT>            filter.setTypeFilter(type);<a name="line.208"></a>
+<FONT color="green">209</FONT>          }<a name="line.209"></a>
+<FONT color="green">210</FONT>          entry = filterPhase.getFilterEntry(PropertyConstraints.ATTRIBUTE_VALUE_SEVERITY);<a name="line.210"></a>
+<FONT color="green">211</FONT>          if (entry != null &amp;&amp; entry.isEnabled()) {<a name="line.211"></a>
+<FONT color="green">212</FONT>            SeverityKeyManager manager = SeverityKeyManager.getInstance(project, reviewId);<a name="line.212"></a>
+<FONT color="green">213</FONT>            Severity severity = (Severity) manager.getItemObject(entry.getValueKey());<a name="line.213"></a>
+<FONT color="green">214</FONT>            filter.setSeverityFilter(severity);<a name="line.214"></a>
+<FONT color="green">215</FONT>          }<a name="line.215"></a>
+<FONT color="green">216</FONT>          entry = filterPhase.getFilterEntry(PropertyConstraints.ATTRIBUTE_VALUE_ASSIGNED_TO);<a name="line.216"></a>
+<FONT color="green">217</FONT>          if (entry != null &amp;&amp; entry.isEnabled()) {<a name="line.217"></a>
+<FONT color="green">218</FONT>            String assignedTo = entry.getValueKey();<a name="line.218"></a>
+<FONT color="green">219</FONT>            if (assignedTo.equals(ReviewerId.AUTOMATIC_KEY)) {<a name="line.219"></a>
+<FONT color="green">220</FONT>              ReviewModel reviewMode = ReviewModel.getInstance();<a name="line.220"></a>
+<FONT color="green">221</FONT>              ReviewerId reviewerId = reviewMode.getReviewerIdManager().getReviewerId();<a name="line.221"></a>
+<FONT color="green">222</FONT>              assignedTo = reviewerId.getReviewerId();<a name="line.222"></a>
+<FONT color="green">223</FONT>            }<a name="line.223"></a>
+<FONT color="green">224</FONT>            filter.setAssignedToFilter(assignedTo);<a name="line.224"></a>
+<FONT color="green">225</FONT>          }<a name="line.225"></a>
+<FONT color="green">226</FONT>          entry = filterPhase.getFilterEntry(PropertyConstraints.ATTRIBUTE_VALUE_RESOLUTION);<a name="line.226"></a>
+<FONT color="green">227</FONT>          if (entry != null &amp;&amp; entry.isEnabled()) {<a name="line.227"></a>
+<FONT color="green">228</FONT>            ResolutionKeyManager manager = ResolutionKeyManager.getInstance(project, reviewId);<a name="line.228"></a>
+<FONT color="green">229</FONT>            Resolution resolution = (Resolution) manager.getItemObject(entry.getValueKey());<a name="line.229"></a>
+<FONT color="green">230</FONT>            filter.setResolutionFilter(resolution);<a name="line.230"></a>
+<FONT color="green">231</FONT>          }<a name="line.231"></a>
+<FONT color="green">232</FONT>          entry = filterPhase.getFilterEntry(PropertyConstraints.ATTRIBUTE_VALUE_STATUS);<a name="line.232"></a>
+<FONT color="green">233</FONT>          if (entry != null &amp;&amp; entry.isEnabled()) {<a name="line.233"></a>
+<FONT color="green">234</FONT>            StatusKeyManager manager = StatusKeyManager.getInstance(project, reviewId);<a name="line.234"></a>
+<FONT color="green">235</FONT>            Status status = (Status) manager.getItemObject(entry.getValueKey());<a name="line.235"></a>
+<FONT color="green">236</FONT>            filter.setStatusFilter(status);<a name="line.236"></a>
+<FONT color="green">237</FONT>          }<a name="line.237"></a>
+<FONT color="green">238</FONT>          entry = filterPhase.getFilterEntry(PropertyConstraints.ATTRIBUTE_VALUE_FILE);<a name="line.238"></a>
+<FONT color="green">239</FONT>          if (entry != null &amp;&amp; entry.isEnabled()) {<a name="line.239"></a>
+<FONT color="green">240</FONT>            filter.setFileFilter(ReviewI18n.getString(entry.getValueKey()));<a name="line.240"></a>
+<FONT color="green">241</FONT>          }<a name="line.241"></a>
+<FONT color="green">242</FONT>        }<a name="line.242"></a>
+<FONT color="green">243</FONT>        return filter;<a name="line.243"></a>
+<FONT color="green">244</FONT>      }<a name="line.244"></a>
+<FONT color="green">245</FONT>    }<a name="line.245"></a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</PRE>
+</BODY>
+</HTML>

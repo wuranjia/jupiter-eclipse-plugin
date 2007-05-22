@@ -1,0 +1,126 @@
+<HTML>
+<BODY BGCOLOR="white">
+<PRE>
+<FONT color="green">001</FONT>    package csdl.jupiter.ui.action;<a name="line.1"></a>
+<FONT color="green">002</FONT>    <a name="line.2"></a>
+<FONT color="green">003</FONT>    import org.eclipse.jface.action.IAction;<a name="line.3"></a>
+<FONT color="green">004</FONT>    import org.eclipse.swt.widgets.Control;<a name="line.4"></a>
+<FONT color="green">005</FONT>    import org.eclipse.swt.widgets.Menu;<a name="line.5"></a>
+<FONT color="green">006</FONT>    import org.eclipse.ui.IWorkbenchWindow;<a name="line.6"></a>
+<FONT color="green">007</FONT>    import org.eclipse.ui.IWorkbenchWindowPulldownDelegate;<a name="line.7"></a>
+<FONT color="green">008</FONT>    import org.eclipse.ui.actions.ActionDelegate;<a name="line.8"></a>
+<FONT color="green">009</FONT>    <a name="line.9"></a>
+<FONT color="green">010</FONT>    import csdl.jupiter.ReviewPlugin;<a name="line.10"></a>
+<FONT color="green">011</FONT>    import csdl.jupiter.event.ReviewEvent;<a name="line.11"></a>
+<FONT color="green">012</FONT>    import csdl.jupiter.model.review.ReviewModel;<a name="line.12"></a>
+<FONT color="green">013</FONT>    import csdl.jupiter.ui.menu.PhaseSelectionMenu;<a name="line.13"></a>
+<FONT color="green">014</FONT>    import csdl.jupiter.ui.perspective.ReviewPerspectiveFactory;<a name="line.14"></a>
+<FONT color="green">015</FONT>    <a name="line.15"></a>
+<FONT color="green">016</FONT>    /**<a name="line.16"></a>
+<FONT color="green">017</FONT>     * Provides the action to correct all review files in the directory which has been specified in the<a name="line.17"></a>
+<FONT color="green">018</FONT>     * preference page.<a name="line.18"></a>
+<FONT color="green">019</FONT>     *<a name="line.19"></a>
+<FONT color="green">020</FONT>     * @author Takuya Yamashita<a name="line.20"></a>
+<FONT color="green">021</FONT>     * @version $Id: PhaseSelectionActionDelegate.java,v 1.9 2005/03/28 14:39:31 takuyay Exp $<a name="line.21"></a>
+<FONT color="green">022</FONT>     */<a name="line.22"></a>
+<FONT color="green">023</FONT>    public class PhaseSelectionActionDelegate extends ActionDelegate<a name="line.23"></a>
+<FONT color="green">024</FONT>      implements IWorkbenchWindowPulldownDelegate {<a name="line.24"></a>
+<FONT color="green">025</FONT>      <a name="line.25"></a>
+<FONT color="green">026</FONT>      /**<a name="line.26"></a>
+<FONT color="green">027</FONT>       * Initializes this action delegate with the workbench window it will work in.<a name="line.27"></a>
+<FONT color="green">028</FONT>       *<a name="line.28"></a>
+<FONT color="green">029</FONT>       * @param window the window that provides the context for this delegate<a name="line.29"></a>
+<FONT color="green">030</FONT>       */<a name="line.30"></a>
+<FONT color="green">031</FONT>      public void init(IWorkbenchWindow window) {<a name="line.31"></a>
+<FONT color="green">032</FONT>      }<a name="line.32"></a>
+<FONT color="green">033</FONT>    <a name="line.33"></a>
+<FONT color="green">034</FONT>      /**<a name="line.34"></a>
+<FONT color="green">035</FONT>       * Collects all review files in the directory which has been specified in the preference page.<a name="line.35"></a>
+<FONT color="green">036</FONT>       *<a name="line.36"></a>
+<FONT color="green">037</FONT>       * @param action the action proxy that handles the presentation portion of the action<a name="line.37"></a>
+<FONT color="green">038</FONT>       */<a name="line.38"></a>
+<FONT color="green">039</FONT>      public void run(IAction action) {<a name="line.39"></a>
+<FONT color="green">040</FONT>        ReviewPerspectiveFactory.showPerspective();<a name="line.40"></a>
+<FONT color="green">041</FONT>        String reviewPhaseNameKey = ReviewModel.getInstance().getPhaseManager().getPhaseNameKey();<a name="line.41"></a>
+<FONT color="green">042</FONT>        boolean isSuccess = PhaseSelectionMenu.doUpdateMenuCommand(reviewPhaseNameKey);<a name="line.42"></a>
+<FONT color="green">043</FONT>        if (isSuccess) {<a name="line.43"></a>
+<FONT color="green">044</FONT>          int type = ReviewEvent.TYPE_COMMAND;<a name="line.44"></a>
+<FONT color="green">045</FONT>          int kind = ReviewEvent.KIND_PHASE_SELECTION;<a name="line.45"></a>
+<FONT color="green">046</FONT>          ReviewPlugin.getInstance().notifyListeners(type, kind);<a name="line.46"></a>
+<FONT color="green">047</FONT>        }<a name="line.47"></a>
+<FONT color="green">048</FONT>      }<a name="line.48"></a>
+<FONT color="green">049</FONT>    <a name="line.49"></a>
+<FONT color="green">050</FONT>      /**<a name="line.50"></a>
+<FONT color="green">051</FONT>       * Returns the menu for this pull down action.<a name="line.51"></a>
+<FONT color="green">052</FONT>       *<a name="line.52"></a>
+<FONT color="green">053</FONT>       * @param parent the parent of &lt;code&gt;Control&lt;/code&gt; instance.<a name="line.53"></a>
+<FONT color="green">054</FONT>       *<a name="line.54"></a>
+<FONT color="green">055</FONT>       * @return the &lt;code&gt;Menu&lt;/code&gt; instance to be filled with the sets of the code review mode.<a name="line.55"></a>
+<FONT color="green">056</FONT>       */<a name="line.56"></a>
+<FONT color="green">057</FONT>      public Menu getMenu(Control parent) {<a name="line.57"></a>
+<FONT color="green">058</FONT>        return PhaseSelectionMenu.createPhaseSelectionPullDownMenu(new Menu(parent));<a name="line.58"></a>
+<FONT color="green">059</FONT>      }<a name="line.59"></a>
+<FONT color="green">060</FONT>    }<a name="line.60"></a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</PRE>
+</BODY>
+</HTML>

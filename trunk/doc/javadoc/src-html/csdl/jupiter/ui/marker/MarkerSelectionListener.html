@@ -1,0 +1,116 @@
+<HTML>
+<BODY BGCOLOR="white">
+<PRE>
+<FONT color="green">001</FONT>    package csdl.jupiter.ui.marker;<a name="line.1"></a>
+<FONT color="green">002</FONT>    <a name="line.2"></a>
+<FONT color="green">003</FONT>    import org.eclipse.jface.text.ITextSelection;<a name="line.3"></a>
+<FONT color="green">004</FONT>    import org.eclipse.jface.viewers.ISelection;<a name="line.4"></a>
+<FONT color="green">005</FONT>    import org.eclipse.swt.widgets.Table;<a name="line.5"></a>
+<FONT color="green">006</FONT>    import org.eclipse.swt.widgets.TableItem;<a name="line.6"></a>
+<FONT color="green">007</FONT>    import org.eclipse.ui.ISelectionListener;<a name="line.7"></a>
+<FONT color="green">008</FONT>    import org.eclipse.ui.IWorkbenchPart;<a name="line.8"></a>
+<FONT color="green">009</FONT>    <a name="line.9"></a>
+<FONT color="green">010</FONT>    import csdl.jupiter.model.reviewissue.ReviewIssue;<a name="line.10"></a>
+<FONT color="green">011</FONT>    import csdl.jupiter.ui.view.table.ReviewTableView;<a name="line.11"></a>
+<FONT color="green">012</FONT>    import csdl.jupiter.ui.view.table.ReviewTableViewAction;<a name="line.12"></a>
+<FONT color="green">013</FONT>    <a name="line.13"></a>
+<FONT color="green">014</FONT>    /**<a name="line.14"></a>
+<FONT color="green">015</FONT>     * Provides the marker selection listener. When a marker is selected, selects the review issue<a name="line.15"></a>
+<FONT color="green">016</FONT>     * located in the marker line number, then run NOTIFY_EDITOR to show the issue information in the<a name="line.16"></a>
+<FONT color="green">017</FONT>     * review editor view.<a name="line.17"></a>
+<FONT color="green">018</FONT>     *<a name="line.18"></a>
+<FONT color="green">019</FONT>     * @author Takuya Yamashita<a name="line.19"></a>
+<FONT color="green">020</FONT>     * @version $Id: MarkerSelectionListener.java,v 1.2 2005/02/05 04:37:36 takuyay Exp $<a name="line.20"></a>
+<FONT color="green">021</FONT>     */<a name="line.21"></a>
+<FONT color="green">022</FONT>    public class MarkerSelectionListener implements ISelectionListener {<a name="line.22"></a>
+<FONT color="green">023</FONT>      <a name="line.23"></a>
+<FONT color="green">024</FONT>      /**<a name="line.24"></a>
+<FONT color="green">025</FONT>       * @see org.eclipse.ui.ISelectionListener<a name="line.25"></a>
+<FONT color="green">026</FONT>       * #selectionChanged(org.eclipse.ui.IWorkbenchPart, org.eclipse.jface.viewers.ISelection)<a name="line.26"></a>
+<FONT color="green">027</FONT>       */<a name="line.27"></a>
+<FONT color="green">028</FONT>      public void selectionChanged(IWorkbenchPart part, ISelection selection) {<a name="line.28"></a>
+<FONT color="green">029</FONT>        if (selection instanceof ITextSelection) {<a name="line.29"></a>
+<FONT color="green">030</FONT>          String lineNumber = String.valueOf(((ITextSelection) selection).getStartLine() + 1);<a name="line.30"></a>
+<FONT color="green">031</FONT>          ReviewTableView[] tableViews = ReviewTableView.getViews();<a name="line.31"></a>
+<FONT color="green">032</FONT>          for (int i = 0; i &lt; tableViews.length; i++) {<a name="line.32"></a>
+<FONT color="green">033</FONT>            ReviewTableView tableView = tableViews[i];<a name="line.33"></a>
+<FONT color="green">034</FONT>            if (tableView != null) {<a name="line.34"></a>
+<FONT color="green">035</FONT>              Table table = tableView.getTable();<a name="line.35"></a>
+<FONT color="green">036</FONT>              TableItem[] items = table.getItems();<a name="line.36"></a>
+<FONT color="green">037</FONT>              for (int j = 0; j &lt; items.length; j++) {<a name="line.37"></a>
+<FONT color="green">038</FONT>                ReviewIssue reviewIssue = (ReviewIssue) items[j].getData();<a name="line.38"></a>
+<FONT color="green">039</FONT>                if (lineNumber.equals(reviewIssue.getLine())) {<a name="line.39"></a>
+<FONT color="green">040</FONT>                  table.select(j);<a name="line.40"></a>
+<FONT color="green">041</FONT>                  table.setTopIndex(j);<a name="line.41"></a>
+<FONT color="green">042</FONT>                  break;<a name="line.42"></a>
+<FONT color="green">043</FONT>                }<a name="line.43"></a>
+<FONT color="green">044</FONT>              }<a name="line.44"></a>
+<FONT color="green">045</FONT>              ReviewTableViewAction.NOTIFY_EDITOR.run();<a name="line.45"></a>
+<FONT color="green">046</FONT>            }<a name="line.46"></a>
+<FONT color="green">047</FONT>          }<a name="line.47"></a>
+<FONT color="green">048</FONT>        }<a name="line.48"></a>
+<FONT color="green">049</FONT>      }<a name="line.49"></a>
+<FONT color="green">050</FONT>    }<a name="line.50"></a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</PRE>
+</BODY>
+</HTML>

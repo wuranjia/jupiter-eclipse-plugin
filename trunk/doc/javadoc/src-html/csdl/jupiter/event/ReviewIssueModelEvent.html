@@ -1,0 +1,181 @@
+<HTML>
+<BODY BGCOLOR="white">
+<PRE>
+<FONT color="green">001</FONT>    package csdl.jupiter.event;<a name="line.1"></a>
+<FONT color="green">002</FONT>    <a name="line.2"></a>
+<FONT color="green">003</FONT>    import java.util.HashMap;<a name="line.3"></a>
+<FONT color="green">004</FONT>    import java.util.Map;<a name="line.4"></a>
+<FONT color="green">005</FONT>    <a name="line.5"></a>
+<FONT color="green">006</FONT>    import org.eclipse.core.resources.IProject;<a name="line.6"></a>
+<FONT color="green">007</FONT>    <a name="line.7"></a>
+<FONT color="green">008</FONT>    import csdl.jupiter.model.review.ReviewId;<a name="line.8"></a>
+<FONT color="green">009</FONT>    import csdl.jupiter.model.review.ReviewModel;<a name="line.9"></a>
+<FONT color="green">010</FONT>    import csdl.jupiter.model.reviewissue.ResolutionKeyManager;<a name="line.10"></a>
+<FONT color="green">011</FONT>    import csdl.jupiter.model.reviewissue.ReviewIssue;<a name="line.11"></a>
+<FONT color="green">012</FONT>    import csdl.jupiter.model.reviewissue.SeverityKeyManager;<a name="line.12"></a>
+<FONT color="green">013</FONT>    import csdl.jupiter.model.reviewissue.StatusKeyManager;<a name="line.13"></a>
+<FONT color="green">014</FONT>    import csdl.jupiter.model.reviewissue.TypeKeyManager;<a name="line.14"></a>
+<FONT color="green">015</FONT>    <a name="line.15"></a>
+<FONT color="green">016</FONT>    /**<a name="line.16"></a>
+<FONT color="green">017</FONT>     * Provides review issue model event. This wraps review issue entry with an event type. This<a name="line.17"></a>
+<FONT color="green">018</FONT>     * is used for the argument of the &lt;code&gt;reviewIssueModelChanged&lt;/code&gt; in the<a name="line.18"></a>
+<FONT color="green">019</FONT>     * &lt;code&gt;IReviewIssueModelListener&lt;/code&gt; interface.<a name="line.19"></a>
+<FONT color="green">020</FONT>     * <a name="line.20"></a>
+<FONT color="green">021</FONT>     * @author Takuya Yamashita<a name="line.21"></a>
+<FONT color="green">022</FONT>     * @version $Id: ReviewIssueModelEvent.java,v 1.9 2005/03/28 14:39:31 takuyay Exp $<a name="line.22"></a>
+<FONT color="green">023</FONT>     */<a name="line.23"></a>
+<FONT color="green">024</FONT>    public class ReviewIssueModelEvent {<a name="line.24"></a>
+<FONT color="green">025</FONT>      // note that a new type should be the sequence of the power 2. next should be 2^4.<a name="line.25"></a>
+<FONT color="green">026</FONT>      /** The merge type to merge review issues in the model. */<a name="line.26"></a>
+<FONT color="green">027</FONT>      public static final int MERGE = 1;<a name="line.27"></a>
+<FONT color="green">028</FONT>      /** The save type to save a review issue in the model. */<a name="line.28"></a>
+<FONT color="green">029</FONT>      public static final int ADD = 2;<a name="line.29"></a>
+<FONT color="green">030</FONT>      /** The delete type to delete a review issue in the model. */<a name="line.30"></a>
+<FONT color="green">031</FONT>      public static final int DELETE = 4;<a name="line.31"></a>
+<FONT color="green">032</FONT>      /** The edit type to edit a review issue in the model. */<a name="line.32"></a>
+<FONT color="green">033</FONT>      public static final int EDIT = 8;<a name="line.33"></a>
+<FONT color="green">034</FONT>      /** The clear type to clear all review issues in the model. */<a name="line.34"></a>
+<FONT color="green">035</FONT>      public static final int CLEAR = 16;<a name="line.35"></a>
+<FONT color="green">036</FONT>      /** Type category key */<a name="line.36"></a>
+<FONT color="green">037</FONT>      public static final String TYPE = "type";<a name="line.37"></a>
+<FONT color="green">038</FONT>      /** Severity category key */<a name="line.38"></a>
+<FONT color="green">039</FONT>      public static final String SEVERITY = "severity";<a name="line.39"></a>
+<FONT color="green">040</FONT>      /** Resolution category key */<a name="line.40"></a>
+<FONT color="green">041</FONT>      public static final String RESOLUTION = "resolution";<a name="line.41"></a>
+<FONT color="green">042</FONT>      /** Status category key */<a name="line.42"></a>
+<FONT color="green">043</FONT>      public static final String STATUS = "status";<a name="line.43"></a>
+<FONT color="green">044</FONT>      /** The ReviewModel instance */<a name="line.44"></a>
+<FONT color="green">045</FONT>      private ReviewModel reviewModel;<a name="line.45"></a>
+<FONT color="green">046</FONT>      /** The ReviewIssue instance */<a name="line.46"></a>
+<FONT color="green">047</FONT>      private ReviewIssue reviewIssue;<a name="line.47"></a>
+<FONT color="green">048</FONT>      /** The event type */<a name="line.48"></a>
+<FONT color="green">049</FONT>      private int eventType;<a name="line.49"></a>
+<FONT color="green">050</FONT>      /** String category key -&gt; the String array of the item value.*/<a name="line.50"></a>
+<FONT color="green">051</FONT>      private Map categoryToItems;<a name="line.51"></a>
+<FONT color="green">052</FONT>      /**<a name="line.52"></a>
+<FONT color="green">053</FONT>       * Instantiates this event with &lt;code&gt;ReviewIssue&lt;/code&gt; instance and event type.<a name="line.53"></a>
+<FONT color="green">054</FONT>       * @param reviewIssue the &lt;code&gt;ReviewIssue&lt;/code&gt; instance.<a name="line.54"></a>
+<FONT color="green">055</FONT>       * @param eventType the event type.<a name="line.55"></a>
+<FONT color="green">056</FONT>       */<a name="line.56"></a>
+<FONT color="green">057</FONT>      public ReviewIssueModelEvent(ReviewIssue reviewIssue, int eventType) {<a name="line.57"></a>
+<FONT color="green">058</FONT>        this.reviewModel = ReviewModel.getInstance();<a name="line.58"></a>
+<FONT color="green">059</FONT>        this.reviewIssue = reviewIssue;<a name="line.59"></a>
+<FONT color="green">060</FONT>        this.eventType = eventType;<a name="line.60"></a>
+<FONT color="green">061</FONT>        this.categoryToItems = new HashMap();<a name="line.61"></a>
+<FONT color="green">062</FONT>        IProject project = this.reviewModel.getProjectManager().getProject();<a name="line.62"></a>
+<FONT color="green">063</FONT>        ReviewId reviewId = this.reviewModel.getReviewIdManager().getReviewId();<a name="line.63"></a>
+<FONT color="green">064</FONT>        if (project == null || reviewId == null) {<a name="line.64"></a>
+<FONT color="green">065</FONT>          return;<a name="line.65"></a>
+<FONT color="green">066</FONT>        }<a name="line.66"></a>
+<FONT color="green">067</FONT>        String[] types = TypeKeyManager.getInstance(project, reviewId).getElements();<a name="line.67"></a>
+<FONT color="green">068</FONT>        this.categoryToItems.put(TYPE, types);<a name="line.68"></a>
+<FONT color="green">069</FONT>        String[] severities = SeverityKeyManager.getInstance(project, reviewId).getElements();<a name="line.69"></a>
+<FONT color="green">070</FONT>        this.categoryToItems.put(SEVERITY, severities);<a name="line.70"></a>
+<FONT color="green">071</FONT>        String[] resolutions = ResolutionKeyManager.getInstance(project, reviewId).getElements();<a name="line.71"></a>
+<FONT color="green">072</FONT>        this.categoryToItems.put(RESOLUTION, resolutions);<a name="line.72"></a>
+<FONT color="green">073</FONT>        String[] status = StatusKeyManager.getInstance(project, reviewId).getElements();<a name="line.73"></a>
+<FONT color="green">074</FONT>        this.categoryToItems.put(STATUS, status);<a name="line.74"></a>
+<FONT color="green">075</FONT>      }<a name="line.75"></a>
+<FONT color="green">076</FONT>    <a name="line.76"></a>
+<FONT color="green">077</FONT>      /**<a name="line.77"></a>
+<FONT color="green">078</FONT>       * Gets the &lt;code&gt;ReviewModel&lt;/code&gt; instance.<a name="line.78"></a>
+<FONT color="green">079</FONT>       * @return the &lt;code&gt;ReviewModel&lt;/code&gt; instance.<a name="line.79"></a>
+<FONT color="green">080</FONT>       */<a name="line.80"></a>
+<FONT color="green">081</FONT>      public ReviewModel getReviewModel() {<a name="line.81"></a>
+<FONT color="green">082</FONT>        return this.reviewModel;<a name="line.82"></a>
+<FONT color="green">083</FONT>      }<a name="line.83"></a>
+<FONT color="green">084</FONT>      <a name="line.84"></a>
+<FONT color="green">085</FONT>      /**<a name="line.85"></a>
+<FONT color="green">086</FONT>       * Gets the &lt;code&gt;ReviewIssue&lt;/code&gt; instance.<a name="line.86"></a>
+<FONT color="green">087</FONT>       * <a name="line.87"></a>
+<FONT color="green">088</FONT>       * @return the &lt;code&gt;ReviewIssue&lt;/code&gt; instance.<a name="line.88"></a>
+<FONT color="green">089</FONT>       */<a name="line.89"></a>
+<FONT color="green">090</FONT>      public ReviewIssue getReviewIssue() {<a name="line.90"></a>
+<FONT color="green">091</FONT>        return this.reviewIssue;<a name="line.91"></a>
+<FONT color="green">092</FONT>      }<a name="line.92"></a>
+<FONT color="green">093</FONT>    <a name="line.93"></a>
+<FONT color="green">094</FONT>      /**<a name="line.94"></a>
+<FONT color="green">095</FONT>       * Gets the event type.<a name="line.95"></a>
+<FONT color="green">096</FONT>       * <a name="line.96"></a>
+<FONT color="green">097</FONT>       * @return the event type.<a name="line.97"></a>
+<FONT color="green">098</FONT>       */<a name="line.98"></a>
+<FONT color="green">099</FONT>      public int getEventType() {<a name="line.99"></a>
+<FONT color="green">100</FONT>        return this.eventType;<a name="line.100"></a>
+<FONT color="green">101</FONT>      }<a name="line.101"></a>
+<FONT color="green">102</FONT>      <a name="line.102"></a>
+<FONT color="green">103</FONT>      /**<a name="line.103"></a>
+<FONT color="green">104</FONT>       * Gets the map of the String category key -&gt; the String ordinal array of <a name="line.104"></a>
+<FONT color="green">105</FONT>       * the item value.<a name="line.105"></a>
+<FONT color="green">106</FONT>       * For example, <a name="line.106"></a>
+<FONT color="green">107</FONT>       * &lt;pre&gt;<a name="line.107"></a>
+<FONT color="green">108</FONT>       * String[] types = (String[]) event.getCategories.get(ReviewIssueModelEvent.TYPE);<a name="line.108"></a>
+<FONT color="green">109</FONT>       * &lt;/pre&gt;<a name="line.109"></a>
+<FONT color="green">110</FONT>       * @return the map of the String category key -&gt; the String array of the item value.<a name="line.110"></a>
+<FONT color="green">111</FONT>       */<a name="line.111"></a>
+<FONT color="green">112</FONT>      public Map getCategories() {<a name="line.112"></a>
+<FONT color="green">113</FONT>        return this.categoryToItems;<a name="line.113"></a>
+<FONT color="green">114</FONT>      }<a name="line.114"></a>
+<FONT color="green">115</FONT>    }<a name="line.115"></a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</PRE>
+</BODY>
+</HTML>
