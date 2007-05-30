@@ -2,10 +2,10 @@
 <site> <description url="index.html">The Jupiter Update Site contains feature 
 and plug-in versions for Juipter project releases. </description>
 
-  <feature url="features/csdl.jupiter_@VERSION@.jar" id="csdl.jupiter" version="@VERSION@">
+  <feature url="features/edu.hawaii.ics.csdl.jupiter_3.2.1.jar" id="csdl.jupiter" version="3.2.1">
     <category name="Jupiter"/>
   </feature>
-  <archive url="plugins/csdl.jupiter_@VERSION@.jar" path="plugins/csdl.jupiter_@VERSION@.jar"/>
+  <archive url="plugins/edu.hawaii.ics.csdl.jupiter_3.2.1.jar" path="plugins/edu.hawaii.ics.csdl.jupiter_3.2.1.jar"/>
 
   <category-def label="Jupiter for Eclipse" name="Jupiter">
     <description>
