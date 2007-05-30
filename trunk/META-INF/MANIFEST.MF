@@ -23,7 +23,11 @@ Require-Bundle: org.junit,
  org.eclipse.debug.ui,
  org.apache.ant,
  org.eclipse.jdt.launching,
- org.eclipse.core.filesystem
+ org.eclipse.core.filesystem,
+ org.eclipse.team.ui,
+ org.eclipse.team.core,
+ org.eclipse.search,
+ org.eclipse.ui.console
 Eclipse-AutoStart: true
 Bundle-ClassPath: jupiter.jar,
  lib/jdom.jar

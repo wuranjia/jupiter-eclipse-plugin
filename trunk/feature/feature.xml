@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="edu.hawaii.ics.csdl.jupiter"
+      label="Jupiter Feature"
+      version="3.2.1"
+      provider-name="Collaborative Software Development Laboratory"
+      image="hackystat.gif">
+
+   <description url="http://code.google.com/p/jupiter-eclipse-plugin">
+      Juipter is a software review system to provide a review process should occur by determining the element of WHO, WHEN, HOW, WHAT.
+   </description>
+
+   <license url="http://www.apache.org/licenses/">
+      %license
+   </license>
+
+   <url>
+      <discovery label="Jupiter at Google Code Hosting" url="http://code.google.com/p/jupiter-eclipse-plugin/update"/>
+   </url>
+
+   <plugin
+         id="edu.hawaii.ics.csdl.jupiter"
+         download-size="798"
+         install-size="798"
+         version="3.2.1"/>
+
+</feature>
