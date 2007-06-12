@@ -2,7 +2,7 @@
 <site> <description url="index.html">The Jupiter Update Site contains feature 
 and plug-in versions for Juipter project releases. </description>
 
-  <feature url="features/edu.hawaii.ics.csdl.jupiter_3.2.1.jar" id="csdl.jupiter" version="3.2.1">
+  <feature url="features/edu.hawaii.ics.csdl.jupiter_3.2.1.jar" id="edu.hawaii.ics.csdl.jupiter" version="3.2.1">
     <category name="Jupiter"/>
   </feature>
   <archive url="plugins/edu.hawaii.ics.csdl.jupiter_3.2.1.jar" path="plugins/edu.hawaii.ics.csdl.jupiter_3.2.1.jar"/>
