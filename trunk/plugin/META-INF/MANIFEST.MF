@@ -1,10 +1,10 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: %pluginName
+Bundle-Name: edu.hawaii.ics.csdl.jupiter
 Bundle-SymbolicName: edu.hawaii.ics.csdl.jupiter;singleton:=true
 Bundle-Version: 3.2.1
 Bundle-Activator: edu.hawaii.ics.csdl.jupiter.ReviewPlugin
-Bundle-Vendor: %providerName
+Bundle-Vendor: Collaborative Software Development Laboratory
 Bundle-Localization: plugin
 Require-Bundle: org.junit,
  org.eclipse.ui.ide,
@@ -29,8 +29,8 @@ Require-Bundle: org.junit,
  org.eclipse.search,
  org.eclipse.ui.console
 Eclipse-LazyStart: true
-Bundle-ClassPath: jupiter.jar,
- lib/jdom.jar
+Bundle-ClassPath: lib/jdom.jar,
+ jupiter.jar
 Export-Package: edu.hawaii.ics.csdl.jupiter,
  edu.hawaii.ics.csdl.jupiter.ccvs,
  edu.hawaii.ics.csdl.jupiter.event,

@@ -61,13 +61,27 @@ public class PrefXmlSerializer {
   public static Element loadPreferenceElement() {
     ReviewPlugin plugin = ReviewPlugin.getInstance();
     File stateLocationXmlFile = plugin.getStateLocation().append(PREFERENCE_XML_FILE).toFile();
+    
     URL pluginUrl = ReviewPlugin.getInstance().getInstallURL();
     try {
-      URL xmlUrl = FileLocator.toFileURL(new URL(pluginUrl, PREFERENCE_XML_FILE));
-      File pluginXmlFile = new File(xmlUrl.getFile());
+      // The preference file will not exist when deploying Jupiter inside Eclipse. 
+      // For debugging purpose, we supply a default preference.xml file located in lib directory.
       if (!stateLocationXmlFile.exists()) {
-        copy(pluginXmlFile, stateLocationXmlFile);
+	     String location = plugin.getBundle().getLocation();
+	     String pluginPath = location.substring(location.indexOf("@") + 1);
+	     File defaultPreferenceFile = new File(pluginPath + File.separator + "lib" + 
+	    		 File.separator +PREFERENCE_XML_FILE);
+	     if (defaultPreferenceFile.exists()) {
+	    	copy(defaultPreferenceFile, stateLocationXmlFile);
+	     }
+	  }
+
+      if (!stateLocationXmlFile.exists()) {
+         URL xmlUrl = FileLocator.toFileURL(new URL(pluginUrl, PREFERENCE_XML_FILE));
+         File pluginXmlFile = new File(xmlUrl.getFile());
+    	 copy(pluginXmlFile, stateLocationXmlFile);
       }
+      
       SAXBuilder builder = new SAXBuilder();
       Document document = builder.build(stateLocationXmlFile);
       Element preferenceElement = document.getRootElement();

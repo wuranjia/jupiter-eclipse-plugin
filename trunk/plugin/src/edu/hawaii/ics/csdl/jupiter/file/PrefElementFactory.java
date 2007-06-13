@@ -8,6 +8,7 @@ import org.jdom.Element;
 
 /**
  * Provides preference element wrapper class.
+ * 
  * @author Takuya Yamashita
  * @version $Id$
  */

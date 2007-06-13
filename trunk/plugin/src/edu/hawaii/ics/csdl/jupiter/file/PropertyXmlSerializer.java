@@ -54,25 +54,29 @@ public class PropertyXmlSerializer {
       IFile jupiterConfigIFile = project.getFile(PROPERTY_XML_FILE);
       File jupiterConfigFile = jupiterConfigIFile.getLocation().toFile();
       Document document = null;
+	  System.out.println(jupiterConfigFile);
       if (jupiterConfigIFile.getLocation().toFile().exists()) {
-        document = builder.build(jupiterConfigFile);
+          System.out.println(" exists!");
+    	  document = builder.build(jupiterConfigFile);
       }
       else {
         if (FileResource.getActiveProject().getName().equals(project.getName())) {
-          document = builder.build(copyDefaultConfigFileTo(jupiterConfigFile));
+          System.out.println("Copying ... ");
+        	document = builder.build(copyDefaultConfigFileTo(jupiterConfigFile));
           jupiterConfigIFile.refreshLocal(IResource.DEPTH_ONE, null);
         }
       }
       return document;
     }
     catch (CoreException e) {
-      throw new ReviewException("CoreException: " + e.getMessage());
+      throw new ReviewException("CoreException: " + e.getMessage(), e);
     }
     catch (JDOMException e) {
-      throw new ReviewException("JDOMException: " + e.getMessage());
+      throw new ReviewException("JDOMException: " + e.getMessage(), e);
     }
     catch (IOException e) {
-      throw new ReviewException("IOException: " + e.getMessage());      
+      e.printStackTrace();
+    	throw new ReviewException("IOException: " + e.getMessage(), e);      
     }
   }
   
@@ -108,14 +112,19 @@ public class PropertyXmlSerializer {
    */
   private static File copyDefaultConfigFileTo(File outputPropertyFile) 
                       throws IOException, CoreException {
-    if (!outputPropertyFile.exists()) {
+    System.out.println("about to copy a file to " + outputPropertyFile);
+	if (!outputPropertyFile.exists()) {
       outputPropertyFile.createNewFile();
     }
       
     URL pluginUrl = ReviewPlugin.getInstance().getInstallURL();
+    System.out.println(pluginUrl.getFile());
     URL xmlUrl = FileLocator.toFileURL(new URL(pluginUrl, DEFAULT_PROPERTY_XML_FILE));
+    System.out.println("From : " + xmlUrl);
+
     File sourceXmlFile = new File(xmlUrl.getFile());
     // copy XML file in the plug-in directory to the state location.
+    System.out.println("From : " + sourceXmlFile);
     PrefXmlSerializer.copy(sourceXmlFile, outputPropertyFile);
     return outputPropertyFile;
   }

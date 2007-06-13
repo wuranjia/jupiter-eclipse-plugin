@@ -86,7 +86,7 @@
     <!-- Registers to the ruler menu of the text editor.-->
 	  <viewerContribution 
 		    targetID="#TextRulerContext"
-        id="csdl.jupiter.ui.action.contribution.popup.texteditor">
+        id="edu.hawaii.ics.csdl.jupiter.ui.action.contribution.popup.texteditor">
          <action
                label="%actionLabel"
                icon="icons/jupiter.gif"
@@ -164,7 +164,7 @@
     <!-- Registers to the ruler menu of the assembly editor.-->
     <viewerContribution
         targetID="#ASMEditorRulerContext"
-        id="csdl.jupiter.ui.action.ReviewAdditionActionDelegate">
+        id="edu.hawaii.ics.csdl.jupiter.ui.action.ReviewAdditionActionDelegate">
       <action
           label="%actionLabel"
           icon="icons/jupiter.gif"
@@ -229,7 +229,7 @@
     </perspective>
   </extension>
   <extension point="org.eclipse.ui.perspectiveExtensions">
-    <perspectiveExtension targetID="csdl.jupiter.ui.perspective">
+    <perspectiveExtension targetID="edu.hawaii.ics.csdl.jupiter.ui.perspective">
       <perspectiveShortcut id="org.eclipse.jdt.ui.JavaPerspective"/>
       <perspectiveShortcut id="org.eclipse.ui.resourcePerspective"/>
       <perspectiveShortcut id="org.eclipse.jdt.ui.JavaBrowsingPerspective"/>
@@ -246,7 +246,7 @@
       <viewShortcut id="org.eclipse.ui.views.ProblemView"/>
       <viewShortcut id="org.eclipse.jdt.ui.PackageExplorer"/>
       <viewShortcut id="org.eclipse.pde.runtime.LogView"/>
-      <viewShortcut id="csdl.jupiter.ui.view"/>
+      <viewShortcut id="edu.hawaii.ics.csdl.jupiter.ui.view"/>
     </perspectiveExtension>
     <perspectiveExtension targetID="org.eclipse.ui.resourcePerspective">
       <perspectiveShortcut id="edu.hawaii.ics.csdl.jupiter.ui.perspective"/>
@@ -278,19 +278,19 @@
       <attribute name="message" />
    </extension>
    <extension point="org.eclipse.ui.ide.markerImageProviders">
-      <imageprovider id="csdl.jupiter.reviewMarkerProvider"
-            markertype="csdl.jupiter.reviewmarker"
+      <imageprovider id="edu.hawaii.ics.csdl.jupiter.reviewMarkerProvider"
+            markertype="edu.hawaii.ics.csdl.jupiter.reviewmarker"
             icon="icons/review_marker.gif">
       </imageprovider>
    </extension>
    <extension point="org.eclipse.ui.editors.annotationTypes">
-      <type name="csdl.jupiter.texteditor.review"
-         markerType="csdl.jupiter.reviewmarker">
+      <type name="edu.hawaii.ics.csdl.jupiter.texteditor.review"
+         markerType="edu.hawaii.ics.csdl.jupiter.reviewmarker">
       </type>
    </extension>
    <extension point="org.eclipse.ui.editors.markerAnnotationSpecification">
      <specification
-            annotationType="csdl.jupiter.texteditor.review"
+            annotationType="edu.hawaii.ics.csdl.jupiter.texteditor.review"
             label="%reviewSpecificationLabel"
             textPreferenceKey="reviewIndication"
             textPreferenceValue="false"
@@ -313,7 +313,7 @@
       </specification>
    </extension>
    <extension point="org.eclipse.ui.ide.markerResolution">
-     <markerResolutionGenerator markerType="csdl.jupiter.reviewmarker"
+     <markerResolutionGenerator markerType="edu.hawaii.ics.csdl.jupiter.reviewmarker"
 		                       class="edu.hawaii.ics.csdl.jupiter.ui.marker.ReviewMarkerResolutionGenerator">
      </markerResolutionGenerator>
    </extension>

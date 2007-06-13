@@ -4,16 +4,13 @@ import java.util.List;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.jface.wizard.IWizard;
 import org.eclipse.jface.wizard.WizardDialog;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
-import org.eclipse.update.internal.ui.UpdateUI;
-import org.eclipse.update.internal.ui.wizards.InstallWizard;
-import org.eclipse.update.internal.ui.wizards.ResizableInstallWizardDialog;
 import org.eclipse.update.ui.UpdateManagerUI;
 
 import edu.hawaii.ics.csdl.jupiter.ReviewI18n;
@@ -41,12 +38,19 @@ public class ReviewDialog {
     String messageSuffix = "ReviewDialog.nonReviewIdNotification.messageDialog.message.suffix";
     String create = "ReviewDialog.nonReviewIdNotification.messageDialog.button.create";
     String cancel = "ReviewDialog.nonReviewIdNotification.messageDialog.button.cancel";
-    MessageDialog dialog = new MessageDialog(workbench.getWorkbenchWindows()[0].getShell(),
-        ReviewI18n.getString("ReviewDialog.nonReviewIdNotification.messageDialog.title"),
-        ReviewPlugin.createImageDescriptor(jupiterIcon).createImage(),
-        ReviewI18n.getString(messagePrefix)
-        + projectName
-        + ReviewI18n.getString(messageSuffix),
+    
+    Shell shell = workbench.getWorkbenchWindows()[0].getShell();
+    String title = ReviewI18n.getString("ReviewDialog.nonReviewIdNotification.messageDialog.title");
+    Image image = ReviewPlugin.createImageDescriptor(jupiterIcon).createImage(); 
+    
+    // Image might not be created if debugging Jupiter in Eclipse.
+    if (image == null) {
+    	
+    }
+    MessageDialog dialog = new MessageDialog(shell,
+        title,
+        image,
+        ReviewI18n.getString(messagePrefix) + projectName + ReviewI18n.getString(messageSuffix),
         MessageDialog.INFORMATION,
         new String[] {ReviewI18n.getString(create), ReviewI18n.getString(cancel)},
         0);

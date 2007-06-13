@@ -48,7 +48,7 @@ public class ReviewPlugin extends AbstractUIPlugin implements IStartup {
   /** The listener container to contains IListener listeners. */
   private ListenerList listenerList = new ListenerList();
   /** The plug-in id .*/
-  public static final String PLUGIN_ID = "csdl.jupiter";
+  public static final String PLUGIN_ID = "edu.hawaii.ics.csdl.jupiter";
   
   /**
    * Instantiates <code>ReviewPlugin</code> itself and initializes resource bundle. 

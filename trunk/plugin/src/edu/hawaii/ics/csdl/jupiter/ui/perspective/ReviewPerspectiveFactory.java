@@ -22,10 +22,10 @@ import edu.hawaii.ics.csdl.jupiter.util.JupiterLogger;
  */
 public class ReviewPerspectiveFactory implements IPerspectiveFactory {
   /** jupiter perspective ID. */
-  public static final String ID = "csdl.jupiter.ui.perspective";
+  public static final String ID = "edu.hawaii.ics.csdl.jupiter.ui.perspective";
   
-  private static final String ID_REVIEW_EDITOR_VIEW = "csdl.jupiter.ui.view.editor";
-  private static final String ID_REVIEW_TABLE_VIEW = "csdl.jupiter.ui.view.table";
+  private static final String ID_REVIEW_EDITOR_VIEW = "edu.hawaii.ics.csdl.jupiter.ui.view.editor";
+  private static final String ID_REVIEW_TABLE_VIEW = "edu.hawaii.ics.csdl.jupiter.ui.view.table";
   private static final String PACKAGE_EXPLORER_ID = "org.eclipse.jdt.ui.PackageExplorer";
   private static final String BOTTOM = "bottom";
 
