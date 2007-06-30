@@ -54,14 +54,12 @@ public class PropertyXmlSerializer {
       IFile jupiterConfigIFile = project.getFile(PROPERTY_XML_FILE);
       File jupiterConfigFile = jupiterConfigIFile.getLocation().toFile();
       Document document = null;
-	  System.out.println(jupiterConfigFile);
+      
       if (jupiterConfigIFile.getLocation().toFile().exists()) {
-          System.out.println(" exists!");
     	  document = builder.build(jupiterConfigFile);
       }
       else {
         if (FileResource.getActiveProject().getName().equals(project.getName())) {
-          System.out.println("Copying ... ");
         	document = builder.build(copyDefaultConfigFileTo(jupiterConfigFile));
           jupiterConfigIFile.refreshLocal(IResource.DEPTH_ONE, null);
         }

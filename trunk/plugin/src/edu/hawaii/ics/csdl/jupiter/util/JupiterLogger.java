@@ -31,7 +31,7 @@ public class JupiterLogger {
    *
    */
   private JupiterLogger() {
-    this.consoleLog = Logger.getLogger("csdl.jupiter");
+    this.consoleLog = Logger.getLogger("edu.hawaii.ics.csdl.jupiter");
     
     String levelName = System.getProperty("LogLevel", Level.WARNING.getName()); 
     this.consoleLog.setLevel(Level.parse(levelName));

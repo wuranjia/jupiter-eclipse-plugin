@@ -144,6 +144,8 @@ public class ReviewPlugin extends AbstractUIPlugin implements IStartup {
    * @return the newly created image descriptor.
    */
   public static ImageDescriptor createImageDescriptor(String path) {
+    //JupiterLogger logger = JupiterLogger.getLogger();
+    //logger.info("Hongbing " + path);
     return imageDescriptorFromPlugin(PLUGIN_ID, path);
   }
   

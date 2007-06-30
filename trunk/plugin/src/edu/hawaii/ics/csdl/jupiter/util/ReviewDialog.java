@@ -41,12 +41,11 @@ public class ReviewDialog {
     
     Shell shell = workbench.getWorkbenchWindows()[0].getShell();
     String title = ReviewI18n.getString("ReviewDialog.nonReviewIdNotification.messageDialog.title");
+    
+    //JupiterLogger logger = JupiterLogger.getLogger();  
+    //logger.warning("Hongbing Kou " + jupiterIcon);
     Image image = ReviewPlugin.createImageDescriptor(jupiterIcon).createImage(); 
     
-    // Image might not be created if debugging Jupiter in Eclipse.
-    if (image == null) {
-    	
-    }
     MessageDialog dialog = new MessageDialog(shell,
         title,
         image,

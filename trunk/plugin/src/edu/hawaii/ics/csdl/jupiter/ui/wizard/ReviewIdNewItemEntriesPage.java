@@ -183,7 +183,7 @@ public class ReviewIdNewItemEntriesPage extends WizardPage {
     removeButtonInItemEntries.setLayoutData(removeButtonData);
     
     this.upButtonInItemEntries = new Button(composite, SWT.PUSH);
-    Image upImage = ReviewPlugin.createImageDescriptor("lib/icons/up.gif").createImage();
+    Image upImage = ReviewPlugin.createImageDescriptor("icons/up.gif").createImage();
     upButtonInItemEntries.setImage(upImage);
     upButtonInItemEntries.setEnabled(false);
     upButtonInItemEntries.addListener(SWT.Selection, new Listener() {
@@ -198,7 +198,7 @@ public class ReviewIdNewItemEntriesPage extends WizardPage {
     upButtonInItemEntries.setLayoutData(upButtonData);
     
     this.downButtonInItemEntries = new Button(composite, SWT.PUSH);
-    Image downImage = ReviewPlugin.createImageDescriptor("lib/icons/down.gif").createImage();
+    Image downImage = ReviewPlugin.createImageDescriptor("icons/down.gif").createImage();
     downButtonInItemEntries.setImage(downImage);
     downButtonInItemEntries.setEnabled(false);
     downButtonInItemEntries.addListener(SWT.Selection, new Listener() {

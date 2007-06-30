@@ -25,7 +25,7 @@ public class ProjectMockupTest extends TestCase {
   private static final String OUTPUT_DIR = "bin";
   private static final String OUTPUT_LOCATION =  "/" + TEST_JUPITER_PROJECT + "/" + OUTPUT_DIR;
   private static final String SRC_DIR = "src";
-  private static final String TEST_PACKAGE = "csdl.jupiter.test";
+  private static final String TEST_PACKAGE = "edu.hawaii.ics.csdl.jupiter.test";
   private static final String FILE_SEPARATED_TEST_PACKAGE = "csdl/jupiter/test";
   /**
    * Sets up the project mock up.

@@ -67,7 +67,7 @@ import edu.hawaii.ics.csdl.jupiter.util.TabFolderLayout;
  * @version $Id$
  */
 public class ReviewEditorView extends ViewPart {
-  private static final String EDITOR_VIEW_ID = "csdl.jupiter.ui.view.editor";
+  private static final String EDITOR_VIEW_ID = "edu.hawaii.ics.csdl.jupiter.ui.view.editor";
   private static ReviewEditorView theInstance;
   private Text descriptionText;
   private Text summaryText;

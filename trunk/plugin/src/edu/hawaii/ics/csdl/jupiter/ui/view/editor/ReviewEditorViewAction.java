@@ -101,7 +101,7 @@ public class ReviewEditorViewAction {
     String undoToolTipKey = "ReviewTableView.action.toolTip.goto";
     UNDO.setToolTipText(ReviewI18n.getString(undoToolTipKey));
     ISharedImages sharedImage = PlatformUI.getWorkbench().getSharedImages();
-    UNDO.setImageDescriptor(ReviewPlugin.createImageDescriptor("lib/icons/undo.gif"));
+    UNDO.setImageDescriptor(ReviewPlugin.createImageDescriptor("icons/undo.gif"));
     
     GOTO = new Action() {
       public void run() {
@@ -128,7 +128,7 @@ public class ReviewEditorViewAction {
     String gotoToolTipKey = "ReviewTableView.action.toolTip.goto";
     GOTO.setToolTipText(ReviewI18n.getString(gotoToolTipKey));
     sharedImage = PlatformUI.getWorkbench().getSharedImages();
-    GOTO.setImageDescriptor(ReviewPlugin.createImageDescriptor("lib/icons/goto.gif"));
+    GOTO.setImageDescriptor(ReviewPlugin.createImageDescriptor("icons/goto.gif"));
     NEXT = new Action() {
       public void run() {
         // save the current issue.
@@ -152,7 +152,7 @@ public class ReviewEditorViewAction {
     NEXT.setText(ReviewI18n.getString(nextLabelKey));
     String nextToolTipKey = "Next";
     NEXT.setToolTipText(ReviewI18n.getString(nextToolTipKey));
-    NEXT.setImageDescriptor(ReviewPlugin.createImageDescriptor("lib/icons/down.gif"));
+    NEXT.setImageDescriptor(ReviewPlugin.createImageDescriptor("icons/down.gif"));
 
     PREVIOUS = new Action() {
       public void run() {
@@ -176,7 +176,7 @@ public class ReviewEditorViewAction {
     PREVIOUS.setText(ReviewI18n.getString(previousLabelKey));
     String previousToolTipKey = "Previous";
     PREVIOUS.setToolTipText(ReviewI18n.getString(previousToolTipKey));
-    PREVIOUS.setImageDescriptor(ReviewPlugin.createImageDescriptor("lib/icons/up.gif"));
+    PREVIOUS.setImageDescriptor(ReviewPlugin.createImageDescriptor("icons/up.gif"));
 
     SAVE = new Action() {
       public void run() {
@@ -193,8 +193,8 @@ public class ReviewEditorViewAction {
     SAVE.setText(ReviewI18n.getString(addLabelKey));
     String addToolTipKey = "Save";
     SAVE.setToolTipText(ReviewI18n.getString(addToolTipKey));
-    SAVE.setImageDescriptor(ReviewPlugin.createImageDescriptor("lib/icons/save.gif"));
-//    SAVE.setActionDefinitionId("csdl.jupiter.action.save");
+    SAVE.setImageDescriptor(ReviewPlugin.createImageDescriptor("icons/save.gif"));
+//    SAVE.setActionDefinitionId("edu.hawaii.ics.csdl.jupiter.action.save");
 
     CLEAR = new Action() {
       public void run() {
@@ -209,7 +209,7 @@ public class ReviewEditorViewAction {
     CLEAR.setText(ReviewI18n.getString(clearLabelKey));
     String clearToolTipKey = "Clear";
     CLEAR.setToolTipText(ReviewI18n.getString(clearToolTipKey));
-    CLEAR.setImageDescriptor(ReviewPlugin.createImageDescriptor("lib/icons/clear.gif"));
+    CLEAR.setImageDescriptor(ReviewPlugin.createImageDescriptor("icons/clear.gif"));
   }
 
   /**

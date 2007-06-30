@@ -39,7 +39,7 @@ public class ReviewMarker {
   private static JupiterLogger log = JupiterLogger.getLogger();
 
   /** The review marker type. */
-  public static final String REVIEW_MARKER = "csdl.jupiter.reviewmarker";
+  public static final String REVIEW_MARKER = "edu.hawaii.ics.csdl.jupiter.reviewmarker";
   /** The review issue id attribute. */
   public static final String ATTRIBUTE_REVIEW_ISSUE = "ReviewIssue";
   /**

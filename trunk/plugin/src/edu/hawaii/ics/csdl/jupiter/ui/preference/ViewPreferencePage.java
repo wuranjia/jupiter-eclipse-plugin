@@ -222,7 +222,7 @@ public class ViewPreferencePage extends PreferencePage implements IWorkbenchPref
     });
     
     upButton = new Button(buttons, SWT.PUSH);
-    Image upImage = ReviewPlugin.createImageDescriptor("lib/icons/up.gif").createImage();
+    Image upImage = ReviewPlugin.createImageDescriptor("icons/up.gif").createImage();
     upButton.setImage(upImage);
     upButton.setEnabled(false);
     data = new GridData();
@@ -239,7 +239,7 @@ public class ViewPreferencePage extends PreferencePage implements IWorkbenchPref
     });
     
     downButton = new Button(buttons, SWT.PUSH);
-    Image downImage = ReviewPlugin.createImageDescriptor("lib/icons/down.gif").createImage();
+    Image downImage = ReviewPlugin.createImageDescriptor("icons/down.gif").createImage();
     downButton.setImage(downImage);
     downButton.setEnabled(false);
     data = new GridData();

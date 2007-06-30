@@ -129,8 +129,9 @@ public class ReviewIdEditDialog extends Dialog {
    */
   public ReviewIdEditDialog(Shell parentShell, IProject project, ReviewId reviewId) {
     super(parentShell);
-    String imageFilePath = "lib/icons/jupiter.gif";
-    setDefaultImage(ReviewPlugin.createImageDescriptor(imageFilePath).createImage());
+    String imageFilePath = "icons/jupiter.gif";
+    Image iconJupiter = ReviewPlugin.createImageDescriptor(imageFilePath).createImage();
+    setDefaultImage(iconJupiter);
     this.project = project;
     this.reviewId = reviewId;
   }
@@ -1090,7 +1091,7 @@ public class ReviewIdEditDialog extends Dialog {
     removeButtonInItemEntries.setLayoutData(removeButtonData);
     
     this.upButtonInItemEntries = new Button(composite, SWT.PUSH);
-    Image upImage = ReviewPlugin.createImageDescriptor("lib/icons/up.gif").createImage();
+    Image upImage = ReviewPlugin.createImageDescriptor("icons/up.gif").createImage();
     upButtonInItemEntries.setImage(upImage);
     upButtonInItemEntries.setEnabled(false);
     upButtonInItemEntries.addListener(SWT.Selection, new Listener() {
@@ -1105,7 +1106,7 @@ public class ReviewIdEditDialog extends Dialog {
     upButtonInItemEntries.setLayoutData(upButtonData);
     
     this.downButtonInItemEntries = new Button(composite, SWT.PUSH);
-    Image downImage = ReviewPlugin.createImageDescriptor("lib/icons/down.gif").createImage();
+    Image downImage = ReviewPlugin.createImageDescriptor("icons/down.gif").createImage();
     downButtonInItemEntries.setImage(downImage);
     downButtonInItemEntries.setEnabled(false);
     downButtonInItemEntries.addListener(SWT.Selection, new Listener() {

@@ -44,7 +44,7 @@ public class ReviewIdSelectionPage extends WizardPage {
   public ReviewIdSelectionPage(IProject defaultProject, boolean isMultipleChoiceEnabled,
                                String pageName) {
     super(pageName);
-    String imageFilePath = "lib/icons/selection_wiz.gif";
+    String imageFilePath = "icons/selection_wiz.gif";
     setImageDescriptor(ReviewPlugin.createImageDescriptor(imageFilePath));
     setTitle(ReviewI18n.getString("ReviewIdSelectionPage.label.title"));
     setDescription(ReviewI18n.getString("ReviewIdSelectionPage.label.title.description"));

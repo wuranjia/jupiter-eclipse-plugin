@@ -82,7 +82,7 @@ public class PhaseSelectionMenu {
       String beforeText = ReviewI18n.getString(beforeKey);
       String afterText = ReviewI18n.getString(afterKey);
       String reviewerPhaseName = ReviewI18n.getString(reviewPhaseNameKey);
-      String imagePath = "lib/icons/refresh.gif";
+      String imagePath = "icons/refresh.gif";
       lastInvokedItem.setImage(ReviewPlugin.createImageDescriptor(imagePath).createImage());
       lastInvokedItem.setText(beforeText + reviewerPhaseName + afterText);
       lastInvokedItem.setData(reviewPhaseNameKey);
@@ -117,7 +117,7 @@ public class PhaseSelectionMenu {
       MenuItem menuItem = new MenuItem(menu, SWT.NONE);
       menuItem.setText((i + 1) + " " + ReviewI18n.getString(menuNameKeys[i]));
       menuItem.setData(menuNameKeys[i]);
-      String gifFile = "lib/icons/" + (i + 1) + ".gif";
+      String gifFile = "icons/" + (i + 1) + ".gif";
       menuItem.setImage(ReviewPlugin.createImageDescriptor(gifFile).createImage());
       menuItem.addSelectionListener(new SelectionAdapter() {
         public void widgetSelected(SelectionEvent event) {

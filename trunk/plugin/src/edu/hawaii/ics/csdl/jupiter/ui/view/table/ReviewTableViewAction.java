@@ -134,15 +134,15 @@ public class ReviewTableViewAction {
     PHASE_SELECTION.setText(ReviewI18n.getString(groupReviewLabelKey));
     String groupReviewToolTipKey = "ReviewTableViewAction.toolTip.groupReview";
     PHASE_SELECTION.setToolTipText(ReviewI18n.getString(groupReviewToolTipKey));
-    ImageDescriptor descriptor = ReviewPlugin.createImageDescriptor("lib/icons/jupiter.gif");
+    ImageDescriptor descriptor = ReviewPlugin.createImageDescriptor("icons/jupiter.gif");
     PHASE_SELECTION.setImageDescriptor(descriptor);
     PREFERENCE_SETTING = new Action() {
       public void run() {
         IWorkbench workbench = ReviewPlugin.getInstance().getWorkbench();
         IWorkbenchWindow window = workbench.getActiveWorkbenchWindow();
         PreferenceManager manager = workbench.getPreferenceManager();
-        IPreferenceNode node = manager.find("csdl.jupiter.ui.preference.GeneralPreferencePage");
-        //        node = node.findSubNode("csdl.jupiter.ui.preference.FilterPreferencePage");
+        IPreferenceNode node = manager.find("edu.hawaii.ics.csdl.jupiter.ui.preference.GeneralPreferencePage");
+        //        node = node.findSubNode("edu.hawaii.ics.csdl.jupiter.ui.preference.FilterPreferencePage");
         manager = new PreferenceManager();
         manager.addToRoot(node);
         PreferenceDialog dialog = new PreferenceDialog(window.getShell(), manager);
@@ -158,7 +158,7 @@ public class ReviewTableViewAction {
     PREFERENCE_SETTING.setText(ReviewI18n.getString(filterSettingLabelKey));
     String filterSettingToolTipKey = "ReviewTableViewAction.toolTip.preferenceSetting";
     PREFERENCE_SETTING.setToolTipText(ReviewI18n.getString(filterSettingToolTipKey));
-    String iconPath = "lib/icons/preference_config.gif";
+    String iconPath = "icons/preference_config.gif";
     PREFERENCE_SETTING.setImageDescriptor(ReviewPlugin.createImageDescriptor(iconPath));
     String filterLabelKey = "ReviewTableViewAction.label.filter";
     FILTER = new Action(ReviewI18n.getString(filterLabelKey), Action.AS_CHECK_BOX) {
@@ -210,7 +210,7 @@ public class ReviewTableViewAction {
     };
     String filterToolTipKey = "ReviewTableViewAction.toolTip.filter";
     FILTER.setToolTipText(ReviewI18n.getString(filterToolTipKey));
-    FILTER.setImageDescriptor(ReviewPlugin.createImageDescriptor("lib/icons/filter.gif"));
+    FILTER.setImageDescriptor(ReviewPlugin.createImageDescriptor("icons/filter.gif"));
     GOTO = new Action("", Action.AS_DROP_DOWN_MENU) {
       public void run() {
         ReviewTableView view = ReviewTableView.getActiveView();
@@ -272,7 +272,7 @@ public class ReviewTableViewAction {
     String gotoToolTipKey = "ReviewTableViewAction.toolTip.goto";
     GOTO.setToolTipText(ReviewI18n.getString(gotoToolTipKey));
     ISharedImages sharedImage = PlatformUI.getWorkbench().getSharedImages();
-    GOTO.setImageDescriptor(ReviewPlugin.createImageDescriptor("lib/icons/goto.gif"));
+    GOTO.setImageDescriptor(ReviewPlugin.createImageDescriptor("icons/goto.gif"));
 
     GOTO_REVISION_SOURCE = new Action() {
       public void run() {
@@ -364,7 +364,7 @@ public class ReviewTableViewAction {
     EDIT.setText(ReviewI18n.getString(editLabelKey));
     String editToolTipKey = "ReviewTableViewAction.toolTip.edit";
     EDIT.setToolTipText(ReviewI18n.getString(editToolTipKey));
-    EDIT.setImageDescriptor(ReviewPlugin.createImageDescriptor("lib/icons/edit.gif"));
+    EDIT.setImageDescriptor(ReviewPlugin.createImageDescriptor("icons/edit.gif"));
     NOTIFY_EDITOR = new Action() {
       private IProject previousProject = null;
       private ReviewId previousReviewId = null;
@@ -452,7 +452,8 @@ public class ReviewTableViewAction {
     ADD.setText(ReviewI18n.getString(addLabelKey));
     String addToolTipKey = "ReviewTableViewAction.toolTip.add";
     ADD.setToolTipText(ReviewI18n.getString(addToolTipKey));
-    ADD.setImageDescriptor(ReviewPlugin.createImageDescriptor("lib/icons/add.gif"));
+    
+    ADD.setImageDescriptor(ReviewPlugin.createImageDescriptor("icons/add.gif"));
     DELETE = new Action() {
       public void run() {
         ReviewTableView view = ReviewTableView.getActiveView();
@@ -494,7 +495,7 @@ public class ReviewTableViewAction {
     DELETE.setText(ReviewI18n.getString(deleteLabelKey));
     String deleteToolTipKey = "ReviewTableViewAction.toolTip.delete";
     DELETE.setToolTipText(ReviewI18n.getString(deleteToolTipKey));
-    DELETE.setImageDescriptor(ReviewPlugin.createImageDescriptor("lib/icons/remove.gif"));
+    DELETE.setImageDescriptor(ReviewPlugin.createImageDescriptor("icons/remove.gif"));
     PROPERTY_SETTING = new Action() {
       public void run() {
         ReviewModel reviewModel = ReviewModel.getInstance();
@@ -527,7 +528,7 @@ public class ReviewTableViewAction {
         String propertyTitleKey = "ReviewTableViewAction.label.property.title";
         String propertyTitle = ReviewI18n.getString(propertyTitleKey);
         reviewPropertyPage.setTitle(propertyTitle);
-        String propertyId = "csdl.jupiter.ui.property.ReviewPropertyPage";
+        String propertyId = "edu.hawaii.ics.csdl.jupiter.ui.property.ReviewPropertyPage";
         PreferenceNode node = new PreferenceNode(propertyId, reviewPropertyPage);
         pageManager.addToRoot(node);
         IStructuredSelection selection = new StructuredSelection(project);
@@ -546,7 +547,7 @@ public class ReviewTableViewAction {
     PROPERTY_SETTING.setText(ReviewI18n.getString(configLabelKey));
     String configToolTipKey = "ReviewTableViewAction.toolTip.property";
     PROPERTY_SETTING.setToolTipText(ReviewI18n.getString(configToolTipKey));
-    String reviewIdConfigIconPath = "lib/icons/property_config.gif";
+    String reviewIdConfigIconPath = "icons/property_config.gif";
     PROPERTY_SETTING.setImageDescriptor(ReviewPlugin.createImageDescriptor(reviewIdConfigIconPath));
   }
 

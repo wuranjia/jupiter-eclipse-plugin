@@ -51,7 +51,7 @@ public class ReviewIdNewWizard extends Wizard implements INewWizard {
   private ReviewIdNewItemEntriesPage itemEntriesPage;
   private ReviewIdNewStoragePage storagePage;
   private ReviewIdNewFilterPage filterPage;
-  private static final String IMAGE_PATH = "lib/icons/review_id_config_wiz.gif";
+  private static final String IMAGE_PATH = "icons/review_id_config_wiz.gif";
   private IProject project;
   private IWorkbench workbench;
   

@@ -66,15 +66,14 @@ public class PrefXmlSerializer {
     try {
       // The preference file will not exist when deploying Jupiter inside Eclipse. 
       // For debugging purpose, we supply a default preference.xml file located in lib directory.
-      if (!stateLocationXmlFile.exists()) {
-	     String location = plugin.getBundle().getLocation();
-	     String pluginPath = location.substring(location.indexOf("@") + 1);
-	     File defaultPreferenceFile = new File(pluginPath + File.separator + "lib" + 
-	    		 File.separator +PREFERENCE_XML_FILE);
-	     if (defaultPreferenceFile.exists()) {
-	    	copy(defaultPreferenceFile, stateLocationXmlFile);
-	     }
-	  }
+//      if (!stateLocationXmlFile.exists()) {
+//	     String location = plugin.getBundle().getLocation();
+//	     String pluginPath = location.substring(location.indexOf("@") + 1);
+//	     File defaultPreferenceFile = new File(pluginPath + File.separator + PREFERENCE_XML_FILE);
+//	     if (defaultPreferenceFile.exists()) {
+//	    	copy(defaultPreferenceFile, stateLocationXmlFile);
+//	     }
+//	    }
 
       if (!stateLocationXmlFile.exists()) {
          URL xmlUrl = FileLocator.toFileURL(new URL(pluginUrl, PREFERENCE_XML_FILE));

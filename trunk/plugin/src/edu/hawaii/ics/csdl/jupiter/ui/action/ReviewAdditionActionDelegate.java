@@ -133,6 +133,7 @@ public class ReviewAdditionActionDelegate implements IEditorActionDelegate {
       editorView.setFocus();
     }
     catch (ReviewException e) {
+      e.printStackTrace();
      log.debug(e.getMessage());
     }
     int type = ReviewEvent.TYPE_COMMAND;

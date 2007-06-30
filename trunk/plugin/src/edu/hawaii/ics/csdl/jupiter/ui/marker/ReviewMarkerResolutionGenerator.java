@@ -30,7 +30,7 @@ import edu.hawaii.ics.csdl.jupiter.util.JupiterLogger;
 public class ReviewMarkerResolutionGenerator implements IMarkerResolutionGenerator, 
                                                         IMarkerResolutionGenerator2 {
   private static final Image MARKER = ReviewPlugin
-                              .createImageDescriptor("lib/icons/review_marker.gif").createImage();
+                              .createImageDescriptor("icons/review_marker.gif").createImage();
   private static final IMarkerResolution[] NO_RESOLUTIONS = new IMarkerResolution[0];
   /** Jupiter logger */
   private JupiterLogger log = JupiterLogger.getLogger();

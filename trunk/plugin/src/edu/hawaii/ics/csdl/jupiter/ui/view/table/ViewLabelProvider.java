@@ -168,7 +168,7 @@ class ViewLabelProvider extends LabelProvider implements ITableLabelProvider {
     }
     try {
       URL url = ReviewPlugin.getInstance().getInstallURL();
-      url = new URL(url, "lib/icons/link.gif");
+      url = new URL(url, "icons/link.gif");
       IJavaElement[] javaElements = new IJavaElement[] {javaProject};
       boolean isTargetIFileAvailable = (targetIFile != null) ? targetIFile.exists() : false;
       if (linkImage == null) {

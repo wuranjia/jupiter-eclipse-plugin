@@ -201,7 +201,7 @@
 			<fileset dir="${build.result.folder}" includes="jupiter.jar" excludes="lib/icons/,lib/.svn/,icons/.svn/,META-INF/.svn/"			/>
 		</copy>
 		<copy todir="${destination.temp.folder}/edu.hawaii.ics.csdl.jupiter_3.2.1" failonerror="true" overwrite="false">
-			<fileset dir="${basedir}" includes="plugin.xml,META-INF/,icons/,lib/,lib/jdom.jar,property.xml,jupiter.jar" excludes="lib/icons/,lib/.svn/,icons/.svn/,META-INF/.svn/"			/>
+			<fileset dir="${basedir}" includes="plugin.xml,META-INF/,icons/,lib/,lib/jdom.jar,property.xml,jupiter.jar,plugin.properties,preference.xml,plugin_ja.properties" excludes="lib/icons/,lib/.svn/,icons/.svn/,META-INF/.svn/"			/>
 		</copy>
 	</target>
 
