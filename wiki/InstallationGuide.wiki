@@ -26,9 +26,7 @@ University of Hawaii
 == Installing Jupiter Using the Jupiter Update Site ==
 The best way to install Jupiter is to use the Software Update mechanism in Eclipse. This feature enables you to install or update Jupiter easily when updates to the package occur.
 
-Select "Help | Software Updates | Find and Install..", check " Search for new features to install", and then add update site, clicking on the "Add Update Site" button. Provide a name such as "Jupiter Update Server" and use the URL ~~ http://csdl.ics.hawaii.edu/Tools/Jupiter/Download ~~.
-
-*PLEASE NOTE THAT WE ARE IN THE PROCESS OF CREATING A NEW UPDATE SITE FOR POST 3.2.1 VERSIONS.*
+Select "Help | Software Updates | Find and Install..", check " Search for new features to install", and then add update site, clicking on the "Add Update Site" button. Provide a name such as "Jupiter Update Server" and use the URL http://jupiter-eclipse-plugin.googlecode.com/svn/trunk/update/.
 
 [http://jupiter-eclipse-plugin.googlecode.com/svn/trunk/doc/images/NewSite.jpg]
 
@@ -58,6 +56,7 @@ To unistall Jupiter plug-in, please follow the instrcutions carefully.  Otherwis
  # Select the "Disable" link to follow the instrcution, and restart your Eclipse. 
  # Select "Help | Software Updates | Manage Configuration...", click "Show disable features" button in the third icon from the left of the main icon bar in order to see the disable Jupiter plug-in. 
  # Select it and "Unistall" link to follow the instrcution, and restart your Eclipse.
+
 
 
 
