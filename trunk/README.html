@@ -41,11 +41,6 @@
       description of how to build the Jupiter plug-in.</font></td>
   </tr>
   <tr> 
-    <td><font face="Verdana, Arial, Helvetica, sans-serif"><a href="#invocation">Invocation</a></font></td>
-    <td><font face="Verdana, Arial, Helvetica, sans-serif">Provides the basic 
-      usage of the Jupiter plug-in development. </font></td>
-  </tr>
-  <tr> 
     <td><font face="Verdana, Arial, Helvetica, sans-serif"><a href="#userdoc">User 
       Documentation</a></font></td>
     <td><font face="Verdana, Arial, Helvetica, sans-serif">Provides a detail description 
@@ -83,304 +78,102 @@
       </ul>
   <tr> 
     <td align="center"><font face="Verdana, Arial, Helvetica, sans-serif">./feature</font> 
-    <td><font face="Verdana, Arial, Helvetica, sans-serif">Contains data files 
-      used to build and/or run the system: </font> <ul>
-        <li><font face="Verdana, Arial, Helvetica, sans-serif"><a href="lib/ant">ant/</a> 
-          contains the optional taskdefs needed for supplemental tasks.&nbsp;</font></li>
-        <li><font face="Verdana, Arial, Helvetica, sans-serif"><a href="lib/checkstyle">checkstyle/</a>&nbsp; 
-          contains the checkstyle.xml file</font></li>
-        <li><a href="lib/csdl"><font face="Verdana, Arial, Helvetica, sans-serif">csdl/</font></a><font face="Verdana, Arial, Helvetica, sans-serif"> 
-          contains the Welcome.html page for the Jupiter web site.</font></li>
-        <li><font face="Verdana, Arial, Helvetica, sans-serif"><a href="lib/jar">jar/</a> 
-          contains the jar files need to compile the system</font></li>
-        <li><a href="lib/log4j"><font face="Verdana, Arial, Helvetica, sans-serif">log4j/</font></a><font face="Verdana, Arial, Helvetica, sans-serif"> 
-          contains the property file for the log4j, which is used in Jupiter plug-in</font></li>
-        <li><font face="Verdana, Arial, Helvetica, sans-serif"><a href="lib/update">update/</a> 
-          contains the files for the update manger strucuture.</font></li>
+    <td><font face="Verdana, Arial, Helvetica, sans-serif">Contains files to
+      build an Eclipse feature for Jupiter.&nbsp;&nbsp;&nbsp; </font> <ul>
+        <li><font face="Verdana, Arial, Helvetica, sans-serif">feature.xml A
+          feature configuration file for Jupiter.&nbsp;</font></li>
       </ul>
   <tr> 
     <td align="center"><font face="Verdana, Arial, Helvetica, sans-serif">./plugin</font> 
-    <td><font face="Verdana, Arial, Helvetica, sans-serif">Contains developer 
-      documentation including:</font>
+    <td><font face="Verdana, Arial, Helvetica, sans-serif">Contains files to
+      build Jupiter Eclipse plugin.&nbsp;&nbsp;</font>
       <ul>
-        <li><font face="Verdana, Arial, Helvetica, sans-serif"><a href="doc/History.html">History.html</a> 
-          provides a chronological record of the releases of this system</font></li>
-        <li><a href="doc/InstallationGuide.html"><font face="Verdana, Arial, Helvetica, sans-serif">InstallationGuide.html</font></a><font face="Verdana, Arial, Helvetica, sans-serif"> 
-          provides the installation guide for the zip-based Jupiter plug-in package</font></li>
-        <li><font face="Verdana, Arial, Helvetica, sans-serif"><a href="doc/UsersGuide.html">UsersGuide.html</a> 
-          provides the user's guide for the Jupiter plug-in</font></li>
+        <li><font face="Verdana, Arial, Helvetica, sans-serif">plugin.xml A
+          plugin configuration file for Jupiter.</font></li>
+        <li><font face="Verdana, Arial, Helvetica, sans-serif">plugin.properties
+          A resource file for plugin.xml</font></li>
+        <li><font face="Verdana, Arial, Helvetica, sans-serif">build.properties
+          A build configuration file Jupiter Eclipse plugin.&nbsp;&nbsp;</font></li>
+        <li><font face="Verdana, Arial, Helvetica, sans-serif">.project An
+          eclipse project definition file for Jupiter.&nbsp;</font></li>
+        <li><font face="Verdana, Arial, Helvetica, sans-serif">src/ Sources of
+          Jupiter</font></li>
       </ul>
   </tr>
   <tr> 
-    <td align="center"><font face="Verdana, Arial, Helvetica, sans-serif">./site</font> 
-    <td><font face="Verdana, Arial, Helvetica, sans-serif">Contains the source 
-      files. </font> 
-  <tr> 
-    <td align="center"><font face="Verdana, Arial, Helvetica, sans-serif">./build</font> 
-    <td><font face="Verdana, Arial, Helvetica, sans-serif">Contains various products 
-      of the build process, including: </font> 
+    <td align="center">&nbsp;
+      <p><font face="Verdana, Arial, Helvetica, sans-serif">./site</font> 
+    <td><font face="Verdana, Arial, Helvetica, sans-serif">Contain update site
+      definition for Jupiter.</font>
       <ul>
-        <li><font face="Verdana, Arial, Helvetica, sans-serif"><a href="build/javadoc/index.html">javadoc</a>/: 
-          Contains javadoc API information, created by 'ant javadoc'.</font></li>
-        <li><font face="Verdana, Arial, Helvetica, sans-serif"><a href="build/locc">locc</a>/: 
-          Contains size data on the system, created by 'ant locc'</font></li>
-        <li><font face="Verdana, Arial, Helvetica, sans-serif"><a href="build/junit/index.html">junit</a>/: 
-          Contains output from the JUnit tests, created by 'ant test'</font></li>
-        <li><font face="Verdana, Arial, Helvetica, sans-serif"><a href="build/java2html/index.html">java2html:</a>/ 
-          Contains HTML version of the source code, created by 'ant java2html'</font></li>
-        <li><font face="Verdana, Arial, Helvetica, sans-serif"><a href="build/dist/">dist</a>/ 
-          Contains any distributions built during development.</font></li>
+        <li><font face="Verdana, Arial, Helvetica, sans-serif">site.xml The
+          configuration file of Jupiter's update site.</font></li>
+        <li><font face="Verdana, Arial, Helvetica, sans-serif">index.html An
+          introduction to the update site.</font></li>
+        <li><font face="Verdana, Arial, Helvetica, sans-serif">features/ Archive
+          file of Jupiter's feature.</font></li>
+        <li><font face="Verdana, Arial, Helvetica, sans-serif">plugin/ Archive
+          file of Jupiter's plugin.&nbsp;</font></li>
       </ul>
-      <p><font face="Verdana, Arial, Helvetica, sans-serif">These links won't 
-        work until their corresponding ant target has been executed. </font> 
 </table>
 <font face="Verdana, Arial, Helvetica, sans-serif"><a name="installation"></a></font> 
 <h2><font face="Verdana, Arial, Helvetica, sans-serif">B. Installation</font></h2>
 <p><font face="Verdana, Arial, Helvetica, sans-serif">These instructions assume 
-  that you have unzipped the zip file containing this system to create a directory 
-  containing the system components. A note to Unix users: due to a bug in java.util.zip, 
-  the directory permissions are munged if you unzip in Unix, and you won't be 
-  able to cd into interior directories.&nbsp; To fix this, invoke the following 
-  from the parent directory of this system: chmod -R a+x &lt;system directory&gt;.&nbsp;</font></p>
+  that you have checked out Jupiter from the SVN repository at:</font></p>
+<p><font face="Verdana, Arial, Helvetica, sans-serif"># Project members authenticate over HTTPS to allow committing changes.<br>
+svn checkout https://hackystat-sensor-eclipse.googlecode.com/svn/trunk/
+hackystat-sensor-eclipse --username &lt;your account&gt;</font></p>
+<p><font face="Verdana, Arial, Helvetica, sans-serif"># Non-members may check out a read-only working copy anonymously over
+HTTP.<br>
+svn checkout http://hackystat-sensor-eclipse.googlecode.com/svn/trunk/ hackystat-sensor-eclipse</font></p>
 <ol>
   <li><font face="Verdana, Arial, Helvetica, sans-serif"><b>Download and install 
-    the Java SDK version 1.4 or above.&nbsp;&nbsp;</b></font></li>
+    the Java SDK version 1.5 or above.&nbsp;&nbsp;</b></font></li>
   <ul>
     <li><font face="Verdana, Arial, Helvetica, sans-serif">The canonical site 
       for obtaining Java SDKs is <a href="http://java.sun.com/">http://java.sun.com/</a>.<br>
       &nbsp;&nbsp; </font> 
   </ul>
-  <li><font face="Verdana, Arial, Helvetica, sans-serif"><b>Set the JAVA_HOME 
-    environment variable to the top-level directory of the Java SDK.&nbsp;</b></font></li>
+  <li><font face="Verdana, Arial, Helvetica, sans-serif"><b>Download and install
+    Eclipse 3.2</b></font><font face="Verdana, Arial, Helvetica, sans-serif"><b>.&nbsp;</b></font></li>
   <ul>
-    <li><font face="Verdana, Arial, Helvetica, sans-serif">The procedure for setting 
-      environment variables is different on Windows, Mac, and Unix; consult your 
-      sysadmin or google if you do not know how to set environment variables.&nbsp; 
-      </font> 
-    <li><font face="Verdana, Arial, Helvetica, sans-serif">An example value for 
-      JAVA_HOME on a windows environment is: c:\jdk1.4.2.<br>
-      &nbsp;&nbsp; </font> 
+    <li><font face="Verdana, Arial, Helvetica, sans-serif">Eclipse's Download
+      site: http://www.eclipse.org/downloads/</font><font face="Verdana, Arial, Helvetica, sans-serif">&nbsp;<br>
+      &nbsp;&nbsp;</font> 
   </ul>
   <li><font face="Verdana, Arial, Helvetica, sans-serif"><b>Download and install 
     Ant 1.5.4 or above.</b></font></li>
   <ul>
     <li><font face="Verdana, Arial, Helvetica, sans-serif"> The canonical site 
-      for obtaining Ant is <a href="http://ant.apache.org/">http://ant.apache.org/</a>.&nbsp;<br>
-      &nbsp; </font> 
+      for obtaining Ant is <a href="http://ant.apache.org/">http://ant.apache.org/</a>. </font> 
   </ul>
-  <li><font face="Verdana, Arial, Helvetica, sans-serif"><b>Set the ANT_HOME environment 
-    variable and add the Ant scripts to your path.</b> </font> 
+  <li>&nbsp;<font face="Verdana, Arial, Helvetica, sans-serif"><b>Open projects
+    of Jupiter</b></font>
     <ul>
-      <li><font face="Verdana, Arial, Helvetica, sans-serif"> Define the ANT_HOME 
-        environment variable An example value is c:\apache-ant-1.5.4.&nbsp; </font> 
-      <li><font face="Verdana, Arial, Helvetica, sans-serif"> Add the &lt;ANT_HOME&gt;/bin 
-        directory to your PATH variable.&nbsp; For details, see the Ant installation 
-        instructions.<br>
-        &nbsp;&nbsp; </font> 
+      <li><font face="Verdana, Arial, Helvetica, sans-serif">jupiter-eclipse-site</font></li>
+      <li><font face="Verdana, Arial, Helvetica, sans-serif">jupiter-eclipse-plugin</font></li>
+      <li><font face="Verdana, Arial, Helvetica, sans-serif">jupiter-eclipse-feature</font></li>
     </ul>
-  <li><font face="Verdana, Arial, Helvetica, sans-serif"><b>Add additional libraries 
-    to your Ant installation by invoking 'ant updateAntLib'.&nbsp;</b></font></li>
-  <ul>
-    <li><font face="Verdana, Arial, Helvetica, sans-serif"> This copies files 
-      from the lib/ant directory (and junit.jar) to ANT_HOME/lib and thus makes 
-      additional tasks available.<br>
-      &nbsp;&nbsp; </font> 
-  </ul>
-  <li><font face="Verdana, Arial, Helvetica, sans-serif"><b>Download and install 
-    Tomcat 4.1.x Light Edition (<font color="#FF0000"><strike>not Tomcat 5.x</strike></font>).</b> </font> 
+    <p>&nbsp;</li>
+  <li><font face="Verdana, Arial, Helvetica, sans-serif"><b>Build Jupiter&nbsp;</b></font>
     <ul>
-      <li><font face="Verdana, Arial, Helvetica, sans-serif">Define the CATALINA_HOME 
-        environment variable. An example value is c:\jakarta-tomcat-4.1.24-LE-jdk14 
-        </font> 
-      <li><font face="Verdana, Arial, Helvetica, sans-serif">Use the light edition 
-        (LE) because we are using JDK 1.4 and above. </font> 
-      <li><font face="Verdana, Arial, Helvetica, sans-serif">It is usually convenient 
-        to add &lt;tomcat&gt;/bin to your PATH variable.<br>
-        &nbsp;&nbsp; </font> 
+      <li><font face="Verdana, Arial, Helvetica, sans-serif">Locate project
+        jupiter-eclipse-site</font></li>
+      <li><font face="Verdana, Arial, Helvetica, sans-serif">Open site.xml&nbsp;&nbsp;</font></li>
+      <li><font face="Verdana, Arial, Helvetica, sans-serif">Click build</font></li>
     </ul>
-  <li><font face="Verdana, Arial, Helvetica, sans-serif"><b>Edit the &lt;tomcat&gt;/conf/tomcat-users.xml 
-    file to include an &quot;jupiter&quot; user with a password.</b> </font> 
-    <ul>
-      <li><font face="Verdana, Arial, Helvetica, sans-serif"> This is needed to 
-        provide Ant-based access to the Tomcat Manager application. </font> 
-      <li><font face="Verdana, Arial, Helvetica, sans-serif"> An example tomcat-users.xml 
-        file is provided in <a href="sample.tomcat-users.xml">sample.tomcat-users.xml</a>. 
-        </font> 
-      <li><font face="Verdana, Arial, Helvetica, sans-serif"> If you change the 
-        password or account name, update the build.xml properties appropriately.</font><font face="Verdana, Arial, Helvetica, sans-serif"><br>
-        &nbsp;&nbsp; </font> 
-    </ul>
-  <li><font face="Verdana, Arial, Helvetica, sans-serif"><b>Bring up Tomcat using 
-    its startup script by typing &quot;startup&quot;.<br>
-    &nbsp;&nbsp;</b> </font> 
-  <li><font face="Verdana, Arial, Helvetica, sans-serif"><b>Invoke 'ant checkTomcat'.</b> 
-    </font> 
-    <ul>
-      <li><font face="Verdana, Arial, Helvetica, sans-serif"> This checks that 
-        you have Tomcat running and that Ant can access the Tomcat Manager application. 
-        </font> 
-      <li><font face="Verdana, Arial, Helvetica, sans-serif"> Example output is: 
-        </font> 
-        <pre><font face="Verdana, Arial, Helvetica, sans-serif">c:\josse\sitewatch&gt;ant checkTomcat
-Buildfile: build.xml
-
-init:
-
-checkTomcat:
-      [get] Getting: http://localhost:8080//manager/list
-   [delete] Deleting: c:\josse\sitewatch\list-results.tmp
-     [echo] Tomcat and its management interface contacted successfully.
-
-BUILD SUCCESSFUL
-Total time: 4 seconds</font></pre>
-    </ul>
-  <li><font face="Verdana, Arial, Helvetica, sans-serif"><b>Invoke 'ant'</b> </font> 
-    <ul>
-      <li><font face="Verdana, Arial, Helvetica, sans-serif"> This command checks 
-        the source style, compiles the system, builds the war directory, and installs 
-        it as a web application on the Tomcat server. </font> 
-      <li><font face="Verdana, Arial, Helvetica, sans-serif"> Example output is: 
-        </font> 
-        <pre><font face="Verdana, Arial, Helvetica, sans-serif">
-c:\josse\sitewatch&gt;ant
-Buildfile: build.xml
-
-init:
-
-checkTomcat:
-      [get] Getting: http://localhost:8080//manager/list
-   [delete] Deleting: F:\java\josse\sitewatch-ewalu\list-results.tmp
-     [echo] Tomcat and its management interface contacted successfully.
-
-checkstyle:
-
-compile:
-    [javac] Compiling 1 source file to F:\java\josse\sitewatch-ewalu\build\war\WEB-INF\cla
-sses
- [jblanket] JBlanket disabled; no files modified.
-
-install:
-     [copy] Copying 1 file to F:\java\josse\sitewatch-ewalu\build\war
-
-removeSiteWatch:
-      [get] Getting: http://localhost:8080//manager/remove?path=/sitewatch
-     [echo] FAIL - No context exists for path /sitewatch
-   [delete] Deleting: F:\java\josse\sitewatch-ewalu\remove-results.tmp
-
-installSiteWatch:
-      [get] Getting: http://localhost:8080//manager/install?path=/sitewatch&amp;war=file://F:\
-java\josse\sitewatch-ewalu\build/war
-     [echo] OK - Installed application at context path /sitewatch
-   [delete] Deleting: F:\java\josse\sitewatch-ewalu\install-results.tmp
-
-default:
-
-BUILD SUCCESSFUL
-Total time: 27 seconds
-c:\josse\sitewatch&gt;</font></pre>
-    </ul>
-  <li> <font face="Verdana, Arial, Helvetica, sans-serif"><b>Invoke 'ant junit'.</b> 
-    </font> 
-    <ul>
-      <li><font face="Verdana, Arial, Helvetica, sans-serif"> This runs the httpunit 
-        tests on the sitewatch web application. </font> 
-      <li><font face="Verdana, Arial, Helvetica, sans-serif"> Example output is: 
-        </font> 
-        <pre><font face="Verdana, Arial, Helvetica, sans-serif">
-c:\josse\sitewatch&gt;ant junit
-Buildfile: build.xml
-
-init:
-
-checkstyle:
-
-compile:
- [jblanket] JBlanket disabled; no files modified.
-
-junit:
-    [junit] Running edu.hawaii.sitewatch.control.command.user.TestCheckLoginTag
-    [junit] Tests run: 1, Failures: 0, Errors: 0, Time elapsed: 28.561 sec
-    [junit] Running edu.hawaii.sitewatch.control.command.user.TestRegisterCommand
-    [junit] Tests run: 2, Failures: 0, Errors: 0, Time elapsed: 26.077 sec
-    [junit] Running edu.hawaii.sitewatch.control.command.user.TestLoginCommand
-    [junit] Tests run: 1, Failures: 0, Errors: 0, Time elapsed: 6.42 sec
-    [junit] Running edu.hawaii.sitewatch.control.command.TestLinkShepard
-    [junit] Tests run: 3, Failures: 0, Errors: 0, Time elapsed: 6.659 sec
-    [junit] Running edu.hawaii.sitewatch.model.user.TestUser
-    [junit] Tests run: 2, Failures: 0, Errors: 0, Time elapsed: 4.796 sec
-    [junit] Running edu.hawaii.sitewatch.model.user.TestUsers
-    [junit] Tests run: 2, Failures: 0, Errors: 0, Time elapsed: 1.712 sec
-[junitreport] Using Xalan version: Xalan Java 2.2.D11
-[junitreport] Transform time: 5829ms
-     [echo] JUnit results in F:\java\josse\sitewatch-ewalu\build\junit/index.html
-
-BUILD SUCCESSFUL
-Total time: 1 minute 44 seconds
-c:\josse\sitewatch&gt;
-  </font></pre>
-    </ul>
-  <li><font face="Verdana, Arial, Helvetica, sans-serif"><b>Manually fiddle around 
-    with the web application.</b> </font> 
-    <ul>
-      <li><font face="Verdana, Arial, Helvetica, sans-serif"> Get there by going 
-        to <a href="http://localhost:8080/sitewatch/">http://localhost:8080/Jupiter/</a></font> 
-    </ul>
+    <p><font face="Verdana, Arial, Helvetica, sans-serif">The Eclipse PDE will
+    generate features and plugin in the jupiter-eclipse-site project. You can
+    commit the newly generated archive files to SVN repository to make a new
+    release of Jupiter.&nbsp;&nbsp;</font></li>
 </ol>
-<p>&nbsp;</p>
-<font face="Verdana, Arial, Helvetica, sans-serif"><a name="invocation"></a></font> 
-<h2><font face="Verdana, Arial, Helvetica, sans-serif">C. Invocation</font></h2>
-<font face="Verdana, Arial, Helvetica, sans-serif"> Using the Jupiter system involves 
-building it, deploying it to the Tomcat webserver webapps directory, starting 
-up Tomcat, and then viewing the Jupiter web site page in a browser: 
-<ul>
-  <li><font face="Verdana, Arial, Helvetica, sans-serif"> Change directory to 
-    the jupiter home directory. For e.g., c:\cvs\jupiter</font> 
-  <li><font face="Verdana, Arial, Helvetica, sans-serif"> Invoke 'startup' to 
-    start up Tomcat. </font> 
-  <li><font face="Verdana, Arial, Helvetica, sans-serif"> Invoke 'ant' to install 
-    the jupiter web site.</font> 
-  <li><font face="Verdana, Arial, Helvetica, sans-serif"> Visit the Welcome.html 
-    page. For a default Tomcat installation on the local host, this is located 
-    at: <A HREF="http://localhost:8080/Jupiter/Welcome.html">http://localhost:8080/Jupiter/Welcome.html.</A> 
-    </font> 
-  <li><font face="Verdana, Arial, Helvetica, sans-serif"> There are many functions 
-    that the Jupiter system provides. Please see the user documentation below. 
-    </font> 
-</ul>
-</font> <font face="Verdana, Arial, Helvetica, sans-serif"><a name="userdoc"></a></font> 
+<font face="Verdana, Arial, Helvetica, sans-serif"><a name="invocation"></a></font><font face="Verdana, Arial, Helvetica, sans-serif"><a name="userdoc"></a></font> 
 <h2><font face="Verdana, Arial, Helvetica, sans-serif">D. User documentation</font></h2>
-<p><font face="Verdana, Arial, Helvetica, sans-serif">See the <a href="doc/UsersGuide.html">User's 
-  Guide</a>.</font></p>
+<p><font face="Verdana, Arial, Helvetica, sans-serif">See the User's Guide at http://code.google.com/p/jupiter-eclipse-plugin/wiki/UserGuide</font></p>
 <font face="Verdana, Arial, Helvetica, sans-serif"><a name="developerdoc"></a></font> 
 <h2><font face="Verdana, Arial, Helvetica, sans-serif">E. Developer documentation</font></h2>
-<ul>
-  <li><font face="Verdana, Arial, Helvetica, sans-serif">The Jupiter build system 
-    is based on <A HREF="http://jakarta.apache.org/ant/">Jakarta Ant</A>. The 
-    <A HREF="build.xml">build.xml</A> file contains targets for compiling, building 
-    the JavaDocs, JUnit testing, and so forth. Invoke 'ant -projecthelp' for a 
-    complete list of targets.&nbsp; Some of the more helpful ones include: </font> 
-    <ul>
-      <li> <font face="Verdana, Arial, Helvetica, sans-serif"><b>compile</b>: 
-        compiles the code. </font> 
-      <li> <font face="Verdana, Arial, Helvetica, sans-serif"><b>dist</b>: creates 
-        a zip file containing a distribution of the system. </font> 
-      <li> <font face="Verdana, Arial, Helvetica, sans-serif"><b>locc</b>: counts 
-        the total size of the system </font> 
-      <li> <font face="Verdana, Arial, Helvetica, sans-serif"><b>javadoc</b>: 
-        creates the API design documentation </font> 
-      <li> <font face="Verdana, Arial, Helvetica, sans-serif"><b>junit</b>: runs 
-        all of the <a href="http://www.junit.org">JUnit</a> tests associated with 
-        this system. </font> 
-      <li> <font face="Verdana, Arial, Helvetica, sans-serif"><b>checkstyle</b>: 
-        checks the source code for comformance to various style conventions </font> 
-      <li> <font face="Verdana, Arial, Helvetica, sans-serif"><b>clean</b>: deletes 
-        the files created by the build process. </font> 
-      <li> <font face="Verdana, Arial, Helvetica, sans-serif"><b>java2html</b>: 
-        creates an HTML version of the source suitable for code reviews and browsing. 
-        </font> 
-    </ul>
-  </li>
-</ul>
+<p><font face="Verdana, Arial, Helvetica, sans-serif">See developer guide at
+http://code.google.com/p/jupiter-eclipse-plugin/wiki/DeveloperGuide</font></p>
 <font face="Verdana, Arial, Helvetica, sans-serif"><a name="contact"></a></font> 
 <h2><font face="Verdana, Arial, Helvetica, sans-serif">F. Contact information</font></h2>
 <p><font face="Verdana, Arial, Helvetica, sans-serif">If you would like to know 
@@ -390,19 +183,21 @@ up Tomcat, and then viewing the Jupiter web site page in a browser:
     <table width="100%" border="0">
       <tr>
         <td width="23%"><b>Home page:</b></td>
-        <td width="77%"><a href="http://csdl.ics.hawaii.edu/Tools/Jupiter/">http://csdl.ics.hawaii.edu/Tools/Jupiter/</a></td>
+        <td width="77%"><a href="http://csdl.ics.hawaii.edu/Tools/Jupiter/">http://code.google.com/p/jupiter-eclipse-plugin/</a></td>
       </tr>
       <tr>
         <td width="23%"><b>Developer contact:</b></td>
-        <td width="77%"><a href="http://csdl.ics.hawaii.edu/Members/TakuyaYamashita.html">Takuya Yamashita</a> (<a href="mailto:takuyay@hawaii.edu">takuyay@hawaii.edu</a>), Hongbing Kou (hongbing [at] hawaii [dot] edu)</td>
+        <td width="77%">Takuya Yamashita, Hongbing Kou
+          (hongbing@gmail.com), Julie <a href="mailto:Sakuda(jsakuda@gmail.com">Sakuda(jsakuda@gmail.com</a>),
+          Philip Johnson (johnson@hawaii.edu)</td>
       </tr>
       <tr>
-        <td width="23%"><b>CVS repository:</b></td>
-        <td width="77%">Available. Contact Philip Johnson (<a href="mailto:johnson@hawaii.edu">johnson@hawaii.edu</a>) for server and password.</td>
+        <td width="23%"><b>SVN repository:</b></td>
+        <td width="77%"><tt><b><i>http</i></b>://jupiter-eclipse-plugin.googlecode.com/svn/trunk/</tt></td>
       </tr>
       <tr>
         <td width="23%"><b>Mailing lists:</b></td>
-        <td width="77%">Available. Contact us to register your email.</td>
+        <td width="77%">http://groups.google.com/group/jupiter-users</td>
       </tr>
     </table>
   </li>
