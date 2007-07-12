@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <description url="index.html">
+      The Jupiter Update Site contains feature and plug-in versions for Juipter project releases.
+   </description>
+   <feature url="features/edu.hawaii.ics.csdl.jupiter_3.2.1.jar" id="edu.hawaii.ics.csdl.jupiter" version="3.2.1">
+      <category name="Jupiter"/>
+   </feature>
+   <archive path="plugins/edu.hawaii.ics.csdl.jupiter_3.2.1.jar" url="plugins/edu.hawaii.ics.csdl.jupiter_3.2.1.jar"/>
+   <category-def name="Jupiter" label="Jupiter for Eclipse">
+      <description>
+         This category contains the features of the Jupiter for Eclipse.
+      </description>
+   </category-def>
+</site>
