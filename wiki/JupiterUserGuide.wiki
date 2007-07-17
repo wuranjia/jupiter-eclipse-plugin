@@ -29,7 +29,7 @@ http://jupiter-eclipse-plugin.googlecode.com/svn/trunk/doc/images/JupiterThumbna
 == Why use a review tool? ==
 Why should you use a review tool? There are a few reasons:
 
- # Review can find many faults during requirements, design and coding;
+ # Reviews can find many faults during requirements, design and coding;
  # Early detection of errors can improve productivity;
  # Review helps members of the team learn about other parts of the system, and can increase their overall programming skill.
 Both review and testing are complementary and should be a part of a high quality software development process.  Many studies have shown the effectiveness of review for error detection:
@@ -39,12 +39,12 @@ Both review and testing are complementary and should be a part of a high quality
  * _"Weller (1993) examined data from three years of inspections at Bull Information Systems. Measurements from almost seven thousand inspection meeting included information about 11,557 faults and 14,677 pages of design documentation."_
           _Shari Lawrence Pfleeger, "Software Engineering : theory and practice", 2nd ed._
 
-While most forms of review will detect at least some errors, your overall effectiveness will vary depending upon your approach and objectives.  The goal of the Jupiter project is to provide a simple and convenient approach to code review for users of the Eclipse integrated development environment.
+While most forms of review will detect at least some errors, overall effectiveness will vary depending upon the approach and objectives.  The goal of the Jupiter project is to provide a simple and convenient approach to code review for users of the Eclipse integrated development environment.
 
 == Why use Jupiter? ==
 Some of the features of Jupiter include:
 
- # *open source* - Jupiter uses the CPL License.  As of Jupiter 3.3 it will carry the Apache 2.0 License.
+ # *open source* - Jupiter uses the CPL License.  As of June 2007 all new versions of Jupiter will carry the Apache 2.0 License.
  # *free* - Jupiter is distributed free of charge.
  # *IDE integration* - Jupiter is based upon the Eclipse plug-in architecture.
  # *Cross-platform* - Jupiter is available for all platforms supported by Eclipse.
