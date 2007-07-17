@@ -1,4 +1,4 @@
-#summary Explains the meanings and usage of the types, severities, and resolution option.
+#summary Explains the meanings and usage of the types, severities, and resolution options.
 
 = Item Reference =
 [http://csdl.ics.hawaii.edu/Members/TakuyaYamashita.html Takuya Yamashita] [http://csdl.ics.hawaii.edu/~hongbing Hongbing Kou]
@@ -27,7 +27,7 @@ Each issue has five different status. The following is the typical story to use 
 
  # A review issue is open when reviewers post it to Jupiter in the individual phase (Open status).
  # An assigned person finishes fixing the issue in the rework phase (Resolved status).
- # The person (team leader, or manager) verifies or approves the resolved issue and close it (Closed status).
+ # The person (team leader, or manager) verifies or approves the resolved issue and closes it (Closed status).
  # The person (team leader, manager, or anybody) finds the issue (or related problem) takes place again (Reopened status).
 
 = Type =
@@ -89,5 +89,4 @@ Each issue has five different status. The following is the typical story to use 
  * *Resolved* - The review issue was resolved.
  * *Closed* - The resolved review issue was closed (approved).
  * *Reopened* - The closed review issue was reopened (had problem again).
-
 
