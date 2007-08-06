@@ -16,7 +16,7 @@ import java.util.ResourceBundle;
  */
 public class ReviewI18n {
   /** the resource bundle file name */
-  private static final String RESOURCE_BUNDLE = "edu.hawaii.ics.csdl.jupiter.message";
+  private static final String RESOURCE_BUNDLE = "jupiter";
   /** the resource bundle instance. */
   private static ResourceBundle bundle = ResourceBundle.getBundle(RESOURCE_BUNDLE);
   /** the value-key map.*/

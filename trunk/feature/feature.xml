@@ -15,7 +15,7 @@
    </license>
 
    <url>
-      <discovery label="Jupiter at Google Code Hosting" url="http://code.google.com/p/jupiter-eclipse-plugin/update"/>
+      <discovery label="Jupiter at Google Code Hosting" url="http://jupiter-eclipse-plugin.googlecode.com/svn/trunk/site/"/>
    </url>
 
    <plugin
