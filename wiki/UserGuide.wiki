@@ -1,0 +1,21 @@
+#summary Jupiter User's Guide.
+
+_This guide assumes that the user is familiar with the Eclipse IDE. _
+
+= 1.0 Introduction =
+= 2.0 Installation =
+== 2.1 Prerequisites ==
+
+Jupiter requires Java 5 or newer and Eclipse 3.3 (Europa) or newer.
+
+== 2.2 Installing Jupiter from the Jupiter Update Site ==
+== 2.3 Installing Jupiter from downloaded zip file ==
+== 2.4 Uninstallation ==
+= 3.0 Configuring a Jupiter Review ID =
+= 4.0 Jupiter Review Phases  =
+== 4.1 Individual Review Phase ==
+== 4.2 Team Review Phase ==
+== 4.3 Rework Phase ==
+= 5.0 Legacy Support =
+
+If you require Jupiter for Eclipse 3.2.x you can get it at http://jupiter-eclipse-plugin.googlecode.com/files/csdl.jupiter_3.2.1.zip.  It only requires Java 1.4.
