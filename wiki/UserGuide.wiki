@@ -3,14 +3,41 @@
 _This guide assumes that the user is familiar with the Eclipse IDE. _
 
 = 1.0 Introduction =
+Jupiter is an open-source code review tool that has been developed for a very popular IDE called [http://www.eclipse.org Eclipse].  Jupiter easily plugs into Eclipse and allows for its users to faciliate code reviews on existing code.
+
 = 2.0 Installation =
 == 2.1 Prerequisites ==
 
 Jupiter requires Java 5 or newer and Eclipse 3.3 (Europa) or newer.
 
 == 2.2 Installing Jupiter from the Jupiter Update Site ==
+
+The best way to install Jupiter is by using the Software Update mechanism in Eclipse. This feature enables you to install or update Jupiter easily when new versions are released.
+
+Select "Help | Software Updates | Find and Install..", select the "Search for new features to install" option, and then add the update site by clicking on the "Add Update Site" button. Provide a name such as "Jupiter Update Server" and use the URL http://jupiter-eclipse-plugin.googlecode.com/svn/trunk/site/.
+
+Check the newly created Jupiter site, then follow the wizards to complete the installation process.
+
 == 2.3 Installing Jupiter from downloaded zip file ==
+
+Get the latest Jupiter release from http://code.google.com/p/jupiter-eclipse-plugin/downloads/list.  You should get a jar file with a name similar to {{{edu.hawaii.ics.csdl.jupiter_<version>.jar}}}.
+
+Place the downloaded jar file in your eclipse/plugins directory.
+
+Jupiter will be available the next time Eclipse starts up.
+
 == 2.4 Uninstallation ==
+
+To unistall the Jupiter plug-in, please follow the instructions carefully. Otherwise errors may occur (these errors will be shown in the error log of Eclipse).
+
+ #. Make sure all Jupiter related extensions are closed:
+   #. Close Jupiter view by unchecking "Jupiter" in the "Window | Customize Perspective | Window > Show View ".
+   #. Close Jupiter action button by unchecking "Jupiter" in the "Window | Customize Perspective | Other". 
+ #. Select "Help | Software Updates | Manage Configuration...", click the installed "Jupiter Feature..." by traversing "Eclipse Platform | file:...".
+ #. Select the "Disable" link and follow the instructions then restart Eclipse.
+ #. Select "Help | Software Updates | Manage Configuration...", click "Show disabled features" button in the third icon from the left of the main icon bar in order to see the disabled Jupiter plug-in.
+ #. Select the disabled Jupiter plug-in and click the "Uninstall" link, follow the given instructions, and restart Eclipse. 
+
 = 3.0 Preparing a Review: Review ID Creation =
 = 4.0 Conducting a Review: Individual -> Team -> Rework =
 = 5.0 Legacy Support =
