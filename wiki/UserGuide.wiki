@@ -39,6 +39,12 @@ To unistall the Jupiter plug-in, please follow the instructions carefully. Other
  #. Select the disabled Jupiter plug-in and click the "Uninstall" link, follow the given instructions, and restart Eclipse. 
 
 = 3.0 Preparing a Review: Review ID Creation =
+
+ #. Right-click on the project that will be reviewed and select 'Properties'.  
+ #. The Properties dialog will appear and you will see a 'Review' option in the list.  Select the 'Review' option.
+ #. A table of all the Review IDs available will be shown along with buttons on the right.  Select the 'New...' button to create a new Review ID.
+ #. After 'New...' is pressed, a wizard will appear.  The wizard will walk you through the creation of the Review ID.  Two basic things that the wizard allows you to do are configure the files that should be reviewed and define a set of reviewers.
+
 = 4.0 Conducting a Review: Individual -> Team -> Rework =
 = 5.0 Legacy Support =
 
