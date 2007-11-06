@@ -18,7 +18,7 @@ Select "Help | Software Updates | Find and Install..", select the "Search for ne
 
 Check the newly created Jupiter site, then follow the wizards to complete the installation process.
 
-== 2.3 Installing Jupiter from downloaded zip file ==
+== 2.3 Installing Jupiter from downloaded jar file ==
 
 Get the latest Jupiter release from http://code.google.com/p/jupiter-eclipse-plugin/downloads/list.  You should get a jar file with a name similar to {{{edu.hawaii.ics.csdl.jupiter_<version>.jar}}}.
 
