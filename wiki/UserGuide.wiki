@@ -1,4 +1,5 @@
 #summary Jupiter User's Guide.
+#labels Featured
 
 _This guide assumes that the user is familiar with the Eclipse IDE. _
 
