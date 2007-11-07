@@ -1,4 +1,5 @@
 #summary The rework phase in Jupiter.
+#labels Deprecated
 
 = Jupiter's Rework Phase =
 [http://csdl.ics.hawaii.edu/Members/TakuyaYamashita.html Takuya Yamashita] [http://csdl.ics.hawaii.edu/~hongbing Hongbing Kou]
