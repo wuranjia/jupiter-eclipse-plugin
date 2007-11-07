@@ -1,4 +1,5 @@
 #summary Jupiter's Review Perspective in the Eclipse IDE
+#labels Deprecated
 
 = Review Perspective =
 [http://csdl.ics.hawaii.edu/Members/TakuyaYamashita.html Takuya Yamashita] [http://csdl.ics.hawaii.edu/~hongbing Hongbing Kou]
@@ -32,6 +33,4 @@ The Jupiter plugin provides a new perspective called "Review".  You can open the
  * *Phase section* - Provides the selection of the review phases which are individual, team, and rework phase.  The phase selection icons are located in the main tool bar and the review table's tool bar.  The item categories (columns) in the review table and the tab in the review editor will be changed corresponding to the phase selection.  This will optimize the review for each review stage.
 
 [http://jupiter-eclipse-plugin.googlecode.com/svn/trunk/doc/images/JupiterFeature.jpg]
-
-
 
