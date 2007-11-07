@@ -1,4 +1,5 @@
 #summary The steps in the Jupiter review process.
+#labels Deprecated
 
 = The Jupiter Review Process =
 [http://csdl.ics.hawaii.edu/Members/TakuyaYamashita.html Takuya Yamashita] [http://csdl.ics.hawaii.edu/~hongbing Hongbing Kou]
