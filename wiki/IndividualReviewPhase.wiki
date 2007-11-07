@@ -1,4 +1,5 @@
 #summary Using Jupiter's Individual Review Phase.
+#labels Deprecated
 
 = Jupiter's Individual Review Phase =
 [http://csdl.ics.hawaii.edu/Members/TakuyaYamashita.html Takuya Yamashita] [http://csdl.ics.hawaii.edu/~hongbing Hongbing Kou]
