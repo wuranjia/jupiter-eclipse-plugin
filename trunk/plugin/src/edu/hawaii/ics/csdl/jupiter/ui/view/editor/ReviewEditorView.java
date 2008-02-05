@@ -304,18 +304,6 @@ public class ReviewEditorView extends ViewPart {
     severityCombo.setLayoutData(severityComboData);
     String[] severityItems = SeverityKeyManager.getInstance(project, reviewId).getElements();
     severityCombo.setItems(severityItems);
-    severityCombo.addListener(SWT.Selection, new Listener() {
-      public void handleEvent(Event event) {
-        String severityKey = ReviewI18n.getKey(severityCombo.getText());
-        if (severityKey.equals(ResourceBundleKey.ITEM_KEY_SEVERITY_TRIVIAL)) {
-          String resolutionKey = ResourceBundleKey.ITEM_KEY_RESOLUTION_VALID_NEEDSFIXING;        
-          int index = resolutionCombo.indexOf(ReviewI18n.getString(resolutionKey));
-          if (index != -1) {
-            resolutionCombo.select(index);
-          }
-        }
-      }
-    });
     severityCombo.addFocusListener(new FocusListener() {
       public void focusGained(FocusEvent event) {
         int type = ReviewEvent.TYPE_FOCUS;
