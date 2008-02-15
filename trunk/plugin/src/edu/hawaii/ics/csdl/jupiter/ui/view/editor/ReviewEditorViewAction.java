@@ -35,7 +35,7 @@ public class ReviewEditorViewAction {
   /** Jupiter logger */
   private static JupiterLogger log = JupiterLogger.getLogger();
 
-  /** The go to action to go back to the previous reivew issues */
+  /** The go to action to go back to the previous review issues */
   public static final Action UNDO;
   /** The go to action to jump to the specified source code */
   public static final Action GOTO;
