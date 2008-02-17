@@ -29,13 +29,13 @@ public class ReviewModel {
   private ReviewIdManager reviewIdManager;
   private ReviewerIdManager reviewerIdManager;
   private ProjectManager projectManager;
-  private List listeners;
+  private List<IReviewModelElementChangeListener> listeners;
   
   /**
    * Prohibits clients from instantiating this.
    */
   private ReviewModel() {
-    this.listeners = new ArrayList();
+    this.listeners = new ArrayList<IReviewModelElementChangeListener>();
     addIReviewModelElementListener(PhaseManager.getInstance());
     addIReviewModelElementListener(ProjectManager.getInstance());
     addIReviewModelElementListener(ReviewIdManager.getInstance());
@@ -109,8 +109,8 @@ public class ReviewModel {
    * @param object The object to be notified.
    */
   public void notifyListeners(Object object) {
-    for (Iterator i = this.listeners.iterator(); i.hasNext();) {
-      ((IReviewModelElementChangeListener) i.next()).elementChanged(object);
+    for (Iterator<IReviewModelElementChangeListener> i = this.listeners.iterator(); i.hasNext();) {
+      i.next().elementChanged(object);
     }
   }
   

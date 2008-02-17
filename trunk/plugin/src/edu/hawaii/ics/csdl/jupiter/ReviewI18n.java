@@ -20,7 +20,7 @@ public class ReviewI18n {
   /** the resource bundle instance. */
   private static ResourceBundle bundle = ResourceBundle.getBundle(RESOURCE_BUNDLE);
   /** the value-key map.*/
-  private static Map valueKeyMap;
+  private static Map<String, String> valueKeyMap;
   
   static {
     createValueKeyMap();
@@ -36,8 +36,8 @@ public class ReviewI18n {
    * Creates value-key map. Used to get key from value.
    */
   private static void createValueKeyMap() {
-    valueKeyMap = new HashMap();
-    for (Enumeration keys = bundle.getKeys(); keys.hasMoreElements();) {
+    valueKeyMap = new HashMap<String, String>();
+    for (Enumeration<String> keys = bundle.getKeys(); keys.hasMoreElements();) {
       String key = (String) keys.nextElement();
       String value = getString(key);
       valueKeyMap.put(value, key);

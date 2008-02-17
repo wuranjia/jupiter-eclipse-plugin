@@ -48,7 +48,7 @@ public class ReviewIssueModelEvent {
   /** The event type */
   private int eventType;
   /** String category key -> the String array of the item value.*/
-  private Map categoryToItems;
+  private Map<String, String[]> categoryToItems;
   /**
    * Instantiates this event with <code>ReviewIssue</code> instance and event type.
    * @param reviewIssue the <code>ReviewIssue</code> instance.
@@ -58,7 +58,7 @@ public class ReviewIssueModelEvent {
     this.reviewModel = ReviewModel.getInstance();
     this.reviewIssue = reviewIssue;
     this.eventType = eventType;
-    this.categoryToItems = new HashMap();
+    this.categoryToItems = new HashMap<String, String[]>();
     IProject project = this.reviewModel.getProjectManager().getProject();
     ReviewId reviewId = this.reviewModel.getReviewIdManager().getReviewId();
     if (project == null || reviewId == null) {

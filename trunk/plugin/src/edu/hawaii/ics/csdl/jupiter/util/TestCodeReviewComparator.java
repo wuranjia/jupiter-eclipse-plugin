@@ -17,7 +17,7 @@ import edu.hawaii.ics.csdl.jupiter.model.reviewissue.ReviewIssue;
  */
 public class TestCodeReviewComparator extends ReviewTestCase {
   /** The <code>List</code> interface to hold <code>ReviewIssue</code> instance. */
-  List codeReviews = new ArrayList();
+  List<ReviewIssue> codeReviews = new ArrayList<ReviewIssue>();
 
   /**
    * Sets up the initial condition. Instantiates three <code>ReviewIssue</code> instances, then adds
@@ -46,7 +46,7 @@ public class TestCodeReviewComparator extends ReviewTestCase {
    */
   public void testReviewNameComparator() {
     Collections.sort(codeReviews, ReviewComparator.REVIEWER);
-    Iterator i = codeReviews.iterator();
+    Iterator<ReviewIssue> i = codeReviews.iterator();
     i.hasNext();
     assertEquals("Testing first element of the reviewer's name.", "barReviewer",
       ((ReviewIssue) i.next()).getReviewer());
@@ -63,7 +63,7 @@ public class TestCodeReviewComparator extends ReviewTestCase {
    */
   public void testTypeComparator() {
     Collections.sort(codeReviews, ReviewComparator.TYPE);
-    Iterator i = codeReviews.iterator();
+    Iterator<ReviewIssue> i = codeReviews.iterator();
     i.hasNext();
     assertEquals("Testing first element of the type.", defect,
       ((ReviewIssue) i.next()).getType());

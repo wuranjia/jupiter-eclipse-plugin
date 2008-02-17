@@ -35,7 +35,7 @@ public class GeneralPreferencePage extends PreferencePage implements IWorkbenchP
   /** The preference store to hold the existing preference values. */
   private IPreferenceStore store = ReviewPlugin.getInstance().getPreferenceStore();
   /** The field editor list to hold the field editor. */
-  private List fieldEditors = new ArrayList();
+  private List<FieldEditor> fieldEditors = new ArrayList<FieldEditor>();
   /** The update URL store key. */
   public static final String UPDATE_URL_KEY = "UpdateUrl";
   /** The enable update store key. */
@@ -122,10 +122,10 @@ public class GeneralPreferencePage extends PreferencePage implements IWorkbenchP
   }
 
   /**
-   * Stores all <code>FiledEditor</code> instances.
+   * Stores all <code>FieldEditor</code> instances.
    */
   private void storeFieldEditors() {
-    for (Iterator i = this.fieldEditors.iterator(); i.hasNext();) {
+    for (Iterator<FieldEditor> i = this.fieldEditors.iterator(); i.hasNext();) {
       FieldEditor fieldEditor = (FieldEditor) i.next();
       if (fieldEditor != null) {
         fieldEditor.setPreferenceStore(this.store);
@@ -141,7 +141,7 @@ public class GeneralPreferencePage extends PreferencePage implements IWorkbenchP
    *        <code>false</code> otherwise.
    */
   private void loadFieldEditors(boolean isDefautLoaded) {
-    for (Iterator i = this.fieldEditors.iterator(); i.hasNext();) {
+    for (Iterator<FieldEditor> i = this.fieldEditors.iterator(); i.hasNext();) {
       FieldEditor fieldEditor = (FieldEditor) i.next();
       if (fieldEditor != null) {
         fieldEditor.setPreferenceStore(this.store);

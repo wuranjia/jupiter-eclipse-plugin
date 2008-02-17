@@ -85,7 +85,7 @@ public class FilterPreferencePage extends PreferencePage implements IWorkbenchPr
   /** The preference store to hold the existing preference values. */
   private IPreferenceStore store = ReviewPlugin.getInstance().getPreferenceStore();
   /** The field editor list to hold the field editors or composites. */
-  private List fields = new ArrayList();
+  private List<Object[]> fields = new ArrayList<Object[]>();
   /** The filter interval text to be used for storing and loading its selected item. */
   private Text filterIntervalText;
   /** The filter severity combo to be used for storing and loading its selected item. */
@@ -164,8 +164,8 @@ public class FilterPreferencePage extends PreferencePage implements IWorkbenchPr
    * @param isEnabled <code>true</code> if all fields are enabled.
    */
   private void initializeEnableSetting(boolean isEnabled) {
-    for (Iterator i = fields.iterator(); i.hasNext();) {
-      Object[] object = (Object[]) i.next();
+    for (Iterator<Object[]> i = fields.iterator(); i.hasNext();) {
+      Object[] object = i.next();
 
       // Excludes enable filter check box.
       if (object.length >= 2) {
@@ -526,8 +526,8 @@ public class FilterPreferencePage extends PreferencePage implements IWorkbenchPr
    *        <code>false</code> otherwise.
    */
   private void loadFieldEditors(boolean isDefautLoaded) {
-    for (Iterator i = this.fields.iterator(); i.hasNext();) {
-      Object[] object = (Object[]) i.next();
+    for (Iterator<Object[]> i = this.fields.iterator(); i.hasNext();) {
+      Object[] object = i.next();
       FieldEditor fieldEditor = (FieldEditor) object[0];
       fieldEditor.setPreferenceStore(this.store);
       if (isDefautLoaded) {
@@ -565,7 +565,7 @@ public class FilterPreferencePage extends PreferencePage implements IWorkbenchPr
    * Stores all <code>FiledEditor</code> instances.
    */
   private void storeFieldEditors() {
-    for (Iterator i = this.fields.iterator(); i.hasNext();) {
+    for (Iterator<Object[]> i = this.fields.iterator(); i.hasNext();) {
       Object[] object = (Object[]) i.next();
       FieldEditor fieldEditor = (FieldEditor) object[0];
       fieldEditor.setPreferenceStore(this.store);

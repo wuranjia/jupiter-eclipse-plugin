@@ -340,7 +340,7 @@ public class FileResource {
   public static IFile[] getReviewIFiles(IProject project, ReviewId reviewId) {
     IPreferenceStore store = ReviewPlugin.getInstance().getPreferenceStore();
     String relativePath = reviewId.getDirectory();
-    List filesList = new ArrayList();
+    List<IFile> filesList = new ArrayList<IFile>();
     // Gathers all review File instances among all opened projects.
     File folder = project.getFile(relativePath).getLocation().toFile();
     if (folder.exists() && folder.isDirectory()) {
@@ -374,7 +374,7 @@ public class FileResource {
    */
   public static String[] getOpenedProjects() {
     IProject[] projects = ResourcesPlugin.getWorkspace().getRoot().getProjects();
-    List projectsList = new ArrayList();
+    List<String> projectsList = new ArrayList<String>();
     for (int i = 0; i < projects.length; i++) {
       if (projects[i].isOpen()) {
         projectsList.add(projects[i].getName());
@@ -390,7 +390,7 @@ public class FileResource {
    */
   public static String[] getOpenedAndReviewIdContainedProjects() {
     IProject[] projects = ResourcesPlugin.getWorkspace().getRoot().getProjects();
-    Set projectSet = new LinkedHashSet();
+    Set<String> projectSet = new LinkedHashSet<String>();
     for (int i = 0; i < projects.length; i++) {
       if (projects[i].isOpen()) {
         PropertyResource propertyResource = PropertyResource.getInstance(projects[i], false);

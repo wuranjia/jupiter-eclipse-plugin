@@ -32,18 +32,18 @@ public class ReviewIssueModel implements IStructuredContentProvider {
   /** The listener container to contains IReviewIssueModelListener listeners. */
   private ListenerList listenerList = new ListenerList();
   /** The map contains the code review id and it mapped <code>ReviewIssue</code> instance. */
-  private Map reviewIssueMap = new TreeMap();
+  private Map<String, ReviewIssue> reviewIssueMap = new TreeMap<String, ReviewIssue>();
   /**
    * The list container to contain the ReviewIssue id string.
    * This is used for the order of the list.
    */
-  private List reviewIssueOrdinalList = new LinkedList();
+  private List<ReviewIssue> reviewIssueOrdinalList = new LinkedList<ReviewIssue>();
   /** The comparator to be used for current sort. */
   private Comparator comparator;
   /** The code review instance to be notified to the listeners. */
   private ReviewIssue notifyTargetReviewIssue;
   /** The map of the String target file - String target file. */
-  private Map targetFileMap = new TreeMap();
+  private Map<String, String> targetFileMap = new TreeMap<String, String>();
   
   private boolean isReversed = false;
 

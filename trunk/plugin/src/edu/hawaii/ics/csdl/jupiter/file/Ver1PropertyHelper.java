@@ -201,7 +201,7 @@ public class Ver1PropertyHelper {
   */
  public static List loadReviewIds(IProject project, boolean isDefaultLoaded)
    throws ReviewException {
-   List reviewIdList = new ArrayList();
+   List<ReviewId> reviewIdList = new ArrayList<ReviewId>();
    if (project != null) {
      Document document = Ver1PropertyHelper.newDocument(project);
      Element jupiterConfigElement = document.getRootElement();
@@ -265,7 +265,7 @@ public class Ver1PropertyHelper {
   * @return the <code>Map</code> of the reviewer names.
   */
  private static Map createReviewers(Document document, Element reviewerPreferenceElement) {
-   Map reviewers = new TreeMap();
+   Map<String, ReviewerId> reviewers = new TreeMap<String, ReviewerId>();
    if (reviewerPreferenceElement != null) {
      List reviewerElementList = reviewerPreferenceElement.getChildren(ELEMENT_REVIEWER);
      if (reviewerElementList.size() > 0) {
@@ -313,7 +313,7 @@ public class Ver1PropertyHelper {
   * @return the map of the <code>String</code> reviewer IDs.
   */
  private static Map getDefaultReviewers(Document document) {
-   Map defaultReviewers = new TreeMap();
+   Map<String, ReviewerId> defaultReviewers = new TreeMap<String, ReviewerId>();
    Element jupiterConfigElement = document.getRootElement();
    List reviewIdElementList = jupiterConfigElement.getChildren(ELEMENT_REVIEW_ID);
    Element defaultPrefElement = getDefaultPrefElement(ATTRIBUTE_VALUE_REVIEWER, document);
@@ -379,14 +379,14 @@ public class Ver1PropertyHelper {
   * of items.
   */
  private static Map createCategoryMap(Element categoryItemPreferenceElement) {
-   Map categoryMap = new HashMap();
+   Map<String, List<String>> categoryMap = new HashMap<String, List<String>>();
    if (categoryItemPreferenceElement != null) {
      List categoryElementList = categoryItemPreferenceElement.getChildren(ELEMENT_CATEGORY);
      for (Iterator i = categoryElementList.iterator(); i.hasNext();) {
        Element categoryElement = (Element) i.next();
        String categoryName = categoryElement.getAttributeValue(ATTRIBUTE_NAME);
        List itemElementList = categoryElement.getChildren(ELEMENT_ITEM);
-       List itemList = new ArrayList();
+       List<String> itemList = new ArrayList<String>();
        for (Iterator j = itemElementList.iterator(); j.hasNext();) {
          Element itemElement = (Element) j.next();
          String itemName = itemElement.getAttributeValue(ATTRIBUTE_NAME);
@@ -475,7 +475,7 @@ public class Ver1PropertyHelper {
  public static List getReviewIdList(String projectName, boolean isDefaultLoaded) {
    IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
    IProject selectedProject = root.getProject(projectName);
-   List reviewIdList = new ArrayList();
+   List<ReviewId> reviewIdList = new ArrayList<ReviewId>();
    if (selectedProject != null && projectName != null) {
      try {
        reviewIdList = Ver1PropertyHelper.loadReviewIds(selectedProject, 

@@ -16,22 +16,22 @@ import edu.hawaii.ics.csdl.jupiter.ReviewI18n;
  */
 public abstract class KeyManager {
   /** The keys for the localized value in the item. */
-  protected List ordinalKeys;
+  protected List<String> ordinalKeys;
   /** The key-value map. */
-  protected Map keyValues;
+  protected Map<String, String> keyValues;
   /** The key-localizedLabel map. */
-  protected Map keyLocalizedLabels;
+  protected Map<String, String> keyLocalizedLabels;
   /** The localizedLabel-key map. */
-  protected Map localizedLabelKeys;
+  protected Map<String, String> localizedLabelKeys;
 
   /**
    * Instantiates this object.
    */
   protected KeyManager() {
-    this.ordinalKeys = new ArrayList();
-    this.keyValues = new HashMap();
-    this.keyLocalizedLabels = new HashMap();
-    this.localizedLabelKeys = new HashMap();
+    this.ordinalKeys = new ArrayList<String>();
+    this.keyValues = new HashMap<String, String>();
+    this.keyLocalizedLabels = new HashMap<String, String>();
+    this.localizedLabelKeys = new HashMap<String, String>();
   }
 
   /**

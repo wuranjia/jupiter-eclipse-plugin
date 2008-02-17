@@ -92,7 +92,7 @@ public class PrefResource {
    */
   public String[] getPhaseArray(boolean isKey) {
     List phaseElementList = this.factory.getPhaseElementList();
-    List phaseList = new ArrayList();
+    List<String> phaseList = new ArrayList<String>();
     for (Iterator i = phaseElementList.iterator(); i.hasNext();) {
       Element phaseElement = (Element) i.next();
       String phaseNameKey = phaseElement.getAttributeValue(PrefConstraints.ATTRIBUTE_NAME);
@@ -143,7 +143,7 @@ public class PrefResource {
    */
   public List getColumnDataList(String phaseNameKey) {
     List columnHeaderElementList = this.factory.getColumnEntryElementList(phaseNameKey);
-    List columnDataList = new ArrayList();
+    List<ColumnData> columnDataList = new ArrayList<ColumnData>();
     for (Iterator i = columnHeaderElementList.iterator(); i.hasNext();) {
       Element columnHeaderElement = (Element) i.next();
       ColumnData columnData = createColumnData(columnHeaderElement);

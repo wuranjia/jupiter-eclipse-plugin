@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
@@ -39,7 +40,7 @@ import edu.hawaii.ics.csdl.jupiter.ui.view.table.ReviewTableView;
 
 /**
  * Provides view preference page.
- *
+ * 
  * @author Takuya Yamashita
  * @version $Id$
  */
@@ -55,7 +56,7 @@ public class ViewPreferencePage extends PreferencePage implements IWorkbenchPref
   /** The review phase combo. */
   private Combo reviewPhaseCombo;
   /** The review phase map. */
-  private Map reviewPhaseMap;
+  private Map<String, List<ColumnData>> reviewPhaseMap;
   /** The review phase name key. */
   private String reviewPhaseNameKey;
   /** The temporary review phase name key to remember the phase name in the view. */
@@ -63,7 +64,7 @@ public class ViewPreferencePage extends PreferencePage implements IWorkbenchPref
 
   /**
    * Initializes this preference page for the given workbench.
-   *
+   * 
    * @param workbench the workbench.
    */
   public void init(IWorkbench workbench) {
@@ -81,20 +82,21 @@ public class ViewPreferencePage extends PreferencePage implements IWorkbenchPref
     }
     this.tempReviewPhaseNameKey = this.reviewPhaseNameKey;
     String[] reviewPhaseNameKeys = configManager.getPhaseArray(true);
-    this.reviewPhaseMap = new HashMap();
+    this.reviewPhaseMap = new HashMap<String, List<ColumnData>>();
     for (int i = 0; i < reviewPhaseNameKeys.length; i++) {
       columnDataModel = columnDataModelManager.getModel(reviewPhaseNameKeys[i]);
       ColumnData[] columnDataArray = columnDataModel.getAllColumnDataArray();
-      ArrayList columnDataList = new ArrayList(Arrays.asList(columnDataArray));
+      ArrayList<ColumnData> columnDataList = new ArrayList<ColumnData>(Arrays
+          .asList(columnDataArray));
       this.reviewPhaseMap.put(reviewPhaseNameKeys[i], columnDataList);
     }
   }
 
   /**
    * Creates preference page controls on demand.
-   *
+   * 
    * @param ancestor the parent for the preference page
-   *
+   * 
    * @return the <code>Control</code> instance.
    */
   protected Control createContents(Composite ancestor) {
@@ -102,13 +104,14 @@ public class ViewPreferencePage extends PreferencePage implements IWorkbenchPref
     createLabelContent(parent);
     createReviewPhaseContent(parent);
     createViewPreferenceContent(parent);
-    fillTable((List) this.reviewPhaseMap.get(this.reviewPhaseNameKey));
+    fillTable(this.reviewPhaseMap.get(this.reviewPhaseNameKey));
     Dialog.applyDialogFont(ancestor);
     return parent;
   }
-  
+
   /**
    * Creates view preference frame and return the child composite.
+   * 
    * @param parent the parent composite.
    * @return the child composite.
    */
@@ -125,9 +128,10 @@ public class ViewPreferencePage extends PreferencePage implements IWorkbenchPref
     child.setLayoutData(data);
     return child;
   }
-  
+
   /**
    * Creates label content.
+   * 
    * @param parent the parent composite.
    */
   private void createLabelContent(Composite parent) {
@@ -137,9 +141,10 @@ public class ViewPreferencePage extends PreferencePage implements IWorkbenchPref
     data.horizontalSpan = 1;
     label.setLayoutData(data);
   }
-  
+
   /**
    * Creates review phase content.
+   * 
    * @param parent the parent composite.
    */
   private void createReviewPhaseContent(Composite parent) {
@@ -150,7 +155,7 @@ public class ViewPreferencePage extends PreferencePage implements IWorkbenchPref
     reviewPhaseSubGroupLayout.numColumns = 1;
     reviewPhaseSubGroup.setLayoutData(new GridData(GridData.FILL_BOTH));
     reviewPhaseSubGroup.setLayout(reviewPhaseSubGroupLayout);
-    
+
     this.reviewPhaseCombo = new Combo(reviewPhaseSubGroup, SWT.READ_ONLY);
     GridData reviewPhaseData = new GridData(GridData.FILL_HORIZONTAL);
     reviewPhaseCombo.setLayoutData(reviewPhaseData);
@@ -159,21 +164,24 @@ public class ViewPreferencePage extends PreferencePage implements IWorkbenchPref
     int index = reviewPhaseCombo.indexOf(ReviewI18n.getString(reviewPhaseNameKey));
     reviewPhaseCombo.select(index);
     reviewPhaseCombo.addListener(SWT.Selection, new Listener() {
-      public void handleEvent(Event e) { 
-        String reviewPhaseName = reviewPhaseCombo.getItem(reviewPhaseCombo.getSelectionIndex());
+      public void handleEvent(Event e) {
+        String reviewPhaseName = reviewPhaseCombo
+            .getItem(reviewPhaseCombo.getSelectionIndex());
         reviewPhaseNameKey = ReviewI18n.getKey(reviewPhaseName);
         ColumnDataModelManager columnDataModelManager = ColumnDataModelManager.getInstance();
         ColumnDataModel columnDataModel = columnDataModelManager.getModel(reviewPhaseNameKey);
-//        PrefResource.getInstance().loadColumnDataManager(columnDataManager, reviewPhaseNameKey,
-//                                                          false);
+        // PrefResource.getInstance().loadColumnDataManager(columnDataManager,
+        // reviewPhaseNameKey,
+        // false);
         removeAllItems();
-        fillTable((List) reviewPhaseMap.get(reviewPhaseNameKey));
+        fillTable(reviewPhaseMap.get(reviewPhaseNameKey));
       }
     });
   }
-  
+
   /**
    * Creates view preference content.
+   * 
    * @param parent the parent composite.
    */
   private void createViewPreferenceContent(Composite parent) {
@@ -184,11 +192,11 @@ public class ViewPreferencePage extends PreferencePage implements IWorkbenchPref
     viewPreferenceSubGroupLayout.numColumns = 2;
     viewPreferenceSubGroup.setLayoutData(new GridData(GridData.FILL_BOTH));
     viewPreferenceSubGroup.setLayout(viewPreferenceSubGroupLayout);
-    
+
     viewColumnTable = new Table(viewPreferenceSubGroup, SWT.CHECK | SWT.BORDER);
     GridData gridData = new GridData(GridData.FILL_BOTH);
 
-    //gd.widthHint = convertWidthInCharsToPixels(30);
+    // gd.widthHint = convertWidthInCharsToPixels(30);
     gridData.heightHint = 300;
     viewColumnTable.setLayoutData(gridData);
     viewColumnTable.addListener(SWT.Selection, new Listener() {
@@ -196,7 +204,6 @@ public class ViewPreferencePage extends PreferencePage implements IWorkbenchPref
         handleSelection((TableItem) e.item);
       }
     });
-    
 
     Composite buttons = new Composite(viewPreferenceSubGroup, SWT.NULL);
     buttons.setLayoutData(new GridData(GridData.VERTICAL_ALIGN_BEGINNING));
@@ -210,7 +217,7 @@ public class ViewPreferencePage extends PreferencePage implements IWorkbenchPref
     GridData data = new GridData();
     data.horizontalAlignment = GridData.FILL;
     // As to Eclipse Help, button layout is determined by layout.
-    //data.heightHint = convertVerticalDLUsToPixels(IDialogConstants.BUTTON_HEIGHT);
+    // data.heightHint = convertVerticalDLUsToPixels(IDialogConstants.BUTTON_HEIGHT);
     int widthHint = convertHorizontalDLUsToPixels(IDialogConstants.BUTTON_WIDTH);
     int x = modifyButton.computeSize(SWT.DEFAULT, SWT.DEFAULT, true).x;
     data.widthHint = Math.max(widthHint, x);
@@ -220,7 +227,7 @@ public class ViewPreferencePage extends PreferencePage implements IWorkbenchPref
         modifyWidth();
       }
     });
-    
+
     upButton = new Button(buttons, SWT.PUSH);
     Image upImage = ReviewPlugin.createImageDescriptor("icons/up.gif").createImage();
     upButton.setImage(upImage);
@@ -237,14 +244,14 @@ public class ViewPreferencePage extends PreferencePage implements IWorkbenchPref
         moveUpItem(viewColumnTable.getSelectionIndex());
       }
     });
-    
+
     downButton = new Button(buttons, SWT.PUSH);
     Image downImage = ReviewPlugin.createImageDescriptor("icons/down.gif").createImage();
     downButton.setImage(downImage);
     downButton.setEnabled(false);
     data = new GridData();
     data.horizontalAlignment = GridData.FILL;
-    //data.heightHint = convertVerticalDLUsToPixels(IDialogConstants.BUTTON_HEIGHT);
+    // data.heightHint = convertVerticalDLUsToPixels(IDialogConstants.BUTTON_HEIGHT);
     widthHint = convertHorizontalDLUsToPixels(IDialogConstants.BUTTON_WIDTH);
     x = downButton.computeSize(SWT.DEFAULT, SWT.DEFAULT, true).x;
     data.widthHint = Math.max(widthHint, x);
@@ -255,15 +262,16 @@ public class ViewPreferencePage extends PreferencePage implements IWorkbenchPref
       }
     });
   }
-  
+
   /**
    * Moves up the indexed item by one.
+   * 
    * @param index the index of the item to move up.
-   *
+   * 
    */
   private void moveUpItem(int index) {
     if (index > 0) {
-      List columnDataList = (List) this.reviewPhaseMap.get(this.reviewPhaseNameKey);
+      List<ColumnData> columnDataList = this.reviewPhaseMap.get(this.reviewPhaseNameKey);
       ColumnData columnData = (ColumnData) columnDataList.remove(index);
       int newIndex = index - 1;
       columnDataList.add(newIndex, columnData);
@@ -272,15 +280,16 @@ public class ViewPreferencePage extends PreferencePage implements IWorkbenchPref
       viewColumnTable.select(newIndex);
     }
   }
-  
+
   /**
    * Moves down the indexed item by one.
+   * 
    * @param index the index of the item to move down.
    */
   private void moveDownItem(int index) {
     int lastIndex = viewColumnTable.getItemCount() - 1;
     if (index < lastIndex) {
-      List columnDataList = (List) this.reviewPhaseMap.get(this.reviewPhaseNameKey);
+      List<ColumnData> columnDataList = this.reviewPhaseMap.get(this.reviewPhaseNameKey);
       ColumnData columnData = (ColumnData) columnDataList.remove(index);
       int newIndex = index + 1;
       columnDataList.add(newIndex, columnData);
@@ -292,16 +301,17 @@ public class ViewPreferencePage extends PreferencePage implements IWorkbenchPref
 
   /**
    * Performs OK to save changes when this page's OK button has been pressed.
-   *
+   * 
    * @return whether it is okay to close the preference page
    */
   public boolean performOk() {
     ReviewModel reviewModel = ReviewModel.getInstance();
     ColumnDataModelManager columnDataModelManager = ColumnDataModelManager.getInstance();
-    for (Iterator i = this.reviewPhaseMap.entrySet().iterator(); i.hasNext();) {
-      Map.Entry entry = (Map.Entry) i.next();
-      String reviewPhaseNameKey = (String) entry.getKey();
-      List columnDataList = (List) entry.getValue();
+    for (Iterator<Entry<String, List<ColumnData>>> i = this.reviewPhaseMap.entrySet()
+        .iterator(); i.hasNext();) {
+      Map.Entry<String, List<ColumnData>> entry = i.next();
+      String reviewPhaseNameKey = entry.getKey();
+      List<ColumnData> columnDataList = entry.getValue();
       ColumnDataModel columnDataModel = columnDataModelManager.getModel();
       columnDataModel.clear();
       columnDataModel.addAll(columnDataList);
@@ -318,7 +328,7 @@ public class ViewPreferencePage extends PreferencePage implements IWorkbenchPref
     view.getViewer().refresh();
     return true;
   }
-  
+
   /**
    * Performs OK to save changes when this page's Apply button has been pressed.
    */
@@ -327,27 +337,30 @@ public class ViewPreferencePage extends PreferencePage implements IWorkbenchPref
   }
 
   /**
-   * Performs Defaults to restore default values when this page's Defaults button has been pressed.
+   * Performs Defaults to restore default values when this page's Defaults button has been
+   * pressed.
    */
   protected void performDefaults() {
     String reviewPhaseName = reviewPhaseCombo.getItem(reviewPhaseCombo.getSelectionIndex());
     reviewPhaseNameKey = ReviewI18n.getKey(reviewPhaseName);
     ColumnDataModelManager columnDataModelManager = ColumnDataModelManager.getInstance();
     ColumnDataModel columnDataModel = columnDataModelManager.getModel(reviewPhaseNameKey);
-    List columnDataList = (List) reviewPhaseMap.get(reviewPhaseNameKey);
+    List<ColumnData> columnDataList = reviewPhaseMap.get(reviewPhaseNameKey);
     columnDataList.clear();
-    columnDataList.addAll(new ArrayList(Arrays.asList(columnDataModel.getAllColumnDataArray())));
+    columnDataList.addAll(new ArrayList<ColumnData>(Arrays.asList(columnDataModel
+        .getAllColumnDataArray())));
     removeAllItems();
     fillTable(columnDataList);
   }
 
   /**
    * Fills table with the column name, width, and enable status.
+   * 
    * @param columnDataList the <code>ColumnData</code> list.
    */
-  private void fillTable(List columnDataList) {
-    for (Iterator i = columnDataList.iterator(); i.hasNext();) {
-      ColumnData columnData = (ColumnData) i.next();
+  private void fillTable(List<ColumnData> columnDataList) {
+    for (Iterator<ColumnData> i = columnDataList.iterator(); i.hasNext();) {
+      ColumnData columnData = i.next();
       String columnName = columnData.getColumnName();
       int width = columnData.getColumnPixelData().width;
       boolean isEnabled = columnData.isEnabled();
@@ -356,7 +369,7 @@ public class ViewPreferencePage extends PreferencePage implements IWorkbenchPref
       item.setChecked(isEnabled);
     }
   }
-  
+
   /**
    * Remove all items in the table.
    */
@@ -383,13 +396,12 @@ public class ViewPreferencePage extends PreferencePage implements IWorkbenchPref
         }
       }
     };
-    List columnDataList = (List) this.reviewPhaseMap.get(this.reviewPhaseNameKey);
+    List<ColumnData> columnDataList = this.reviewPhaseMap.get(this.reviewPhaseNameKey);
     ColumnData columnData = (ColumnData) columnDataList.get(index);
     String initialWidthValue = columnData.getColumnPixelData().width + "";
-    InputDialog dialog = new InputDialog(getShell(), 
-        ReviewI18n.getString("ViewPreference.button.messageDialog.short"),
-        ReviewI18n.getString("ViewPreference.button.messageDialog.long"),
-        initialWidthValue, validator);  //$NON-NLS-1$ //$NON-NLS-2$
+    InputDialog dialog = new InputDialog(getShell(), ReviewI18n
+        .getString("ViewPreference.button.messageDialog.short"), ReviewI18n
+        .getString("ViewPreference.button.messageDialog.long"), initialWidthValue, validator); //$NON-NLS-1$ //$NON-NLS-2$
     dialog.open();
     if (dialog.getReturnCode() != InputDialog.OK) {
       return;
@@ -403,17 +415,17 @@ public class ViewPreferencePage extends PreferencePage implements IWorkbenchPref
 
   /**
    * Handles the table selection.
+   * 
    * @param tableItem the <code>TableItem</code> instance.
    */
   private void handleSelection(TableItem tableItem) {
     int index = viewColumnTable.indexOf(tableItem);
-    List columnDataList = (List) this.reviewPhaseMap.get(this.reviewPhaseNameKey);
+    List<ColumnData> columnDataList = this.reviewPhaseMap.get(this.reviewPhaseNameKey);
     ColumnData columnData = (ColumnData) columnDataList.get(index);
-    columnData.setEnabled(tableItem.getChecked());    
+    columnData.setEnabled(tableItem.getChecked());
     boolean isSelected = (viewColumnTable.getSelectionCount() > 0);
     modifyButton.setEnabled(isSelected);
     upButton.setEnabled(isSelected);
     downButton.setEnabled(isSelected);
   }
 }
-

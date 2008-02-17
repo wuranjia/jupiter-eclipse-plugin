@@ -553,7 +553,7 @@ public class ReviewIssueXmlSerializer {
       String reviewIdName = codeReviewsElement.getAttributeValue(REVIEW_ATTRIBUTE_ID);
       if (reviewIdName != null && reviewId != null && reviewIdName.equals(reviewId.getReviewId())) {
         List codeReviewList = codeReviewsElement.getChildren();
-        List tempCodeReviewList = new ArrayList();
+        List<ReviewIssue> tempCodeReviewList = new ArrayList<ReviewIssue>();
         boolean isSuccessIterationForFile = true;
         for (Iterator iterator = codeReviewList.iterator(); iterator.hasNext();) {
           Element codeReviewElement = (Element) iterator.next();

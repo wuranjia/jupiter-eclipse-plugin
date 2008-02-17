@@ -44,7 +44,7 @@ import edu.hawaii.ics.csdl.jupiter.ui.view.table.FilterPhase;
 public class ReviewIdNewFilterPage extends WizardPage {
 
   private IProject project;
-  private Map phaseNameFilterPhaseMap;
+  private Map<String, FilterPhase> phaseNameFilterPhaseMap;
   private Combo phaseCombo;
   private Button enabledCheckButton;
   private Button intervalCheckButton;

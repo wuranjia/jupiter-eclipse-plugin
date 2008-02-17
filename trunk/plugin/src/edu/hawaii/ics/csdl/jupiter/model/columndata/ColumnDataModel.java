@@ -19,16 +19,16 @@ import edu.hawaii.ics.csdl.jupiter.util.ResourceBundleKey;
  */
 public class ColumnDataModel {
   /** The list of the all <code>ColumnData</code> instances. */
-  private List allColumnNameKeyList;
+  private List<String> allColumnNameKeyList;
   /** The map for the column name key and <code>ColumnData</code> value. */
-  private Map columnNameKeyMap;
+  private Map<String, ColumnData> columnNameKeyMap;
 
   /**
    * Initializes the lists of <code>ColumnData</code> and default review phase name.
    */
   public ColumnDataModel() {
-    this.allColumnNameKeyList = new ArrayList();
-    this.columnNameKeyMap = new HashMap();
+    this.allColumnNameKeyList = new ArrayList<String>();
+    this.columnNameKeyMap = new HashMap<String, ColumnData>();
   }
 
   /**
@@ -90,10 +90,10 @@ public class ColumnDataModel {
    * @return the array of the <code>String</code> column header names
    */
   public String[] getEnabledColumnNameArray() {
-    List columnNameList = new ArrayList();
-    for (Iterator i = this.allColumnNameKeyList.iterator(); i.hasNext();) {
-      String columnNameKey = (String) i.next();
-      ColumnData columnData = (ColumnData) this.columnNameKeyMap.get(columnNameKey);
+    List<String> columnNameList = new ArrayList<String>();
+    for (Iterator<String> i = this.allColumnNameKeyList.iterator(); i.hasNext();) {
+      String columnNameKey = i.next();
+      ColumnData columnData = this.columnNameKeyMap.get(columnNameKey);
       if (columnData.isEnabled()) {
         String columnName = ReviewI18n.getString(columnNameKey);
         if (columnNameKey.equals(ResourceBundleKey.COLUMN_HEADER_LINK_ICON)) {
@@ -102,7 +102,7 @@ public class ColumnDataModel {
         columnNameList.add(columnName);
       }
     }
-    return (String[]) columnNameList.toArray(new String[] {});
+    return columnNameList.toArray(new String[] {});
   }
   
   /**
@@ -111,15 +111,15 @@ public class ColumnDataModel {
    * @return the array of the <code>String</code> column header name keys
    */
   public String[] getEnabledColumnNameKeyArray() {
-    List columnNameKeyList = new ArrayList();
-    for (Iterator i = this.allColumnNameKeyList.iterator(); i.hasNext();) {
-      String columnNameKey = (String) i.next();
-      ColumnData columnData = (ColumnData) this.columnNameKeyMap.get(columnNameKey);
+    List<String> columnNameKeyList = new ArrayList<String>();
+    for (Iterator<String> i = this.allColumnNameKeyList.iterator(); i.hasNext();) {
+      String columnNameKey = i.next();
+      ColumnData columnData = this.columnNameKeyMap.get(columnNameKey);
       if (columnData.isEnabled()) {
         columnNameKeyList.add(columnNameKey);
       }
     }
-    return (String[]) columnNameKeyList.toArray(new String[] {});
+    return columnNameKeyList.toArray(new String[] {});
   }
 
   /**
@@ -128,15 +128,15 @@ public class ColumnDataModel {
    * @return the array of the <code>ColumnPixelData</code> instances
    */
   public ColumnPixelData[] getEnabledColumnPixelDataArray() {
-    List columnPixelDataList = new ArrayList();
-    for (Iterator i = this.allColumnNameKeyList.iterator(); i.hasNext();) {
-      String columnNameKey = (String) i.next();
-      ColumnData columnData = (ColumnData) this.columnNameKeyMap.get(columnNameKey);
+    List<ColumnPixelData> columnPixelDataList = new ArrayList<ColumnPixelData>();
+    for (Iterator<String> i = this.allColumnNameKeyList.iterator(); i.hasNext();) {
+      String columnNameKey = i.next();
+      ColumnData columnData = this.columnNameKeyMap.get(columnNameKey);
       if (columnData.isEnabled()) {
         columnPixelDataList.add(columnData.getColumnPixelData());
       }
     }
-    return (ColumnPixelData[]) columnPixelDataList.toArray(new ColumnPixelData[] {});
+    return columnPixelDataList.toArray(new ColumnPixelData[] {});
   }
     
   /**
@@ -144,15 +144,15 @@ public class ColumnDataModel {
    * @return the array of the enabled <code>ColumnData</code> instances.
    */
   public ColumnData[] getEnabledColumnDataArray() {
-    List enabledColumnDataList = new ArrayList();
-    for (Iterator i = this.allColumnNameKeyList.iterator(); i.hasNext();) {
-      String columnNameKey = (String) i.next();
-      ColumnData columnData = (ColumnData) this.columnNameKeyMap.get(columnNameKey);
+    List<ColumnData> enabledColumnDataList = new ArrayList<ColumnData>();
+    for (Iterator<String> i = this.allColumnNameKeyList.iterator(); i.hasNext();) {
+      String columnNameKey = i.next();
+      ColumnData columnData = this.columnNameKeyMap.get(columnNameKey);
       if (columnData.isEnabled()) {
         enabledColumnDataList.add(columnData);
       }
     }
-    return (ColumnData[]) enabledColumnDataList.toArray(new ColumnData[] {});
+    return enabledColumnDataList.toArray(new ColumnData[] {});
   }
   
   /**
@@ -160,12 +160,12 @@ public class ColumnDataModel {
    * @return the array of all <code>ColumnData</code> instances.
    */
   public ColumnData[] getAllColumnDataArray() {
-    List columnDataList = new ArrayList();
-    for (Iterator i = this.allColumnNameKeyList.iterator(); i.hasNext();) {
-      String columnNameKey = (String) i.next();
-      columnDataList.add((ColumnData) this.columnNameKeyMap.get(columnNameKey));
+    List<ColumnData> columnDataList = new ArrayList<ColumnData>();
+    for (Iterator<String> i = this.allColumnNameKeyList.iterator(); i.hasNext();) {
+      String columnNameKey = i.next();
+      columnDataList.add(this.columnNameKeyMap.get(columnNameKey));
     }
-    return (ColumnData[]) columnDataList.toArray(new ColumnData[] {});
+    return columnDataList.toArray(new ColumnData[] {});
   }
   
   /**

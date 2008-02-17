@@ -72,7 +72,7 @@ public class ReviewEvent {
   /** The review model containing project, phase, review id, and reviewer id. */
   private ReviewModel reviewModel;
   /** String category key -> the String array of the item value.*/
-  private Map categoryToItems;
+  private Map<String, String[]> categoryToItems;
   
   /**
    * Instantiates review event with type and kind.
@@ -84,7 +84,7 @@ public class ReviewEvent {
     this.type = type;
     this.kind = kind;
     this.filePath = EventFileManager.getInstance().getEventFilePath();
-    this.categoryToItems = new HashMap();
+    this.categoryToItems = new HashMap<String, String[]>();
     IProject project = this.reviewModel.getProjectManager().getProject();
     ReviewId reviewId = this.reviewModel.getReviewIdManager().getReviewId();
     if (project == null || reviewId == null) {

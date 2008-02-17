@@ -15,7 +15,7 @@ import edu.hawaii.ics.csdl.jupiter.model.review.ReviewId;
  */
 public class ReviewPropertyViewerSorter  {
   
-  private static Map viewerSorterMap = new HashMap();
+  private static Map<String, ViewerSorter> viewerSorterMap = new HashMap<String, ViewerSorter>();
   private static boolean isReverse;
   /**
    * The viewer sorter which sorts by review ID.

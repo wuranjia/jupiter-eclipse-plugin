@@ -21,6 +21,7 @@ import edu.hawaii.ics.csdl.jupiter.util.JupiterLogger;
 
 /**
  * Provides the undo ReviewIssue manager.
+ * 
  * @author Takuya Yamashita
  * @version $Id$
  */
@@ -30,21 +31,21 @@ public class UndoReviewIssueManager implements IReviewIssueModelListener {
 
   /** The singleton instance. */
   private static UndoReviewIssueManager theInstance = new UndoReviewIssueManager();
-  
-  /** The Map of the modification Date -> ReviewIssueList.*/
-  private Map undoReviewIssueMap;
+
+  /** The Map of the ReviewIssue ID -> ReviewIssue. */
+  private Map<String, ReviewIssue> undoReviewIssueMap;
   /** The number of the Undo review items shown in the list. */
   private static final int NUM_UNDO_ITEMS = 10;
-  
+
   /**
-   * Prevents clients from instantiating this.
-   * Creates the Map whose comparator order is reverse modification date order.
+   * Prevents clients from instantiating this. Creates the Map whose comparator order is
+   * reverse modification date order.
    */
   private UndoReviewIssueManager() {
-    this.undoReviewIssueMap = new TreeMap(new Comparator() {
-      public int compare(Object object1, Object object2) {
-        String reviewIssueId1 = (String) object1;
-        String reviewIssueId2 = (String) object2;
+    this.undoReviewIssueMap = new TreeMap<String, ReviewIssue>(new Comparator<String>() {
+      public int compare(String object1, String object2) {
+        String reviewIssueId1 = object1;
+        String reviewIssueId2 = object2;
         ReviewIssueModel model = ReviewIssueModelManager.getInstance().getCurrentModel();
         ReviewIssue reviewIssue1 = model.get(reviewIssueId1);
         ReviewIssue reviewIssue2 = model.get(reviewIssueId2);
@@ -52,21 +53,24 @@ public class UndoReviewIssueManager implements IReviewIssueModelListener {
         if (reviewIssue1 == null || reviewIssue2 == null) {
           return -1;
         }
-        return reviewIssue2.getModificationDate().compareTo(reviewIssue1.getModificationDate());
+        return reviewIssue2.getModificationDate()
+            .compareTo(reviewIssue1.getModificationDate());
       }
     });
   }
-  
+
   /**
    * Gets the singleton instance.
+   * 
    * @return the singleton instance.
    */
   public static UndoReviewIssueManager getInstance() {
     return theInstance;
   }
-  
+
   /**
    * Creates undo review issue selection pulldown menu.
+   * 
    * @param menu the menu of the parent.
    * @return the menu of the pulldown menu.
    */
@@ -74,14 +78,15 @@ public class UndoReviewIssueManager implements IReviewIssueModelListener {
     create(menu);
     return menu;
   }
-  
+
   /**
    * Creates target file selection menu.
+   * 
    * @param menu the menu of the parent.
    */
   private void create(Menu menu) {
     int counter = NUM_UNDO_ITEMS;
-    for (Iterator i = this.undoReviewIssueMap.values().iterator(); i.hasNext(); counter--) {
+    for (Iterator<ReviewIssue> i = this.undoReviewIssueMap.values().iterator(); i.hasNext(); counter--) {
       ReviewIssue reviewIssue = (ReviewIssue) i.next();
       MenuItem menuItem = new MenuItem(menu, SWT.NONE);
       menuItem.setText(reviewIssue.getSummary());
@@ -98,10 +103,11 @@ public class UndoReviewIssueManager implements IReviewIssueModelListener {
       });
     }
   }
-  
+
   /**
    * Adds and removes the ReviewIssue instance to the container, depending upon the event type.
    * Adds it if the event type is ADD and EDIT. Removes it if the event type is DELETE.
+   * 
    * @param event the <code>ReviewIssueModelEvent</code> instance.
    */
   public void reviewIssueModelChanged(ReviewIssueModelEvent event) {
@@ -118,18 +124,19 @@ public class UndoReviewIssueManager implements IReviewIssueModelListener {
       this.undoReviewIssueMap.remove(reviewIssue.getIssueId());
     }
   }
-  
+
   /**
    * Clears the undo container.
-   *
+   * 
    */
   public void clear() {
     this.undoReviewIssueMap.clear();
-    //this.previousReviewIssue = null;
+    // this.previousReviewIssue = null;
   }
-  
+
   /**
    * Provides the size of the undo container.
+   * 
    * @return the size of the undo container.
    */
   public int size() {

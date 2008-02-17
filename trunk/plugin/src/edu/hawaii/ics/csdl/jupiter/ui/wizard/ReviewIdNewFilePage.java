@@ -41,7 +41,7 @@ import edu.hawaii.ics.csdl.jupiter.file.ReviewResource;
 public class ReviewIdNewFilePage extends WizardPage {
 
   private IProject project;
-  private Set files;
+  private Set<String> files;
   private Table fileListTable;
   private Button addButtonInFile;
   private Button removeButtonInFile;
@@ -150,7 +150,7 @@ public class ReviewIdNewFilePage extends WizardPage {
     ReviewResource reviewResource = propertyResource.getReviewResource(defaultReviewId, true);
     if (reviewResource != null) {
       this.files = reviewResource.getFileSet();
-      for (Iterator i = this.files.iterator(); i.hasNext();) {
+      for (Iterator<String> i = this.files.iterator(); i.hasNext();) {
         String file = (String) i.next();
         TableItem item = new TableItem(this.fileListTable, SWT.NONE);
         item.setText(file);

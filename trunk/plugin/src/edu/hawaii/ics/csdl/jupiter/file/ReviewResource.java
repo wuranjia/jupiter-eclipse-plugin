@@ -69,7 +69,7 @@ public class ReviewResource {
   public List getFieldItemIdList() {
     ReviewElementFactory factory = ReviewElementFactory.getInstance(this.reviewElement);
     List fieldItemElementList = factory.getFieldItemElementList();
-    List fieldItemIdList = new ArrayList();
+    List<String> fieldItemIdList = new ArrayList<String>();
     for (Iterator i = fieldItemElementList.iterator(); i.hasNext();) {
       Element fieldItemElement = (Element) i.next();
       String fieldItemId = fieldItemElement.getAttributeValue(PropertyConstraints.ATTRIBUTE_ID);
@@ -85,7 +85,7 @@ public class ReviewResource {
   public Map getFieldItemMap() {
     ReviewElementFactory factory = ReviewElementFactory.getInstance(this.reviewElement);
     List fieldItemElementList = factory.getFieldItemElementList();
-    Map fieldItemMap = new TreeMap();
+    Map<String, FieldItem> fieldItemMap = new TreeMap<String, FieldItem>();
     for (Iterator i = fieldItemElementList.iterator(); i.hasNext();) {
       Element fieldItemElement = (Element) i.next();
       String fieldItemId = fieldItemElement.getAttributeValue(PropertyConstraints.ATTRIBUTE_ID);
@@ -106,7 +106,7 @@ public class ReviewResource {
     List entryElementList = factory.getFieldItemEntryElementList(fieldItemId);
     Element fieldItemElement = factory.getFieldItemElement(fieldItemId);
     String defaultKey = fieldItemElement.getAttributeValue(PropertyConstraints.ATTRIBUTE_DEFAULT);
-    List entryKeyList = new ArrayList();
+    List<String> entryKeyList = new ArrayList<String>();
     for (Iterator j = entryElementList.iterator(); j.hasNext();) {
       Element entryElement = (Element) j.next();
       String entryNameKey = entryElement.getAttributeValue(PropertyConstraints.ATTRIBUTE_NAME);
@@ -212,7 +212,7 @@ public class ReviewResource {
   public Map getReviewers() {
     Element reviewersElement = this.reviewElement.getChild(PropertyConstraints.ELEMENT_REVIEWERS);
     List reviewerIdElementList = reviewersElement.getChildren(PropertyConstraints.ELEMENT_ENTRY);
-    Map reviewers = new TreeMap();
+    Map<String, ReviewerId> reviewers = new TreeMap<String, ReviewerId>();
     for (Iterator i = reviewerIdElementList.iterator(); i.hasNext();) {
       Element reviewerIdElement = (Element) i.next();
       String reviewerId = reviewerIdElement.getAttributeValue(PropertyConstraints.ATTRIBUTE_ID);
@@ -229,7 +229,7 @@ public class ReviewResource {
   public Set getFileSet() {
     Element filesElement = this.reviewElement.getChild(PropertyConstraints.ELEMENT_FILES);
     List filesEntryElementList = filesElement.getChildren(PropertyConstraints.ELEMENT_ENTRY);
-    Set targetFileSet = new LinkedHashSet();
+    Set<String> targetFileSet = new LinkedHashSet<String>();
     for (Iterator i = filesEntryElementList.iterator(); i.hasNext();) {
       Element filesEntryElement = (Element) i.next();
       String file = filesEntryElement.getAttributeValue(PropertyConstraints.ATTRIBUTE_NAME);
@@ -245,7 +245,7 @@ public class ReviewResource {
   public Map getPhaseNameToFilterPhaseMap() {
     ReviewElementFactory factory = ReviewElementFactory.getInstance(this.reviewElement);
     List phaseElementList = factory.getPhaseElementList();
-    Map phaseNameFilterPhaseMap = new TreeMap();
+    Map<String, FilterPhase> phaseNameFilterPhaseMap = new TreeMap<String, FilterPhase>();
     for (Iterator i = phaseElementList.iterator(); i.hasNext();) {
       Element phaseElement = (Element) i.next();
       String phaseNameKey = phaseElement.getAttributeValue(PropertyConstraints.ATTRIBUTE_NAME);
@@ -290,7 +290,7 @@ public class ReviewResource {
   public List getPhaseNameList() {
     ReviewElementFactory factory = ReviewElementFactory.getInstance(this.reviewElement);
     List phaseElementList = factory.getPhaseElementList();
-    List phaseNameList = new ArrayList();
+    List<String> phaseNameList = new ArrayList<String>();
     for (Iterator i = phaseElementList.iterator(); i.hasNext();) {
       Element phaseElement = (Element) i.next();
       String phaseNameKey = phaseElement.getAttributeValue(PropertyConstraints.ATTRIBUTE_NAME);
@@ -311,7 +311,7 @@ public class ReviewResource {
     String isEnabled = phaseElement.getAttributeValue(PropertyConstraints.ATTRIBUTE_ENABLED);
     boolean isFilterEnabled = new Boolean(isEnabled).booleanValue();
     List filterElementList = phaseElement.getChildren(PropertyConstraints.ELEMENT_FILTER);
-    List filterEntryList = new ArrayList();
+    List<FilterEntry> filterEntryList = new ArrayList<FilterEntry>();
     for (Iterator j = filterElementList.iterator(); j.hasNext();) {
       Element filterElement = (Element) j.next();
       String filterName = filterElement.getAttributeValue(PropertyConstraints.ATTRIBUTE_NAME);

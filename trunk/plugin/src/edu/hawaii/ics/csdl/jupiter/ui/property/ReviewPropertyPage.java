@@ -123,7 +123,7 @@ public class ReviewPropertyPage extends PropertyPage implements IWorkbenchProper
     columnDate.setText(ReviewI18n.getString(COLUMN_DATE_KEY));
     columnDate.setData(COLUMN_KEY, COLUMN_DATE_KEY);
     
-    List columnList = new ArrayList();
+    List<TableColumn> columnList = new ArrayList<TableColumn>();
     columnList.add(columnReviewId);
     columnList.add(columnDescription);
     columnList.add(columnDate);

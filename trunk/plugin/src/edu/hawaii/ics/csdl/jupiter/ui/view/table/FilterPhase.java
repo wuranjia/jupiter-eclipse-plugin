@@ -13,7 +13,7 @@ import java.util.TreeMap;
 public class FilterPhase {
   private String phaseName;
   private boolean isEnabled;
-  private Map filterNameFilterEntryMap;
+  private Map<String, FilterEntry> filterNameFilterEntryMap;
   private List filterEntryList;
   
   /**
@@ -26,7 +26,7 @@ public class FilterPhase {
     this.phaseName = phaseName;
     this.isEnabled = isEnabled;
     this.filterEntryList = filterEntryList;
-    this.filterNameFilterEntryMap = new TreeMap();
+    this.filterNameFilterEntryMap = new TreeMap<String, FilterEntry>();
     for (Iterator i = filterEntryList.iterator(); i.hasNext();) {
       FilterEntry entry = (FilterEntry) i.next();
       this.filterNameFilterEntryMap.put(entry.getFilterName(), entry);

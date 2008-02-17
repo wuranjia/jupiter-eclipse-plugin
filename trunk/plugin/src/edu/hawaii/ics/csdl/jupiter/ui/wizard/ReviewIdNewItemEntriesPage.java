@@ -46,8 +46,8 @@ public class ReviewIdNewItemEntriesPage extends WizardPage {
   private Button upButtonInItemEntries;
   private Button downButtonInItemEntries;
   private Button restoreButtonInItemEntries;
-  private Map fieldItemIdFieldItemMap;
-  private List fieldItemIdList;
+  private Map<String, FieldItem> fieldItemIdFieldItemMap;
+  private List<String> fieldItemIdList;
   /**
    * @param project the project name.
    * @param pageName the page name.
@@ -100,8 +100,8 @@ public class ReviewIdNewItemEntriesPage extends WizardPage {
     }
     this.itemCombo = new Combo(composite, SWT.READ_ONLY);
     itemCombo.setData(itemCombo);
-    itemCombo.setItems((String[]) fieldItemIdList.toArray(new String[] {}));
-    itemCombo.setText((String) fieldItemIdList.get(0));
+    itemCombo.setItems(fieldItemIdList.toArray(new String[] {}));
+    itemCombo.setText(fieldItemIdList.get(0));
     itemCombo.addListener(SWT.Selection, new Listener() {
       public void handleEvent(Event event) {
         Combo selectedItemCombo = (Combo) event.widget.getData();

@@ -36,7 +36,7 @@ public class ReviewIdNewReviewerPage extends WizardPage {
   private Button addButton;
   private Button removeButton;
   private Combo previousReviewIdCombo;
-  private Map reviewers = new TreeMap();
+  private Map<String, ReviewerId> reviewers = new TreeMap<String, ReviewerId>();
   private IProject project;
 
   /**
@@ -137,9 +137,9 @@ public class ReviewIdNewReviewerPage extends WizardPage {
     if (!isUpdate) {
       PropertyResource reviewIdResource = PropertyResource.getInstance(this.project, true);
       Map reviewersMap = reviewIdResource.getReviewers(PropertyResource.DEFAULT_ID);
-      this.reviewers = new TreeMap(reviewersMap);
+      this.reviewers = new TreeMap<String, ReviewerId>(reviewersMap);
     }
-    for (Iterator i = this.reviewers.keySet().iterator(); i.hasNext();) {
+    for (Iterator<String> i = this.reviewers.keySet().iterator(); i.hasNext();) {
       String reviewerId = (String) i.next();
       TableItem item = new TableItem(this.reviewerListTable, SWT.NONE);
       item.setText(reviewerId);
@@ -275,11 +275,11 @@ public class ReviewIdNewReviewerPage extends WizardPage {
    * Updates the author candidate list.
    * @param reviewers the reviewers which would be the candidates for the author.
    */
-  private void updateAuthorCandidates(Map reviewers) {
+  private void updateAuthorCandidates(Map<String, ReviewerId> reviewers) {
     IWizardPage page = getWizard().getPage(ReviewIdNewWizard.PAGE_AUTHOR);
     ReviewIdNewAuthorPage configAuthorPage = (ReviewIdNewAuthorPage) page;
     String selectedAuthor = configAuthorPage.getAuthor();
-    configAuthorPage.setAuthorItems((String[]) this.reviewers.keySet().toArray(new String[] {}));
+    configAuthorPage.setAuthorItems(this.reviewers.keySet().toArray(new String[] {}));
     configAuthorPage.setDefaultAuthor(selectedAuthor);
   }
   

@@ -37,7 +37,7 @@ public class ReviewIdNewReviewIdPage extends WizardPage {
   private Combo projectCombo;
   private Text reviewIdText;
   private Label infoLabel;
-  private List tempReviewIdList = new ArrayList();
+  private List<String> tempReviewIdList = new ArrayList<String>();
   private Text descriptionText;
   private IProject project;
 

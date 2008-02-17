@@ -91,9 +91,9 @@ public class ReviewIdEditDialog extends Dialog {
   private Table fileListTable;
   private Combo itemCombo;
   /** The map of the String field item id - <code>FieldItem</code> instance. */
-  private Map fieldItemIdFieldItemMap;
+  private Map<String, FieldItem> fieldItemIdFieldItemMap;
   /** The list of the String field item IDs. */
-  private List fieldItemIdList;
+  private List<String> fieldItemIdList;
   private Table itemListTable;
   private Button newButtonInItemEntries;
   private Button removeButtonInItemEntries;
