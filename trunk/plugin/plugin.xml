@@ -202,13 +202,13 @@
         visible="true"
         id="edu.hawaii.ics.csdl.jupiter.ui.action.PhaseSelectionActionDelegate">
       <action
-          label="%actionSetActionLabel"
-          icon="icons/jupiter.gif"
-          class="edu.hawaii.ics.csdl.jupiter.ui.action.PhaseSelectionActionDelegate"
-          tooltip="%actionSetActionToolTip"
-          toolbarPath="Normal/additions"
-          pulldown="true"
-          id="edu.hawaii.ics.csdl.jupiter.ui.action.PhaseSelectionActionDelegate">
+            class="edu.hawaii.ics.csdl.jupiter.ui.action.PhaseSelectionActionDelegate"
+            icon="icons/jupiter.gif"
+            id="edu.hawaii.ics.csdl.jupiter.ui.action.PhaseSelectionActionDelegate"
+            label="%actionSetActionLabel"
+            style="pulldown"
+            toolbarPath="Normal/additions"
+            tooltip="%actionSetActionToolTip">
       </action>
     </actionSet>
   </extension>

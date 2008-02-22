@@ -28,6 +28,7 @@ import edu.hawaii.ics.csdl.jupiter.model.review.ReviewerId;
 
 /**
  * Provides reviewer page.
+ * 
  * @author Takuya Yamashita
  * @version $Id$
  */
@@ -41,6 +42,7 @@ public class ReviewIdNewReviewerPage extends WizardPage {
 
   /**
    * Instantiates the config reviewer page.
+   * 
    * @param project the project.
    * @param pageName the page name
    * @param imageFilePath the image file path.
@@ -55,6 +57,7 @@ public class ReviewIdNewReviewerPage extends WizardPage {
 
   /**
    * Creates control.
+   * 
    * @see org.eclipse.jface.dialogs.IDialogPage#createControl(org.eclipse.swt.widgets.Composite)
    */
   public void createControl(Composite ancestor) {
@@ -64,9 +67,10 @@ public class ReviewIdNewReviewerPage extends WizardPage {
     setControl(parent);
     setPageComplete(isTableNonEmpty());
   }
-  
+
   /**
    * Creates view preference frame and return the child composite.
+   * 
    * @param parent the parent composite.
    * @return the child composite.
    */
@@ -78,12 +82,13 @@ public class ReviewIdNewReviewerPage extends WizardPage {
     child.setLayout(layout);
     return child;
   }
-  
+
   /**
    * Creates view preference content.
+   * 
    * @param parent the parent composite.
    */
-  private void createrReviewerListContent(Composite parent) {    
+  private void createrReviewerListContent(Composite parent) {
     this.reviewerListTable = new Table(parent, SWT.BORDER | SWT.MULTI);
     FormData reviewerListTableData = new FormData();
     reviewerListTableData.left = new FormAttachment(0, 0);
@@ -96,12 +101,12 @@ public class ReviewIdNewReviewerPage extends WizardPage {
         handleReviewListSelection();
       }
     });
-    
+
     this.addButton = new Button(parent, SWT.PUSH);
     addButton.setText(ReviewI18n.getString("ReviewIdNewReviewerPage.label.button.add"));
     addButton.addListener(SWT.Selection, new Listener() {
       public void handleEvent(Event e) {
-          addReviewer();
+        addReviewer();
       }
     });
     FormData addButtonData = new FormData();
@@ -109,8 +114,7 @@ public class ReviewIdNewReviewerPage extends WizardPage {
     addButtonData.left = new FormAttachment(reviewerListTable, 10);
     addButtonData.right = new FormAttachment(100, 0);
     addButton.setLayoutData(addButtonData);
-    
-    
+
     this.removeButton = new Button(parent, SWT.PUSH);
     removeButton.setText(ReviewI18n.getString("ReviewIdNewReviewerPage.label.button.remove"));
     removeButton.setEnabled(false);
@@ -125,18 +129,20 @@ public class ReviewIdNewReviewerPage extends WizardPage {
     removeButtonData.right = new FormAttachment(100, 0);
     removeButton.setLayoutData(removeButtonData);
   }
-  
+
   /**
-   * Fills the reviewer table with reviewers. Sets <code>true</code> if items are just updated.
-   * Sets <code>false</code> if items are read from the property resource.
-   * @param isUpdate <code>true</code> if items are just updated.
-   * <code>false</code> if items are read from the property resource.
+   * Fills the reviewer table with reviewers. Sets <code>true</code> if items are just
+   * updated. Sets <code>false</code> if items are read from the property resource.
+   * 
+   * @param isUpdate <code>true</code> if items are just updated. <code>false</code> if
+   *          items are read from the property resource.
    */
   public void fillReviewerTable(boolean isUpdate) {
     removeAllItemsInReviewerTable();
     if (!isUpdate) {
       PropertyResource reviewIdResource = PropertyResource.getInstance(this.project, true);
-      Map reviewersMap = reviewIdResource.getReviewers(PropertyResource.DEFAULT_ID);
+      Map<String, ReviewerId> reviewersMap = reviewIdResource
+          .getReviewers(PropertyResource.DEFAULT_ID);
       this.reviewers = new TreeMap<String, ReviewerId>(reviewersMap);
     }
     for (Iterator<String> i = this.reviewers.keySet().iterator(); i.hasNext();) {
@@ -145,7 +151,7 @@ public class ReviewIdNewReviewerPage extends WizardPage {
       item.setText(reviewerId);
     }
   }
-  
+
   /**
    * Removes all items in the review table.
    */
@@ -158,13 +164,14 @@ public class ReviewIdNewReviewerPage extends WizardPage {
 
   /**
    * Creates review id list.
+   * 
    * @param parent the composite.
    */
   private void createReviewIdList(Composite parent) {
     this.previousReviewIdCombo = new Combo(parent, SWT.READ_ONLY);
     previousReviewIdCombo.addListener(SWT.Selection, new Listener() {
       public void handleEvent(Event e) {
-      //    modifyWidth();
+        // modifyWidth();
       }
     });
     FormData previousReviewIdComboData = new FormData();
@@ -173,9 +180,10 @@ public class ReviewIdNewReviewerPage extends WizardPage {
     previousReviewIdComboData.right = new FormAttachment(80, 0);
     previousReviewIdCombo.setLayoutData(previousReviewIdComboData);
   }
-  
+
   /**
    * Creates candidate reviewer list.
+   * 
    * @param parent the composite.
    */
   private void createCandidateReviewerList(Composite parent) {
@@ -188,24 +196,25 @@ public class ReviewIdNewReviewerPage extends WizardPage {
     previousReviewerListTable.setLayoutData(previousReviewerListTableData);
     previousReviewerListTable.addListener(SWT.Selection, new Listener() {
       public void handleEvent(Event e) {
-//        handleSelection((TableItem) e.item);
+        // handleSelection((TableItem) e.item);
       }
     });
-    
+
     Button addPreviousReviewerButton = new Button(parent, SWT.PUSH);
     addPreviousReviewerButton.setText("Add above");
     addPreviousReviewerButton.addListener(SWT.Selection, new Listener() {
       public void handleEvent(Event e) {
-      //    modifyWidth();
+        // modifyWidth();
       }
     });
     FormData addPreviousReviewerButtonData = new FormData();
-    addPreviousReviewerButtonData.top = new FormAttachment(previousReviewerListTable, 0, SWT.TOP);
+    addPreviousReviewerButtonData.top = new FormAttachment(previousReviewerListTable, 0,
+        SWT.TOP);
     addPreviousReviewerButtonData.left = new FormAttachment(previousReviewerListTable, 10);
     addPreviousReviewerButtonData.right = new FormAttachment(100, 0);
     addPreviousReviewerButton.setLayoutData(addPreviousReviewerButtonData);
   }
-  
+
   /**
    * Adds a reviewer to the reviewer list.
    */
@@ -221,10 +230,9 @@ public class ReviewIdNewReviewerPage extends WizardPage {
         }
       }
     };
-    InputDialog dialog = new InputDialog(getShell(), 
-        ReviewI18n.getString("ReviewIdNewReviewerPage.dialogMessage.label.short"),
-        ReviewI18n.getString("ReviewIdNewReviewerPage.dialogMessage.label.long"),
-        null, validator);  //$NON-NLS-1$ //$NON-NLS-2$
+    InputDialog dialog = new InputDialog(getShell(), ReviewI18n
+        .getString("ReviewIdNewReviewerPage.dialogMessage.label.short"), ReviewI18n
+        .getString("ReviewIdNewReviewerPage.dialogMessage.label.long"), null, validator); //$NON-NLS-1$ //$NON-NLS-2$
     dialog.open();
     if (dialog.getReturnCode() != InputDialog.OK) {
       return;
@@ -237,7 +245,7 @@ public class ReviewIdNewReviewerPage extends WizardPage {
     getWizard().getContainer().updateButtons();
     setPageComplete(isTableNonEmpty());
   }
-  
+
   /**
    * Removes a reviewer form the reviewer list.
    */
@@ -253,7 +261,7 @@ public class ReviewIdNewReviewerPage extends WizardPage {
     getWizard().getContainer().updateButtons();
     setPageComplete(isTableNonEmpty());
   }
-  
+
   /**
    * Handles the table selection.
    */
@@ -262,17 +270,10 @@ public class ReviewIdNewReviewerPage extends WizardPage {
     this.addButton.setEnabled(isSelected);
     this.removeButton.setEnabled(isSelected);
   }
-  
-  /**
-   * Gets reviewers.
-   * @return the reviewers.
-   */
-  public Map getReviews() {
-    return this.reviewers;
-  }
-  
+
   /**
    * Updates the author candidate list.
+   * 
    * @param reviewers the reviewers which would be the candidates for the author.
    */
   private void updateAuthorCandidates(Map<String, ReviewerId> reviewers) {
@@ -282,37 +283,41 @@ public class ReviewIdNewReviewerPage extends WizardPage {
     configAuthorPage.setAuthorItems(this.reviewers.keySet().toArray(new String[] {}));
     configAuthorPage.setDefaultAuthor(selectedAuthor);
   }
-  
+
   /**
-   * Returns the next page. Saves the values from this page in the model associated with the wizard.
-   * Initializes the widgets on the next page.
+   * Returns the next page. Saves the values from this page in the model associated with the
+   * wizard. Initializes the widgets on the next page.
+   * 
    * @return the next page.
    */
   public IWizardPage getNextPage() {
     return getWizard().getPage(ReviewIdNewWizard.PAGE_AUTHOR);
   }
-  
+
   /**
    * Checks if the wizard can flip to the next page.
+   * 
    * @return <code>true</code> if it can flip to the next page.
    */
   public boolean canFlipToNextPage() {
     return isPageComplete();
   }
-  
+
   /**
    * Checks if the table has at least one reviewer.
+   * 
    * @return <code>true</code> if the table has at least one reviewer.
    */
   private boolean isTableNonEmpty() {
     return (this.reviewers.size() > 0);
   }
-  
+
   /**
    * Gets the map of the String reviewer id - ReviewerId instance.
+   * 
    * @return the map of the String reviewer id - ReviewerId instance.
    */
-  public Map getReviewers() {
+  public Map<String, ReviewerId> getReviewers() {
     return this.reviewers;
   }
 }

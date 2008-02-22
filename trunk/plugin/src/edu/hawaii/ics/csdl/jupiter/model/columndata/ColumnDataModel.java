@@ -46,9 +46,9 @@ public class ColumnDataModel {
    * of the list is not <code>ColumnData</code> instance.
    * @param columnDataList the <code>ColumnData</code> list.
    */
-  public void addAll(List columnDataList) {
-    for (Iterator i = columnDataList.iterator(); i.hasNext();) {
-      add((ColumnData) i.next());
+  public void addAll(List<ColumnData> columnDataList) {
+    for (Iterator<ColumnData> i = columnDataList.iterator(); i.hasNext();) {
+      add(i.next());
     }
   }
   

@@ -1,6 +1,7 @@
 package edu.hawaii.ics.csdl.jupiter.ui.wizard;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -15,6 +16,7 @@ import edu.hawaii.ics.csdl.jupiter.file.PropertyConstraints;
 import edu.hawaii.ics.csdl.jupiter.file.PropertyResource;
 import edu.hawaii.ics.csdl.jupiter.file.ReviewResource;
 import edu.hawaii.ics.csdl.jupiter.model.review.ReviewId;
+import edu.hawaii.ics.csdl.jupiter.model.review.ReviewerId;
 import edu.hawaii.ics.csdl.jupiter.util.JupiterLogger;
 
 /**
@@ -68,12 +70,12 @@ public class ReviewIdNewWizard extends Wizard implements INewWizard {
    * @see org.eclipse.jface.wizard.Wizard#performFinish()
    */
   public boolean performFinish() {
-    Map categoryMap = new TreeMap();
+    Map<String, List<String>> categoryMap = new TreeMap<String, List<String>>();
     PropertyResource propertyResource = PropertyResource.getInstance(project, true);
     String defaultReviewID =  PropertyConstraints.DEFAULT_REVIEW_ID;
     ReviewResource reviewResource = propertyResource.getReviewResource(defaultReviewID, true);
     if (reviewResource != null) {
-      Map reviewers = reviewerPage.getReviewers();
+      Map<String, ReviewerId> reviewers = reviewerPage.getReviewers();
       String reviewIdString = reviewIdPage.getReviewId();
       String description = reviewIdPage.getDescription();
       String author = authorPage.getAuthor();

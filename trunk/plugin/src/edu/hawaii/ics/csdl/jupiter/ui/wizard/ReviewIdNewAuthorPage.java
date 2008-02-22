@@ -20,6 +20,7 @@ import edu.hawaii.ics.csdl.jupiter.ReviewPlugin;
 import edu.hawaii.ics.csdl.jupiter.file.PropertyConstraints;
 import edu.hawaii.ics.csdl.jupiter.file.PropertyResource;
 import edu.hawaii.ics.csdl.jupiter.model.review.ReviewId;
+import edu.hawaii.ics.csdl.jupiter.model.review.ReviewerId;
 import edu.hawaii.ics.csdl.jupiter.util.JupiterLogger;
 
 /**
@@ -87,9 +88,9 @@ public class ReviewIdNewAuthorPage extends WizardPage {
     PropertyResource reviewIdResource = PropertyResource.getInstance(this.project, true);
     String defualtReviewId = PropertyConstraints.DEFAULT_REVIEW_ID;
     ReviewId reviewId = reviewIdResource.getReviewId(defualtReviewId);
-    Map reviewers = reviewId.getReviewers();
+    Map<String, ReviewerId> reviewers = reviewId.getReviewers();
     String author = reviewId.getAuthor();
-    authorCombo.setItems((String[]) reviewers.keySet().toArray(new String[] {}));
+    authorCombo.setItems(reviewers.keySet().toArray(new String[] {}));
     authorCombo.setText(author);
     authorCombo.addListener(SWT.Selection, new Listener() {
       public void handleEvent(Event event) {

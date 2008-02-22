@@ -111,10 +111,10 @@ public class ReviewIdNewFilterPage extends WizardPage {
     ReviewResource reviewResource = propertyResource.getReviewResource(reviewIdString, true);
     final ReviewId reviewId = reviewResource.getReviewId();
     this.phaseNameFilterPhaseMap = reviewResource.getPhaseNameToFilterPhaseMap();
-    List phaseNameList = reviewResource.getPhaseNameList();
+    List<String> phaseNameList = reviewResource.getPhaseNameList();
     this.phaseCombo = new Combo(composite, SWT.READ_ONLY);
     phaseCombo.setData(phaseCombo);
-    String[] items = (String[]) phaseNameList.toArray(new String[] {});
+    String[] items = phaseNameList.toArray(new String[] {});
     phaseCombo.setItems(items);
     phaseCombo.setText(items[0]);
     phaseCombo.addListener(SWT.Selection, new Listener() {
@@ -131,7 +131,7 @@ public class ReviewIdNewFilterPage extends WizardPage {
     String enableKey = "ReviewIdEditDialog.label.tab.filters.check.enabled";
     enabledCheckButton.setText(ReviewI18n.getString(enableKey));
     String phaseName = this.phaseCombo.getText();
-    FilterPhase filterPhase = (FilterPhase) this.phaseNameFilterPhaseMap.get(phaseName);
+    FilterPhase filterPhase = this.phaseNameFilterPhaseMap.get(phaseName);
     enabledCheckButton.setSelection(filterPhase.isEnabled());
     enabledCheckButton.addListener(SWT.Selection, new Listener() {
       public void handleEvent(Event event) {
@@ -205,8 +205,8 @@ public class ReviewIdNewFilterPage extends WizardPage {
     reviewerFilterCombo.setLayoutData(reviewerFilterComboData);
     reviewerFilterCombo.setEnabled(reviewerCheckButton.getSelection());
     String reviewerNameId = PropertyConstraints.ATTRIBUTE_VALUE_REVIEWER;
-    Map reviewers = reviewResource.getReviewers();
-    reviewerFilterCombo.setItems((String[]) reviewers.keySet().toArray(new String[] {}));
+    Map<String, ReviewerId> reviewers = reviewResource.getReviewers();
+    reviewerFilterCombo.setItems(reviewers.keySet().toArray(new String[] {}));
     reviewerFilterCombo.add(ReviewI18n.getString(ReviewerId.AUTOMATIC_KEY), 0);
     reviewerFilterCombo.setText(ReviewI18n.getString(entry.getValueKey()));
     reviewerCheckButton.addListener(SWT.Selection, new Listener() {
@@ -242,7 +242,7 @@ public class ReviewIdNewFilterPage extends WizardPage {
     String typeNameId = PropertyConstraints.ATTRIBUTE_VALUE_TYPE;
     IWizardPage page = getWizard().getPage(ReviewIdNewWizard.PAGE_ITEM_ENTRIES);
     ReviewIdNewItemEntriesPage itemEntryPage = (ReviewIdNewItemEntriesPage) page;
-    Map fieldItemIdFieldItemMap = itemEntryPage.getFieldItemIdFieldItemMap();
+    Map<String, FieldItem> fieldItemIdFieldItemMap = itemEntryPage.getFieldItemIdFieldItemMap();
     FieldItem fieldItem = (FieldItem) fieldItemIdFieldItemMap.get(typeNameId);
     if (fieldItem != null) {
       typeFilterCombo.setItems((String[]) fieldItem.getEntryNameList().toArray(new String[] {}));
@@ -281,8 +281,8 @@ public class ReviewIdNewFilterPage extends WizardPage {
     String severityNameId = PropertyConstraints.ATTRIBUTE_VALUE_SEVERITY;
     fieldItem = (FieldItem) fieldItemIdFieldItemMap.get(severityNameId);
     if (fieldItem != null) {
-      List itemNameList = fieldItem.getEntryNameList();
-      severityFilterCombo.setItems((String[]) itemNameList.toArray(new String[] {}));
+      List<String> itemNameList = fieldItem.getEntryNameList();
+      severityFilterCombo.setItems(itemNameList.toArray(new String[] {}));
     }
     severityFilterCombo.setText(ReviewI18n.getString(entry.getValueKey()));
     severityCheckButton.addListener(SWT.Selection, new Listener() {
@@ -354,8 +354,8 @@ public class ReviewIdNewFilterPage extends WizardPage {
     String resolutionNameId = PropertyConstraints.ATTRIBUTE_VALUE_RESOLUTION;
     fieldItem = (FieldItem) fieldItemIdFieldItemMap.get(resolutionNameId);
     if (fieldItem != null) {
-      List itemNameList = fieldItem.getEntryNameList();
-      resolutionFilterCombo.setItems((String[]) itemNameList.toArray(new String[] {}));
+      List<String> itemNameList = fieldItem.getEntryNameList();
+      resolutionFilterCombo.setItems(itemNameList.toArray(new String[] {}));
     }
     resolutionFilterCombo.setText(ReviewI18n.getString(entry.getValueKey()));
     resolutionCheckButton.addListener(SWT.Selection, new Listener() {
@@ -391,8 +391,8 @@ public class ReviewIdNewFilterPage extends WizardPage {
     String statusNameId = PropertyConstraints.ATTRIBUTE_VALUE_STATUS;
     fieldItem = (FieldItem) fieldItemIdFieldItemMap.get(statusNameId);
     if (fieldItem != null) {
-      List itemNameList = fieldItem.getEntryNameList();
-      statusFilterCombo.setItems((String[]) itemNameList.toArray(new String[] {}));
+      List<String> itemNameList = fieldItem.getEntryNameList();
+      statusFilterCombo.setItems(itemNameList.toArray(new String[] {}));
     }
     statusFilterCombo.setText(ReviewI18n.getString(entry.getValueKey()));
     statusCheckButton.addListener(SWT.Selection, new Listener() {
@@ -424,8 +424,8 @@ public class ReviewIdNewFilterPage extends WizardPage {
     fileFilterComboData.right = new FormAttachment(100, 0);
     fileFilterCombo.setLayoutData(fileFilterComboData);
     fileFilterCombo.setEnabled(fileCheckButton.getSelection());
-    Set fileSet = reviewResource.getFileSet();
-    fileFilterCombo.setItems((String[]) fileSet.toArray(new String[] {}));
+    Set<String> fileSet = reviewResource.getFileSet();
+    fileFilterCombo.setItems(fileSet.toArray(new String[] {}));
     fileFilterCombo.setText(ReviewI18n.getString(entry.getValueKey()));
     fileCheckButton.addListener(SWT.Selection, new Listener() {
       public void handleEvent(Event event) {
@@ -442,7 +442,7 @@ public class ReviewIdNewFilterPage extends WizardPage {
    * @param phaseName the phase name.
    */
   protected void fillNewValueInCombos(String phaseName) {
-    FilterPhase filterPhase = (FilterPhase) this.phaseNameFilterPhaseMap.get(phaseName);
+    FilterPhase filterPhase = this.phaseNameFilterPhaseMap.get(phaseName);
         
     FilterEntry entry = filterPhase.getFilterEntry(PropertyConstraints.ATTRIBUTE_VALUE_INTERVAL);
     this.intervalCheckButton.setSelection(entry.isEnabled());
@@ -522,7 +522,7 @@ public class ReviewIdNewFilterPage extends WizardPage {
    */
   private void updateFilterEnabled(String filterName, boolean isEnabled) {
     String phaseName = this.phaseCombo.getText();
-    FilterPhase filterPhase = (FilterPhase) this.phaseNameFilterPhaseMap.get(phaseName);
+    FilterPhase filterPhase = this.phaseNameFilterPhaseMap.get(phaseName);
     if (filterName != null) {
       FilterEntry entry = filterPhase.getFilterEntry(filterName);
       entry.setEnabled(isEnabled);
@@ -539,7 +539,7 @@ public class ReviewIdNewFilterPage extends WizardPage {
    */
   private void updateFilterValue(String filterName, String key) {
     String phaseName = this.phaseCombo.getText();
-    FilterPhase filterPhase = (FilterPhase) this.phaseNameFilterPhaseMap.get(phaseName);
+    FilterPhase filterPhase = this.phaseNameFilterPhaseMap.get(phaseName);
     FilterEntry entry = filterPhase.getFilterEntry(filterName);
     entry.setKey(key);
   }
@@ -563,25 +563,25 @@ public class ReviewIdNewFilterPage extends WizardPage {
     Map fieldItemIdFieldItemMap = itemEntryPage.getFieldItemIdFieldItemMap();
     FieldItem fieldItem = (FieldItem) fieldItemIdFieldItemMap.get(fieldItemId);
     if (fieldItem != null) {
-      List itemNameList = fieldItem.getEntryNameList();
+      List<String> itemNameList = fieldItem.getEntryNameList();
       if (fieldItemId.equals(PropertyConstraints.ATTRIBUTE_VALUE_TYPE)) {
         String currentType = this.typeFilterCombo.getText();
-        this.typeFilterCombo.setItems((String[]) itemNameList.toArray(new String[] {}));
+        this.typeFilterCombo.setItems(itemNameList.toArray(new String[] {}));
         this.typeFilterCombo.setText(currentType);
       }
       else if (fieldItemId.equals(PropertyConstraints.ATTRIBUTE_VALUE_SEVERITY)) {
         String currentSeverity = this.severityFilterCombo.getText();
-        this.severityFilterCombo.setItems((String[]) itemNameList.toArray(new String[] {}));
+        this.severityFilterCombo.setItems(itemNameList.toArray(new String[] {}));
         this.severityFilterCombo.setText(currentSeverity);
       }
       else if (fieldItemId.equals(PropertyConstraints.ATTRIBUTE_VALUE_RESOLUTION)) {
         String currentResolution = this.resolutionFilterCombo.getText();
-        this.severityFilterCombo.setItems((String[]) itemNameList.toArray(new String[] {}));
+        this.severityFilterCombo.setItems(itemNameList.toArray(new String[] {}));
         this.severityFilterCombo.setText(currentResolution);
       }
       else if (fieldItemId.equals(PropertyConstraints.ATTRIBUTE_VALUE_STATUS)) {
         String currentStatus = this.statusFilterCombo.getText();
-        this.statusFilterCombo.setItems((String[]) itemNameList.toArray(new String[] {}));
+        this.statusFilterCombo.setItems(itemNameList.toArray(new String[] {}));
         this.statusFilterCombo.setText(currentStatus);
       }
     }
@@ -591,7 +591,7 @@ public class ReviewIdNewFilterPage extends WizardPage {
    * Gets the map of the String phase name - <code>FilterPhase</code> instance.
    * @return the map of the String phase name - <code>FilterPhase</code> instance.
    */
-  public Map getPhaseNameFilterPhaseMap() {
+  public Map<String, FilterPhase> getPhaseNameFilterPhaseMap() {
     return this.phaseNameFilterPhaseMap;
   }
 }

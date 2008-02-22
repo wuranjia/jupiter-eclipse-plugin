@@ -248,7 +248,7 @@ public class ReviewIdNewFilePage extends WizardPage {
    * Gets the set of the review files.
    * @return the set of the review files.
    */
-  public Set getFiles() {
+  public Set<String> getFiles() {
     return this.files;
   }
 }

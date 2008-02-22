@@ -30,6 +30,7 @@ import edu.hawaii.ics.csdl.jupiter.model.reviewissue.TypeKeyManager;
 
 /**
  * Provides default items page
+ * 
  * @author Takuya Yamashita
  * @version $Id$
  */
@@ -41,8 +42,10 @@ public class ReviewIdNewDefaultItemsPage extends WizardPage {
   private Combo statusCombo;
   private int clientWidth;
   private static final double RATIO = 0.6;
+
   /**
    * Instantiates the default items configuration page.
+   * 
    * @param project the project.
    * @param pageName the page name.
    * @param imageFilePath the image file path.
@@ -64,9 +67,10 @@ public class ReviewIdNewDefaultItemsPage extends WizardPage {
     createDefaultItems(parent);
     setControl(parent);
   }
-  
+
   /**
    * Creates view preference frame and return the child composite.
+   * 
    * @param parent the parent composite.
    * @return the child composite.
    */
@@ -79,9 +83,10 @@ public class ReviewIdNewDefaultItemsPage extends WizardPage {
     child.setLayout(layout);
     return child;
   }
-  
+
   /**
    * Creates default items content.
+   * 
    * @param composite the composite.
    * @return the control.
    */
@@ -95,15 +100,16 @@ public class ReviewIdNewDefaultItemsPage extends WizardPage {
     }
     IWizardPage page = getWizard().getPage(ReviewIdNewWizard.PAGE_ITEM_ENTRIES);
     ReviewIdNewItemEntriesPage itemEntryPage = (ReviewIdNewItemEntriesPage) page;
-    final Map fieldItemIdFieldItemMap = itemEntryPage.getFieldItemIdFieldItemMap();
-    
+    final Map<String, FieldItem> fieldItemIdFieldItemMap = itemEntryPage
+        .getFieldItemIdFieldItemMap();
+
     // create type label and its combo.
     Label typeLabel = new Label(composite, SWT.NONE);
     typeLabel.setText(ReviewI18n.getString("ReviewIdEditDialog.label.type"));
     this.typeCombo = new Combo(composite, SWT.READ_ONLY);
     typeCombo.setData(typeCombo);
     TypeKeyManager manager = TypeKeyManager.getInstance(project, reviewId);
-    String[] elements = (reviewId != null) ? manager.getElements() : new String[]{""};
+    String[] elements = (reviewId != null) ? manager.getElements() : new String[] { "" };
     typeCombo.setItems(elements);
     String typeName = PropertyConstraints.ATTRIBUTE_VALUE_TYPE;
     String typeKey = (reviewResource != null) ? reviewResource.getDefaultField(typeName) : "";
@@ -115,7 +121,7 @@ public class ReviewIdNewDefaultItemsPage extends WizardPage {
         fieldItem.setDefaultKey(ReviewI18n.getKey(typeCombo.getText()));
       }
     });
-    
+
     FormData typeLabelData = new FormData();
     typeLabelData.width = (int) (clientWidth * RATIO);
     typeLabelData.top = new FormAttachment(typeCombo, 0, SWT.CENTER);
@@ -124,7 +130,7 @@ public class ReviewIdNewDefaultItemsPage extends WizardPage {
     typeComboData.left = new FormAttachment(typeLabel, 0);
     typeComboData.right = new FormAttachment(100, 0);
     typeCombo.setLayoutData(typeComboData);
-    
+
     // create severity label and its combo.
     Label severityLabel = new Label(composite, SWT.NONE);
     severityLabel.setText(ReviewI18n.getString("ReviewIdEditDialog.label.severity"));
@@ -132,8 +138,8 @@ public class ReviewIdNewDefaultItemsPage extends WizardPage {
     severityCombo.setData(severityCombo);
     severityCombo.setItems(SeverityKeyManager.getInstance(project, reviewId).getElements());
     String severityName = PropertyConstraints.ATTRIBUTE_VALUE_SEVERITY;
-    String severityKey = (reviewResource != null) ? reviewResource.getDefaultField(severityName)
-                                                  : "";
+    String severityKey = (reviewResource != null) ? reviewResource
+        .getDefaultField(severityName) : "";
     severityCombo.setText(ReviewI18n.getString(severityKey));
     severityCombo.addListener(SWT.Selection, new Listener() {
       public void handleEvent(Event event) {
@@ -142,7 +148,7 @@ public class ReviewIdNewDefaultItemsPage extends WizardPage {
         fieldItem.setDefaultKey(ReviewI18n.getKey(severityCombo.getText()));
       }
     });
-    
+
     FormData severityLabelData = new FormData();
     severityLabelData.width = (int) (clientWidth * RATIO);
     severityLabelData.top = new FormAttachment(severityCombo, 0, SWT.CENTER);
@@ -152,16 +158,17 @@ public class ReviewIdNewDefaultItemsPage extends WizardPage {
     severityComboData.left = new FormAttachment(severityLabel, 0);
     severityComboData.right = new FormAttachment(100, 0);
     severityCombo.setLayoutData(severityComboData);
-    
+
     // create resolution label and its combo.
     Label resolutionLabel = new Label(composite, SWT.NONE);
     resolutionLabel.setText(ReviewI18n.getString("ReviewIdEditDialog.label.resolution"));
     this.resolutionCombo = new Combo(composite, SWT.READ_ONLY);
     resolutionCombo.setData(resolutionCombo);
-    resolutionCombo.setItems(ResolutionKeyManager.getInstance(project, reviewId).getElements());
+    resolutionCombo
+        .setItems(ResolutionKeyManager.getInstance(project, reviewId).getElements());
     String resolutionName = PropertyConstraints.ATTRIBUTE_VALUE_RESOLUTION;
-    String resolutionKey = (reviewResource != null) 
-                            ? reviewResource.getDefaultField(resolutionName) : "";
+    String resolutionKey = (reviewResource != null) ? reviewResource
+        .getDefaultField(resolutionName) : "";
     resolutionCombo.setText(ReviewI18n.getString(resolutionKey));
     resolutionCombo.addListener(SWT.Selection, new Listener() {
       public void handleEvent(Event event) {
@@ -170,7 +177,7 @@ public class ReviewIdNewDefaultItemsPage extends WizardPage {
         fieldItem.setDefaultKey(ReviewI18n.getKey(resolutionCombo.getText()));
       }
     });
-    
+
     FormData resolutionLabelData = new FormData();
     resolutionLabelData.width = (int) (clientWidth * RATIO);
     resolutionLabelData.top = new FormAttachment(resolutionCombo, 0, SWT.CENTER);
@@ -180,7 +187,7 @@ public class ReviewIdNewDefaultItemsPage extends WizardPage {
     resolutionComboData.left = new FormAttachment(resolutionLabel, 0);
     resolutionComboData.right = new FormAttachment(100, 0);
     resolutionCombo.setLayoutData(resolutionComboData);
-    
+
     // create status label and its combo.
     Label statusLabel = new Label(composite, SWT.NONE);
     statusLabel.setText(ReviewI18n.getString("ReviewIdEditDialog.label.status"));
@@ -188,7 +195,8 @@ public class ReviewIdNewDefaultItemsPage extends WizardPage {
     statusCombo.setData(statusCombo);
     statusCombo.setItems(StatusKeyManager.getInstance(project, reviewId).getElements());
     String statusName = PropertyConstraints.ATTRIBUTE_VALUE_STATUS;
-    String statusKey = (reviewResource != null) ? reviewResource.getDefaultField(statusName) : "";
+    String statusKey = (reviewResource != null) ? reviewResource.getDefaultField(statusName)
+        : "";
     statusCombo.setText(ReviewI18n.getString(statusKey));
     statusCombo.addListener(SWT.Selection, new Listener() {
       public void handleEvent(Event event) {
@@ -197,7 +205,7 @@ public class ReviewIdNewDefaultItemsPage extends WizardPage {
         fieldItem.setDefaultKey(ReviewI18n.getKey(statusCombo.getText()));
       }
     });
-    
+
     FormData statusLabelData = new FormData();
     statusLabelData.width = (int) (clientWidth * RATIO);
     statusLabelData.top = new FormAttachment(statusCombo, 0, SWT.CENTER);
@@ -209,26 +217,29 @@ public class ReviewIdNewDefaultItemsPage extends WizardPage {
     statusCombo.setLayoutData(statusComboData);
     return composite;
   }
-  
+
   /**
-   * Returns the next page. Saves the values from this page in the model associated with the wizard.
-   * Initializes the widgets on the next page.
+   * Returns the next page. Saves the values from this page in the model associated with the
+   * wizard. Initializes the widgets on the next page.
+   * 
    * @return the next page.
    */
   public IWizardPage getNextPage() {
     return ((ReviewIdNewWizard) getWizard()).getPage(ReviewIdNewWizard.PAGE_STORAGE);
   }
-  
+
   /**
    * Gets the default type key.
+   * 
    * @return the default type key.
    */
   public String getDefaultTypeKey() {
     return ReviewI18n.getKey(this.typeCombo.getText());
   }
-  
+
   /**
    * sets the items type.
+   * 
    * @param typeArray the array of the String type items.
    */
   public void setItemType(String[] typeArray) {
@@ -236,17 +247,19 @@ public class ReviewIdNewDefaultItemsPage extends WizardPage {
     this.typeCombo.setItems(typeArray);
     this.typeCombo.setText(currentText);
   }
-  
+
   /**
    * Gets the default severity key.
+   * 
    * @return the default severity key.
    */
   public String getDefaultSeverityKey() {
     return ReviewI18n.getKey(this.severityCombo.getText());
   }
-  
+
   /**
    * sets the items severity.
+   * 
    * @param severityArray the array of the String severity items.
    */
   public void setItemSeverity(String[] severityArray) {
@@ -254,17 +267,19 @@ public class ReviewIdNewDefaultItemsPage extends WizardPage {
     this.severityCombo.setItems(severityArray);
     this.severityCombo.setText(currentText);
   }
-  
+
   /**
    * Gets the default resolution key.
+   * 
    * @return the default resolution key.
    */
   public String getDefaultResolutionKey() {
     return ReviewI18n.getKey(this.resolutionCombo.getText());
   }
-  
+
   /**
    * sets the items resolution.
+   * 
    * @param resolutionArray the array of the String resolution items.
    */
   public void setItemResolution(String[] resolutionArray) {
@@ -272,17 +287,19 @@ public class ReviewIdNewDefaultItemsPage extends WizardPage {
     this.resolutionCombo.setItems(resolutionArray);
     this.resolutionCombo.setText(currentText);
   }
-  
+
   /**
    * Gets the default status key.
+   * 
    * @return the default status key.
    */
   public String getDefaultStatusKey() {
     return ReviewI18n.getKey(this.statusCombo.getText());
   }
-  
+
   /**
    * sets the items status.
+   * 
    * @param statusArray the array of the String status items.
    */
   public void setItemStatus(String[] statusArray) {

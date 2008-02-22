@@ -7,7 +7,7 @@ package edu.hawaii.ics.csdl.jupiter.model.reviewissue;
  * @author Takuya Yamashita
  * @version $Id$
  */
-public class Status implements Comparable {
+public class Status implements Comparable<Status> {
   /** The key of the status. */
   private String key;
   /** Assigns an ordinal to this key. */
@@ -38,7 +38,7 @@ public class Status implements Comparable {
    *
    * @see java.lang.Comparable#compareTo(java.lang.Object)
    */
-  public int compareTo(Object object) {
-    return ordinal - ((Status) object).ordinal;
+  public int compareTo(Status status) {
+    return ordinal - status.ordinal;
   }
 }

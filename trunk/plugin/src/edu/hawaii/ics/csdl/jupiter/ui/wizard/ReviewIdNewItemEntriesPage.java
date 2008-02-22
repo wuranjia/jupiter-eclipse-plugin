@@ -240,9 +240,9 @@ public class ReviewIdNewItemEntriesPage extends WizardPage {
     String itemName = dialog.getValue();
     TableItem item = new TableItem(this.itemListTable, SWT.NONE);
     String fieldItemId = this.itemCombo.getText();
-    FieldItem fieldItem = (FieldItem) this.fieldItemIdFieldItemMap.get(fieldItemId);
+    FieldItem fieldItem = this.fieldItemIdFieldItemMap.get(fieldItemId);
     if (fieldItem != null) {
-      List itemList = fieldItem.getEntryNameList();
+      List<String> itemList = fieldItem.getEntryNameList();
       itemList.add(itemName);
       fillItemTable(fieldItemId);
       updateDefaultItems(fieldItemId);
@@ -267,9 +267,9 @@ public class ReviewIdNewItemEntriesPage extends WizardPage {
     String newName = dialog.getValue();
     item.setText(newName);
     String fieldItemId = this.itemCombo.getText();
-    FieldItem fieldItem = (FieldItem) this.fieldItemIdFieldItemMap.get(fieldItemId);
+    FieldItem fieldItem = this.fieldItemIdFieldItemMap.get(fieldItemId);
     if (fieldItem != null) {
-      List itemList = fieldItem.getEntryNameList();
+      List<String> itemList = fieldItem.getEntryNameList();
       int index = itemList.indexOf(oldName);
       itemList.remove(index);
       itemList.add(index, newName);
@@ -286,9 +286,9 @@ public class ReviewIdNewItemEntriesPage extends WizardPage {
    */
   protected void removeItemEntries() {
     String fieldItemId = this.itemCombo.getText();
-    FieldItem fieldItem = (FieldItem) this.fieldItemIdFieldItemMap.get(fieldItemId);
+    FieldItem fieldItem = this.fieldItemIdFieldItemMap.get(fieldItemId);
     if (fieldItem != null) {
-      List itemList = fieldItem.getEntryNameList();
+      List<String> itemList = fieldItem.getEntryNameList();
       TableItem[] items = this.itemListTable.getSelection();
       for (int i = 0; i < items.length; i++) {
         String itemName = items[i].getText();
@@ -310,12 +310,12 @@ public class ReviewIdNewItemEntriesPage extends WizardPage {
    */
   protected void moveItemEntry(boolean isUpward) { 
     String fieldItemId = this.itemCombo.getText();
-    FieldItem fieldItem = (FieldItem) this.fieldItemIdFieldItemMap.get(fieldItemId);
+    FieldItem fieldItem = this.fieldItemIdFieldItemMap.get(fieldItemId);
     TableItem[] selectedItems = this.itemListTable.getSelection();
     if (selectedItems.length > 0 && fieldItem != null) {
       TableItem selectedItem = selectedItems[0];
       String itemName = selectedItem.getText();
-      List itemList = fieldItem.getEntryNameList();
+      List<String> itemList = fieldItem.getEntryNameList();
       int index = itemList.indexOf(itemName);
       if ((isUpward) ? index > 0 : index < itemList.size() - 1) {
         int nextIndex = (isUpward) ? index - 1 : index + 1;
@@ -363,7 +363,7 @@ public class ReviewIdNewItemEntriesPage extends WizardPage {
                       String longMessageKey) {
     FieldItem fieldItem = (FieldItem) this.fieldItemIdFieldItemMap.get(this.itemCombo.getText());
     if (fieldItem != null) {
-      final List itemList = fieldItem.getEntryNameList();
+      final List<String> itemList = fieldItem.getEntryNameList();
       IInputValidator validator = new IInputValidator() {
         public String isValid(String newText) {
           if (!itemList.contains(ReviewI18n.getKey(newText))) {
@@ -413,10 +413,10 @@ public class ReviewIdNewItemEntriesPage extends WizardPage {
    */
   private void fillItemTable(String fieldItemId) {
     removeItems();
-    FieldItem fieldItem = (FieldItem) this.fieldItemIdFieldItemMap.get(fieldItemId);
+    FieldItem fieldItem = this.fieldItemIdFieldItemMap.get(fieldItemId);
     if (fieldItem != null) {
-      for (Iterator i = fieldItem.getEntryNameList().iterator(); i.hasNext();) {
-        String itemEntry = ReviewI18n.getString((String) i.next());
+      for (Iterator<String> i = fieldItem.getEntryNameList().iterator(); i.hasNext();) {
+        String itemEntry = ReviewI18n.getString(i.next());
         TableItem item = new TableItem(this.itemListTable, SWT.NONE);
         item.setText(itemEntry);
       }
@@ -443,18 +443,18 @@ public class ReviewIdNewItemEntriesPage extends WizardPage {
     ReviewIdNewDefaultItemsPage page = (ReviewIdNewDefaultItemsPage) getWizard().getPage(pageName);
     FieldItem fieldItem = (FieldItem) this.fieldItemIdFieldItemMap.get(fieldItemId);
     if (fieldItem != null) {
-      List itemNameList = fieldItem.getEntryNameList();
+      List<String> itemNameList = fieldItem.getEntryNameList();
       if (fieldItemId.equals(PropertyConstraints.ATTRIBUTE_VALUE_TYPE)) {
-        page.setItemType((String[]) itemNameList.toArray(new String[] {}));
+        page.setItemType(itemNameList.toArray(new String[] {}));
       }
       else if (fieldItemId.equals(PropertyConstraints.ATTRIBUTE_VALUE_SEVERITY)) {
-        page.setItemSeverity((String[]) itemNameList.toArray(new String[] {}));
+        page.setItemSeverity(itemNameList.toArray(new String[] {}));
       }
       else if (fieldItemId.equals(PropertyConstraints.ATTRIBUTE_VALUE_RESOLUTION)) {
-        page.setItemResolution((String[]) itemNameList.toArray(new String[] {}));
+        page.setItemResolution(itemNameList.toArray(new String[] {}));
       }
       else if (fieldItemId.equals(PropertyConstraints.ATTRIBUTE_VALUE_STATUS)) {
-        page.setItemStatus((String[]) itemNameList.toArray(new String[] {}));
+        page.setItemStatus(itemNameList.toArray(new String[] {}));
       }
     }
   }
@@ -473,7 +473,7 @@ public class ReviewIdNewItemEntriesPage extends WizardPage {
    * Gets the map of the String field item id - the list of the String item name.
    * @return the map of the String field item id - the list of the String item name.
    */
-  public Map getFieldItemIdFieldItemMap() {
+  public Map<String, FieldItem> getFieldItemIdFieldItemMap() {
     return this.fieldItemIdFieldItemMap;
   }
 

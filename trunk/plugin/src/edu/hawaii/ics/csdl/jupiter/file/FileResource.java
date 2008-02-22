@@ -205,8 +205,8 @@ public class FileResource {
       throw new IllegalArgumentException("review id is null");
     }
     PropertyResource propertyResource = PropertyResource.getInstance(project, false);
-    List reviewIdList = propertyResource.getReviewIdList();
-    for (Iterator i = reviewIdList.iterator(); i.hasNext();) {
+    List<ReviewId> reviewIdList = propertyResource.getReviewIdList();
+    for (Iterator<ReviewId> i = reviewIdList.iterator(); i.hasNext();) {
       ReviewId searchingReviewId = (ReviewId) i.next();
       if (searchingReviewId.getReviewId().equals(reviewId.getReviewId())) {
         return searchingReviewId.getDirectory();
@@ -394,7 +394,7 @@ public class FileResource {
     for (int i = 0; i < projects.length; i++) {
       if (projects[i].isOpen()) {
         PropertyResource propertyResource = PropertyResource.getInstance(projects[i], false);
-        List reviewIds = propertyResource.getReviewIdList();
+        List<ReviewId> reviewIds = propertyResource.getReviewIdList();
         if (reviewIds.size() > 0) {
           projectSet.add(projects[i].getName());
         }

@@ -494,8 +494,8 @@ public class Ver1ReviewHelper {
     Element codeReviewsRootElement = new Element(CODE_REVIEWS);
     codeReviewsRootElement.setAttribute(ATTRIBUTE_ID, reviewId.getReviewId());
     if (model != null) {
-      for (Iterator i = model.iterator(); i.hasNext();) {
-        ReviewIssue codeReview = (ReviewIssue) i.next();
+      for (Iterator<ReviewIssue> i = model.iterator(); i.hasNext();) {
+        ReviewIssue codeReview = i.next();
         if (xmlFile.equals(codeReview.getReviewIFile().getLocation().toFile())) {
           Element codeReviewElement = createCodeReviewElement(codeReview);
           codeReviewsRootElement.addContent(codeReviewElement);

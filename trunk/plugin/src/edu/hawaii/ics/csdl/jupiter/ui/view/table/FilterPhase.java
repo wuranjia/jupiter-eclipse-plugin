@@ -14,7 +14,7 @@ public class FilterPhase {
   private String phaseName;
   private boolean isEnabled;
   private Map<String, FilterEntry> filterNameFilterEntryMap;
-  private List filterEntryList;
+  private List<FilterEntry> filterEntryList;
   
   /**
    * Instantiates the phase based filter entry data structure.
@@ -22,13 +22,13 @@ public class FilterPhase {
    * @param isEnabled <code>true</code> if the phase based filter is enabled.
    * @param filterEntryList the list of the <code>FilterEntry</code>.
    */
-  public FilterPhase(String phaseName, boolean isEnabled, List filterEntryList) {
+  public FilterPhase(String phaseName, boolean isEnabled, List<FilterEntry> filterEntryList) {
     this.phaseName = phaseName;
     this.isEnabled = isEnabled;
     this.filterEntryList = filterEntryList;
     this.filterNameFilterEntryMap = new TreeMap<String, FilterEntry>();
-    for (Iterator i = filterEntryList.iterator(); i.hasNext();) {
-      FilterEntry entry = (FilterEntry) i.next();
+    for (Iterator<FilterEntry> i = filterEntryList.iterator(); i.hasNext();) {
+      FilterEntry entry = i.next();
       this.filterNameFilterEntryMap.put(entry.getFilterName(), entry);
     }
   }
@@ -72,7 +72,7 @@ public class FilterPhase {
    * Iterates over <code>FilterEntry</code>.
    * @return the iterator of the <code>FilterEntry</code>.
    */
-  public Iterator iterator() {
+  public Iterator<FilterEntry> iterator() {
     return this.filterEntryList.iterator();
   }
 }

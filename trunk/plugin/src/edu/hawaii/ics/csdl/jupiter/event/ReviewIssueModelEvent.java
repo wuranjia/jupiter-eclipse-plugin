@@ -109,7 +109,7 @@ public class ReviewIssueModelEvent {
    * </pre>
    * @return the map of the String category key -> the String array of the item value.
    */
-  public Map getCategories() {
+  public Map<String, String[]> getCategories() {
     return this.categoryToItems;
   }
 }

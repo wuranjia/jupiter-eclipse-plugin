@@ -57,10 +57,10 @@ public class ReviewFileSelectionMenu {
       }
 
       if (reviewResource != null) {
-        Set targetFileSet = reviewResource.getFileSet();
+        Set<String> targetFileSet = reviewResource.getFileSet();
         int index = 0;
         if (targetFileSet.size() > 0) {
-          for (Iterator i = targetFileSet.iterator(); i.hasNext(); index++) {
+          for (Iterator<String> i = targetFileSet.iterator(); i.hasNext(); index++) {
             MenuItem menuItem = new MenuItem(menu, SWT.NONE);
             String targetFile = (String) i.next();
             menuItem.setText((index + 1) + " " + targetFile);

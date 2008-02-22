@@ -7,7 +7,7 @@ package edu.hawaii.ics.csdl.jupiter.model.reviewissue;
  * @author Takuya Yamashita
  * @version $Id$
  */
-public class Resolution implements Comparable {
+public class Resolution implements Comparable<Resolution> {
   /** The key of the resolution. */
   private String key;
   /** Assigns an ordinal to this key. */
@@ -38,7 +38,7 @@ public class Resolution implements Comparable {
    *
    * @see java.lang.Comparable#compareTo(java.lang.Object)
    */
-  public int compareTo(Object object) {
-    return ordinal - ((Resolution) object).ordinal;
+  public int compareTo(Resolution resolution) {
+    return ordinal - resolution.ordinal;
   }
 }

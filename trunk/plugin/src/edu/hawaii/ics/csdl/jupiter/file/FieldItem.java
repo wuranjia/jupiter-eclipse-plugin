@@ -10,7 +10,7 @@ import java.util.List;
 public class FieldItem {
   private String fieldItemId;
   private String defaultKey;
-  private List entryNameList;
+  private List<String> entryNameList;
   
   /**
    * Instantiates field item data structure.
@@ -18,7 +18,7 @@ public class FieldItem {
    * @param defaultKey the default key.
    * @param entryNameList the entry name list.
    */
-  public FieldItem(String fieldItemId, String defaultKey, List entryNameList) {
+  public FieldItem(String fieldItemId, String defaultKey, List<String> entryNameList) {
     this.fieldItemId = fieldItemId;
     this.defaultKey = defaultKey;
     this.entryNameList = entryNameList;
@@ -44,7 +44,7 @@ public class FieldItem {
    * Gets the list of the <code>String</code> entry name.
    * @return the list of the <code>String</code> entry name.
    */
-  public List getEntryNameList() {
+  public List<String> getEntryNameList() {
     return entryNameList;
   }
   

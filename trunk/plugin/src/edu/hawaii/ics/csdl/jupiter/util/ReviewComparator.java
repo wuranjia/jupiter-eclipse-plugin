@@ -250,7 +250,7 @@ public class ReviewComparator {
    * @return the <code>Comparator</code> instance. Returns <code>null</code> if the corresponding
    *         <code>Comparator</code> instance does not exist.
    */
-  public static Comparator getComparator(String comparatorNameKey) {
+  public static Comparator<ReviewIssue> getComparator(String comparatorNameKey) {
     return comparators.get(comparatorNameKey);
   }
 }

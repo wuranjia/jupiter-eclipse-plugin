@@ -7,7 +7,7 @@ package edu.hawaii.ics.csdl.jupiter.model.reviewissue;
  * @author Takuya Yamashita
  * @version $Id$
  */
-public class Type implements Comparable {
+public class Type implements Comparable<Type> {
   /** The key of the type. */
   private String key;
   /** Assigns an ordinal to this key. */
@@ -38,7 +38,7 @@ public class Type implements Comparable {
    *
    * @see java.lang.Comparable#compareTo(java.lang.Object)
    */
-  public int compareTo(Object object) {
-    return ordinal - ((Type) object).ordinal;
+  public int compareTo(Type object) {
+    return ordinal - object.ordinal;
   }
 }

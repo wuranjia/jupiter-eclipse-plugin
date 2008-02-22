@@ -39,7 +39,7 @@ public class ReviewIssueModel implements IStructuredContentProvider {
    */
   private List<ReviewIssue> reviewIssueOrdinalList = new LinkedList<ReviewIssue>();
   /** The comparator to be used for current sort. */
-  private Comparator comparator;
+  private Comparator<ReviewIssue> comparator;
   /** The code review instance to be notified to the listeners. */
   private ReviewIssue notifyTargetReviewIssue;
   /** The map of the String target file - String target file. */
@@ -78,7 +78,7 @@ public class ReviewIssueModel implements IStructuredContentProvider {
   public boolean add(ReviewIssue reviewIssue) {
     if ((reviewIssue != null) && !this.contains(reviewIssue.getIssueId())) {
       this.reviewIssueMap.put(reviewIssue.getIssueId(), reviewIssue);
-      ((LinkedList) this.reviewIssueOrdinalList).addFirst(reviewIssue);
+      ((LinkedList<ReviewIssue>) this.reviewIssueOrdinalList).addFirst(reviewIssue);
       ReviewMarker.addMarker(reviewIssue);
       String targetFile = reviewIssue.getTargetFile();
       this.targetFileMap.put(targetFile, targetFile);
@@ -96,10 +96,10 @@ public class ReviewIssueModel implements IStructuredContentProvider {
    * <code>List</code> is null.
    * @param reviewIssueList the list of the new code reviews.
    */
-  public void addAll(List reviewIssueList) {
+  public void addAll(List<ReviewIssue> reviewIssueList) {
     if (reviewIssueList != null) {
-      for (Iterator i = reviewIssueList.iterator(); i.hasNext();) {
-        this.add((ReviewIssue) i.next());
+      for (Iterator<ReviewIssue> i = reviewIssueList.iterator(); i.hasNext();) {
+        this.add(i.next());
       }
     }
   }
@@ -190,7 +190,7 @@ public class ReviewIssueModel implements IStructuredContentProvider {
    *
    * @return The Iterator instance.
    */
-  public Iterator iterator() {
+  public Iterator<ReviewIssue> iterator() {
     return reviewIssueMap.values().iterator();
   }
 
@@ -235,7 +235,7 @@ public class ReviewIssueModel implements IStructuredContentProvider {
    *
    * @param comparator the comparator to determine how this model is sorted.
    */
-  public void sortBy(Comparator comparator) {
+  public void sortBy(Comparator<ReviewIssue> comparator) {
     if (this.comparator == comparator) {
       Collections.reverse(reviewIssueOrdinalList);
       isReversed = !isReversed;

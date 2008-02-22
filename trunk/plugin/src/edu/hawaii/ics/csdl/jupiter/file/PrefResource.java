@@ -53,7 +53,7 @@ public class PrefResource {
   public void storeColumnDataModel(String reviewPhaseNameKey, ColumnDataModel columnDataModel) {
     Element phaseElement = this.factory.getPhaseElement(reviewPhaseNameKey);
     phaseElement.removeContent();
-    List columnDataList = new ArrayList();
+    List<ColumnData> columnDataList = new ArrayList<ColumnData>();
     ColumnData[] columnDataArray = columnDataModel.getAllColumnDataArray();
     for (int i = 0; i < columnDataArray.length; i++) {
       Element columnHeaderElement = new Element(PrefConstraints.ELEMENT_COLUMN_ENTRY);
@@ -141,7 +141,7 @@ public class PrefResource {
    * @param phaseNameKey the phase name key.
    * @return the list of the ColumnData instances given the phase name key.
    */
-  public List getColumnDataList(String phaseNameKey) {
+  public List<ColumnData> getColumnDataList(String phaseNameKey) {
     List columnHeaderElementList = this.factory.getColumnEntryElementList(phaseNameKey);
     List<ColumnData> columnDataList = new ArrayList<ColumnData>();
     for (Iterator i = columnHeaderElementList.iterator(); i.hasNext();) {

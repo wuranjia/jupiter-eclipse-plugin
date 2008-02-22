@@ -16,6 +16,7 @@ import org.eclipse.update.ui.UpdateManagerUI;
 import edu.hawaii.ics.csdl.jupiter.ReviewI18n;
 import edu.hawaii.ics.csdl.jupiter.ReviewPlugin;
 import edu.hawaii.ics.csdl.jupiter.file.PropertyResource;
+import edu.hawaii.ics.csdl.jupiter.model.review.ReviewId;
 import edu.hawaii.ics.csdl.jupiter.ui.wizard.ReviewIdNewWizard;
 import edu.hawaii.ics.csdl.jupiter.ui.wizard.ReviewIdSelectionWizard;
 
@@ -147,7 +148,7 @@ public class ReviewDialog {
       throw new IllegalArgumentException("project should not be null.");
     }
     // process review id creation wizard if there is no review ID in the project.
-    List reviewIdList = PropertyResource.getInstance(project, false).getReviewIdList();
+    List<ReviewId> reviewIdList = PropertyResource.getInstance(project, false).getReviewIdList();
     if (reviewIdList.size() <= 0) {
       int result = processNonReviewIdNotificationDialog(project.getName());
       if (result == WizardDialog.CANCEL) {

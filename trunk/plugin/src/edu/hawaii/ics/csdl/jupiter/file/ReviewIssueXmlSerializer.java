@@ -484,8 +484,8 @@ public class ReviewIssueXmlSerializer {
     Element reviewRootElement = new Element(REVIEW);
     reviewRootElement.setAttribute(REVIEW_ATTRIBUTE_ID, reviewId.getReviewId());
     if (model != null) {
-      for (Iterator i = model.iterator(); i.hasNext();) {
-        ReviewIssue reviewIssue = (ReviewIssue) i.next();
+      for (Iterator<ReviewIssue> i = model.iterator(); i.hasNext();) {
+        ReviewIssue reviewIssue = i.next();
         if (xmlFile.equals(reviewIssue.getReviewIFile().getLocation().toFile())) {
           Element reviewIssueElement = createReviewIssueElement(reviewIssue);
           reviewRootElement.addContent(reviewIssueElement);

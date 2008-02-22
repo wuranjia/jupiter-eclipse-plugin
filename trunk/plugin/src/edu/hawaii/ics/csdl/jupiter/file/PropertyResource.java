@@ -14,6 +14,7 @@ import org.jdom.Element;
 
 import edu.hawaii.ics.csdl.jupiter.ReviewException;
 import edu.hawaii.ics.csdl.jupiter.model.review.ReviewId;
+import edu.hawaii.ics.csdl.jupiter.model.review.ReviewerId;
 import edu.hawaii.ics.csdl.jupiter.util.JupiterLogger;
 
 /**
@@ -123,8 +124,8 @@ public class PropertyResource {
    */
   private void fillReviewIdMap() {
     this.reviewIdMap.clear();
-    for (Iterator i = this.reviewIdReviewElementMap.values().iterator(); i.hasNext();) {
-      Element reviewIdElement = (Element) i.next();
+    for (Iterator<Element> i = this.reviewIdReviewElementMap.values().iterator(); i.hasNext();) {
+      Element reviewIdElement = i.next();
       ReviewResource reviewResource = new ReviewResource(reviewIdElement);
       ReviewId reviewId = reviewResource.getReviewId();
       this.reviewIdMap.put(reviewId.getReviewId(), reviewId);
@@ -138,13 +139,13 @@ public class PropertyResource {
    * @return the array of the <code>String</code> review id names
    */
   public String[] getReviewIdNames() {
-    List reviewIdList = getReviewIdList();
+    List<ReviewId> reviewIdList = getReviewIdList();
     Map<Date, String> reviewIdNameMap = new TreeMap<Date, String>(new Comparator<Date>() {
       public int compare(Date object1, Date object2) {
         return object2.compareTo(object1);
       }
     });
-    for (Iterator i = reviewIdList.iterator(); i.hasNext();) {
+    for (Iterator<ReviewId> i = reviewIdList.iterator(); i.hasNext();) {
       ReviewId reviewId = (ReviewId) i.next();
       reviewIdNameMap.put(reviewId.getDate(), reviewId.getReviewId());
     }
@@ -158,8 +159,8 @@ public class PropertyResource {
    * @return the array of the <code>String</code> review id names
    */
   public String[] getReviewerIdNames(String reviewIdName) {
-    Map reviewers = getReviewers(reviewIdName);
-    return (String[]) new ArrayList(reviewers.keySet()).toArray(new String[] {});
+    Map<String, ReviewerId> reviewers = getReviewers(reviewIdName);
+    return new ArrayList<String>(reviewers.keySet()).toArray(new String[] {});
   }
 
   /**
@@ -169,9 +170,9 @@ public class PropertyResource {
    * @param reviewIdName the review id name.
    * @return the <code>Map</code> of the <code>ReviewerId</code> instance.
    */
-  public Map getReviewers(String reviewIdName) {
-    ReviewId reviewId = (ReviewId) this.reviewIdMap.get(reviewIdName);
-    Map reviewersMap = new TreeMap();
+  public Map<String, ReviewerId> getReviewers(String reviewIdName) {
+    ReviewId reviewId = this.reviewIdMap.get(reviewIdName);
+    Map<String, ReviewerId> reviewersMap = new TreeMap<String, ReviewerId>();
     if (reviewId != null) {
       reviewersMap = reviewId.getReviewers();
     }
@@ -183,8 +184,8 @@ public class PropertyResource {
    * 
    * @return the list of the <code>ReviewId</code> instances.
    */
-  public List getReviewIdList() {
-    return new ArrayList(this.reviewIdMap.values());
+  public List<ReviewId> getReviewIdList() {
+    return new ArrayList<ReviewId>(this.reviewIdMap.values());
   }
 
   /**
@@ -196,7 +197,7 @@ public class PropertyResource {
    *         review id name does not exist.
    */
   public ReviewId getReviewId(String reviewIdName) {
-    return (ReviewId) this.reviewIdMap.get(reviewIdName);
+    return this.reviewIdMap.get(reviewIdName);
   }
 
   /**

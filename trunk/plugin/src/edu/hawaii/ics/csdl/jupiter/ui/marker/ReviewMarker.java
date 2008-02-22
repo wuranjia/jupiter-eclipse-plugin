@@ -51,7 +51,7 @@ public class ReviewMarker {
     ReviewModel reviewModel = ReviewModel.getInstance();
     IProject project = reviewModel.getProjectManager().getProject();
     if (project != null && !reviewIssue.getTargetFile().equals("")) {
-      Map attributes = getInitialAttributes(reviewIssue);
+      Map<String, Object> attributes = getInitialAttributes(reviewIssue);
       try {
         createMarker(project.getFile(reviewIssue.getTargetFile()), attributes);
         log.debug("Created marker in the add marker.");
@@ -139,7 +139,7 @@ public class ReviewMarker {
       for (int i = 0; i < items.length; i++) {
         ReviewIssue reviewIssue = (ReviewIssue) items[i].getData();
         if (!reviewIssue.getTargetFile().equals("")) {
-          Map attributes = getInitialAttributes(reviewIssue);
+          Map<String, Object> attributes = getInitialAttributes(reviewIssue);
           try {
             createMarker(project.getFile(reviewIssue.getTargetFile()), attributes);
             log.debug("Created marker in the update marker.");
@@ -171,7 +171,7 @@ public class ReviewMarker {
       for (int i = 0; i < items.length; i++) {
         ReviewIssue reviewIssue = (ReviewIssue) items[i].getData();
         if (!reviewIssue.getTargetFile().equals("")) {
-          Map attributes = getInitialAttributes(reviewIssue);
+          Map<String, Object> attributes = getInitialAttributes(reviewIssue);
           try {
             IFile targetFileInReviewIssue = project.getFile(reviewIssue.getTargetFile());
             String targetFileFullPath = targetFileInReviewIssue.getFullPath().toString();
@@ -199,7 +199,7 @@ public class ReviewMarker {
    * @throws CoreException if this method fails
    * @see IResource#createMarker(java.lang.String)
    */
-  private static void createMarker(final IResource resource, final Map attributes) 
+  private static void createMarker(final IResource resource, final Map<String, Object> attributes) 
   throws CoreException {
     IWorkspaceRunnable workbenchRunnable = new IWorkspaceRunnable() {
       public void run(IProgressMonitor monitor) throws CoreException {
@@ -216,8 +216,8 @@ public class ReviewMarker {
    * @param reviewIssue the <code>ReviewIssue</code> instance.
    * @return the initial marker attributes
    */
-  private static Map getInitialAttributes(ReviewIssue reviewIssue) {
-    Map attributes = new HashMap(11);
+  private static Map<String, Object> getInitialAttributes(ReviewIssue reviewIssue) {
+    Map<String, Object> attributes = new HashMap<String, Object>(11);
     if (reviewIssue != null) {
       int line = 0;
       try {

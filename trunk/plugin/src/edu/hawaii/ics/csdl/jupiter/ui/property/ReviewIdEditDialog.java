@@ -62,6 +62,7 @@ import edu.hawaii.ics.csdl.jupiter.util.TabFolderLayout;
 
 /**
  * Provides review id edit dialog.
+ * 
  * @author Takuya Yamashita
  * @version $Id$
  */
@@ -78,8 +79,8 @@ public class ReviewIdEditDialog extends Dialog {
   private Button removeButtonInReviewer;
   private Button addButtonInFile;
   private Button removeButtonInFile;
-  private Map reviewers;
-  private Set files;
+  private Map<String, ReviewerId> reviewers;
+  private Set<String> files;
   private Combo authorCombo;
   private Text storageText;
   private static final int WIDTH = 400;
@@ -102,7 +103,7 @@ public class ReviewIdEditDialog extends Dialog {
   private Button downButtonInItemEntries;
   private Button restoreButtonInItemEntries;
   private Combo phaseCombo;
-  private Map phaseNameFilterPhaseMap;
+  private Map<String, FilterPhase> phaseNameFilterPhaseMap;
   private Button enabledCheckButton;
   private Button intervalCheckButton;
   private Text intervalFilterText;
@@ -123,6 +124,7 @@ public class ReviewIdEditDialog extends Dialog {
 
   /**
    * Instantiates the review id edit dialog.
+   * 
    * @param parentShell the shell.
    * @param project the project.
    * @param reviewId the review id.
@@ -161,6 +163,7 @@ public class ReviewIdEditDialog extends Dialog {
 
   /**
    * Creates view preference frame and return the child composite.
+   * 
    * @param parent the parent composite.
    * @return the child composite.
    */
@@ -175,6 +178,7 @@ public class ReviewIdEditDialog extends Dialog {
 
   /**
    * Creates review ID content.
+   * 
    * @param parent the composite.
    */
   private void createReviewIdContent(Composite parent) {
@@ -191,9 +195,10 @@ public class ReviewIdEditDialog extends Dialog {
     reviewIdText.setEditable(false);
     reviewIdText.setText(reviewId.getReviewId());
   }
-  
+
   /**
    * Creates review id description content.
+   * 
    * @param parent the composite.
    */
   private void createReviewIdDescriptionContent(Composite parent) {
@@ -202,7 +207,8 @@ public class ReviewIdEditDialog extends Dialog {
     reviewIdDescriptionLabel.setText(description);
     this.reviewIdDescriptionText = new Text(parent, SWT.SINGLE | SWT.BORDER);
     FormData reviewIdDescriptionLabelData = new FormData();
-    reviewIdDescriptionLabelData.top = new FormAttachment(reviewIdDescriptionText, 0, SWT.CENTER);
+    reviewIdDescriptionLabelData.top = new FormAttachment(reviewIdDescriptionText, 0,
+        SWT.CENTER);
     reviewIdDescriptionLabel.setLayoutData(reviewIdDescriptionLabelData);
     FormData reviewIdDescriptionTextData = new FormData();
     reviewIdDescriptionTextData.top = new FormAttachment(reviewIdText, 5);
@@ -214,9 +220,10 @@ public class ReviewIdEditDialog extends Dialog {
       reviewIdDescriptionText.setEditable(false);
     }
   }
-  
+
   /**
    * Creates tab folder.
+   * 
    * @param dialog the composite.
    * @return the <code>TabFolder</code> instance.
    */
@@ -231,9 +238,10 @@ public class ReviewIdEditDialog extends Dialog {
     folder.setLayoutData(folderData);
     return folder;
   }
-  
+
   /**
    * Creates reviewer tab content in the <code>TabFolder</code>.
+   * 
    * @param folder the <code>TabFolder</code> instance.
    */
   private void createReviewerTabContent(TabFolder folder) {
@@ -242,9 +250,10 @@ public class ReviewIdEditDialog extends Dialog {
     reviewerTabItem.setText(reviewerLabel);
     reviewerTabItem.setControl(createReviewerFolder(folder));
   }
-  
+
   /**
    * Creates author tab content in the <code>TabFolder</code>.
+   * 
    * @param folder the <code>TabFolder</code> instance.
    */
   private void craeteAuthorTabContent(TabFolder folder) {
@@ -253,9 +262,10 @@ public class ReviewIdEditDialog extends Dialog {
     authorTabItem.setText(authorLabel);
     authorTabItem.setControl(createAuthorFolder(folder));
   }
-  
+
   /**
    * Creates storage tab content in the <code>TabFolder</code>.
+   * 
    * @param folder the <code>TabFolder</code> instance.
    */
   private void createStorageTabContent(TabFolder folder) {
@@ -264,21 +274,23 @@ public class ReviewIdEditDialog extends Dialog {
     storageTabItem.setText(authorLabel);
     storageTabItem.setControl(createStorageFolder(folder));
   }
-  
-  
+
   /**
    * Creates the default items tab content in the <code>TabFolder</code>.
+   * 
    * @param folder the <code>TabFolder</code> instance.
    */
   private void createDefaultItemsTabContent(TabFolder folder) {
     TabItem defaultItemsTabItem = new TabItem(folder, SWT.NONE);
-    String defaultItemsLabel = ReviewI18n.getString("ReviewIdEditDialog.label.tab.defaultItems");
+    String defaultItemsLabel = ReviewI18n
+        .getString("ReviewIdEditDialog.label.tab.defaultItems");
     defaultItemsTabItem.setText(defaultItemsLabel);
     defaultItemsTabItem.setControl(createDefaultItemsFolder(folder));
   }
-  
+
   /**
    * Creates the filters tab content in the <code>TabFolder</code>.
+   * 
    * @param folder the <code>TabFolder</code> instance.
    */
   private void createFiltersTabContent(TabFolder folder) {
@@ -290,6 +302,7 @@ public class ReviewIdEditDialog extends Dialog {
 
   /**
    * Creates the item entries tab content in the <code>TabFolder</code>.
+   * 
    * @param folder the <code>TabFolder</code> instance.
    */
   private void createItemEntriesTabContent(TabFolder folder) {
@@ -301,6 +314,7 @@ public class ReviewIdEditDialog extends Dialog {
 
   /**
    * Creates the file tab content in the <code>TabFolder</code>.
+   * 
    * @param folder the <code>TabFolder</code> instance.
    */
   private void createFileTabContent(TabFolder folder) {
@@ -312,6 +326,7 @@ public class ReviewIdEditDialog extends Dialog {
 
   /**
    * Creates reviewer table folder.
+   * 
    * @param folder the folder.
    * @return the control.
    */
@@ -331,13 +346,13 @@ public class ReviewIdEditDialog extends Dialog {
       }
     });
     fillReviewerTable(false);
-    
+
     this.addButtonInReviewer = new Button(composite, SWT.PUSH);
     String addKey = "ReviewIdEditDialog.label.tab.reviewer.button.add";
     addButtonInReviewer.setText(ReviewI18n.getString(addKey));
     addButtonInReviewer.addListener(SWT.Selection, new Listener() {
       public void handleEvent(Event e) {
-          addReviewer();
+        addReviewer();
       }
     });
     FormData addButtonData = new FormData();
@@ -345,8 +360,7 @@ public class ReviewIdEditDialog extends Dialog {
     addButtonData.left = new FormAttachment(reviewerListTable, 10);
     addButtonData.right = new FormAttachment(100, 0);
     addButtonInReviewer.setLayoutData(addButtonData);
-    
-    
+
     this.removeButtonInReviewer = new Button(composite, SWT.PUSH);
     String removeKey = "ReviewIdEditDialog.label.tab.reviewer.button.remove";
     removeButtonInReviewer.setText(ReviewI18n.getString(removeKey));
@@ -361,12 +375,13 @@ public class ReviewIdEditDialog extends Dialog {
     removeButtonData.left = new FormAttachment(addButtonInReviewer, 0, SWT.LEFT);
     removeButtonData.right = new FormAttachment(100, 0);
     removeButtonInReviewer.setLayoutData(removeButtonData);
-    
+
     return composite;
   }
-  
+
   /**
    * Creates author folder.
+   * 
    * @param folder the folder.
    * @return the control.
    */
@@ -390,9 +405,10 @@ public class ReviewIdEditDialog extends Dialog {
     authorCombo.setLayoutData(authorComboData);
     return composite;
   }
-  
+
   /**
    * Creates storage folder.
+   * 
    * @param folder the folder.
    * @return the control.
    */
@@ -403,7 +419,7 @@ public class ReviewIdEditDialog extends Dialog {
     storageLabel.setText(ReviewI18n.getString("ReviewIdEditDialog.label.storage"));
     this.storageText = new Text(composite, SWT.BORDER);
     storageText.setText(reviewId.getDirectory());
-    
+
     FormData storageLabelData = new FormData();
     storageLabelData.width = (int) ((folderWidth - marginWidth * 2) * 0.45);
     storageLabelData.top = new FormAttachment(storageText, 0, SWT.CENTER);
@@ -414,9 +430,10 @@ public class ReviewIdEditDialog extends Dialog {
     storageText.setLayoutData(storageTextData);
     return composite;
   }
-  
+
   /**
    * Creates default items folder.
+   * 
    * @param folder the folder.
    * @return the control.
    */
@@ -426,7 +443,7 @@ public class ReviewIdEditDialog extends Dialog {
     PropertyResource propertyResource = PropertyResource.getInstance(project, true);
     String reviewIdString = reviewId.getReviewId();
     ReviewResource reviewResource = propertyResource.getReviewResource(reviewIdString, true);
-    
+
     // create type label and its combo.
     Label defaultTypeLabel = new Label(composite, SWT.NONE);
     defaultTypeLabel.setText(ReviewI18n.getString("ReviewIdEditDialog.label.type"));
@@ -443,7 +460,7 @@ public class ReviewIdEditDialog extends Dialog {
         fieldItem.setDefaultKey(ReviewI18n.getKey(defaultTypeCombo.getText()));
       }
     });
-    
+
     FormData defaultTypeLabelData = new FormData();
     defaultTypeLabelData.width = (int) ((folderWidth - marginWidth * 2) * 0.45);
     defaultTypeLabelData.top = new FormAttachment(defaultTypeCombo, 0, SWT.CENTER);
@@ -452,16 +469,17 @@ public class ReviewIdEditDialog extends Dialog {
     defaultTypeComboData.left = new FormAttachment(defaultTypeLabel, 0);
     defaultTypeComboData.right = new FormAttachment(100, 0);
     defaultTypeCombo.setLayoutData(defaultTypeComboData);
-    
+
     // create severity label and its combo.
     Label defaultSeverityLabel = new Label(composite, SWT.NONE);
     defaultSeverityLabel.setText(ReviewI18n.getString("ReviewIdEditDialog.label.severity"));
     this.defaultSeverityCombo = new Combo(composite, SWT.READ_ONLY);
     defaultSeverityCombo.setData(defaultSeverityCombo);
-    defaultSeverityCombo.setItems(SeverityKeyManager.getInstance(project, reviewId).getElements());
+    defaultSeverityCombo.setItems(SeverityKeyManager.getInstance(project, reviewId)
+        .getElements());
     String severityName = PropertyConstraints.ATTRIBUTE_VALUE_SEVERITY;
-    String severityKey = (reviewResource != null) ? reviewResource.getDefaultField(severityName)
-                                                  : "";
+    String severityKey = (reviewResource != null) ? reviewResource
+        .getDefaultField(severityName) : "";
     defaultSeverityCombo.setText(ReviewI18n.getString(severityKey));
     defaultSeverityCombo.addListener(SWT.Selection, new Listener() {
       public void handleEvent(Event event) {
@@ -470,7 +488,7 @@ public class ReviewIdEditDialog extends Dialog {
         fieldItem.setDefaultKey(ReviewI18n.getKey(defaultSeverityCombo.getText()));
       }
     });
-    
+
     FormData defaultSeverityLabelData = new FormData();
     defaultSeverityLabelData.width = (int) ((folderWidth - marginWidth * 2) * 0.45);
     defaultSeverityLabelData.top = new FormAttachment(defaultSeverityCombo, 0, SWT.CENTER);
@@ -480,17 +498,19 @@ public class ReviewIdEditDialog extends Dialog {
     defaultSeverityComboData.left = new FormAttachment(defaultSeverityLabel, 0);
     defaultSeverityComboData.right = new FormAttachment(100, 0);
     defaultSeverityCombo.setLayoutData(defaultSeverityComboData);
-    
+
     // create resolution label and its combo.
     Label defaultResolutionLabel = new Label(composite, SWT.NONE);
-    defaultResolutionLabel.setText(ReviewI18n.getString("ReviewIdEditDialog.label.resolution"));
+    defaultResolutionLabel
+        .setText(ReviewI18n.getString("ReviewIdEditDialog.label.resolution"));
     this.defaultResolutionCombo = new Combo(composite, SWT.READ_ONLY);
     defaultResolutionCombo.setData(defaultResolutionCombo);
-    ResolutionKeyManager resolutionKeyManager = ResolutionKeyManager.getInstance(project, reviewId);
+    ResolutionKeyManager resolutionKeyManager = ResolutionKeyManager.getInstance(project,
+        reviewId);
     defaultResolutionCombo.setItems(resolutionKeyManager.getElements());
     String resolutionName = PropertyConstraints.ATTRIBUTE_VALUE_RESOLUTION;
-    String resolutionKey = (reviewResource != null) ? reviewResource.getDefaultField(resolutionName)
-                                                    : "";
+    String resolutionKey = (reviewResource != null) ? reviewResource
+        .getDefaultField(resolutionName) : "";
     defaultResolutionCombo.setText(ReviewI18n.getString(resolutionKey));
     defaultResolutionCombo.addListener(SWT.Selection, new Listener() {
       public void handleEvent(Event event) {
@@ -499,7 +519,7 @@ public class ReviewIdEditDialog extends Dialog {
         fieldItem.setDefaultKey(ReviewI18n.getKey(defaultResolutionCombo.getText()));
       }
     });
-    
+
     FormData defaultResolutionLabelData = new FormData();
     defaultResolutionLabelData.width = (int) ((folderWidth - marginWidth * 2) * 0.45);
     defaultResolutionLabelData.top = new FormAttachment(defaultResolutionCombo, 0, SWT.CENTER);
@@ -509,7 +529,7 @@ public class ReviewIdEditDialog extends Dialog {
     defaultResolutionComboData.left = new FormAttachment(defaultResolutionLabel, 0);
     defaultResolutionComboData.right = new FormAttachment(100, 0);
     defaultResolutionCombo.setLayoutData(defaultResolutionComboData);
-    
+
     // create status label and its combo.
     Label defaultStatusLabel = new Label(composite, SWT.NONE);
     defaultStatusLabel.setText(ReviewI18n.getString("ReviewIdEditDialog.label.status"));
@@ -517,7 +537,8 @@ public class ReviewIdEditDialog extends Dialog {
     defaultStatusCombo.setData(defaultStatusCombo);
     defaultStatusCombo.setItems(StatusKeyManager.getInstance(project, reviewId).getElements());
     String statusName = PropertyConstraints.ATTRIBUTE_VALUE_STATUS;
-    String statusKey = (reviewResource != null) ? reviewResource.getDefaultField(statusName) : "";
+    String statusKey = (reviewResource != null) ? reviewResource.getDefaultField(statusName)
+        : "";
     defaultStatusCombo.setText(ReviewI18n.getString(statusKey));
     defaultStatusCombo.addListener(SWT.Selection, new Listener() {
       public void handleEvent(Event event) {
@@ -526,7 +547,7 @@ public class ReviewIdEditDialog extends Dialog {
         fieldItem.setDefaultKey(ReviewI18n.getKey(defaultStatusCombo.getText()));
       }
     });
-    
+
     FormData defaultStatusLabelData = new FormData();
     defaultStatusLabelData.width = (int) ((folderWidth - marginWidth * 2) * 0.45);
     defaultStatusLabelData.top = new FormAttachment(defaultStatusCombo, 0, SWT.CENTER);
@@ -538,9 +559,10 @@ public class ReviewIdEditDialog extends Dialog {
     defaultStatusCombo.setLayoutData(defaultStatusComboData);
     return composite;
   }
-  
+
   /**
    * Creates filters folder.
+   * 
    * @param folder the folder.
    * @return the control.
    */
@@ -549,7 +571,7 @@ public class ReviewIdEditDialog extends Dialog {
     String reviewIdString = reviewId.getReviewId();
     ReviewResource reviewResource = propertyResource.getReviewResource(reviewIdString, true);
     this.phaseNameFilterPhaseMap = reviewResource.getPhaseNameToFilterPhaseMap();
-    List phaseNameList = reviewResource.getPhaseNameList();
+    List<String> phaseNameList = reviewResource.getPhaseNameList();
     Composite composite = createsGeneralComposite(folder);
     this.phaseCombo = new Combo(composite, SWT.READ_ONLY);
     phaseCombo.setData(phaseCombo);
@@ -565,7 +587,7 @@ public class ReviewIdEditDialog extends Dialog {
     phaseComboData.left = new FormAttachment(0, 0);
     phaseComboData.right = new FormAttachment(100, 0);
     phaseCombo.setLayoutData(phaseComboData);
-    
+
     this.enabledCheckButton = new Button(composite, SWT.CHECK);
     String enableKey = "ReviewIdEditDialog.label.tab.filters.check.enabled";
     enabledCheckButton.setText(ReviewI18n.getString(enableKey));
@@ -579,26 +601,28 @@ public class ReviewIdEditDialog extends Dialog {
         updateFilterEnabled(null, isEnabled);
       }
     });
-    
+
     FormData enabledCheckButtonData = new FormData();
     enabledCheckButtonData.top = new FormAttachment(phaseCombo, 10);
     enabledCheckButtonData.left = new FormAttachment(phaseCombo, 0, SWT.LEFT);
     enabledCheckButtonData.right = new FormAttachment(100, 0);
     enabledCheckButton.setLayoutData(enabledCheckButtonData);
-    
+
     this.intervalCheckButton = new Button(composite, SWT.CHECK);
     String intervalKey = "ReviewIdEditDialog.label.tab.filters.check.interval";
     intervalCheckButton.setText(ReviewI18n.getString(intervalKey));
-    int x = intervalCheckButton.computeSize(SWT.DEFAULT, SWT.DEFAULT, true).x;   
+    int x = intervalCheckButton.computeSize(SWT.DEFAULT, SWT.DEFAULT, true).x;
     FormData intervalCheckButtonData = new FormData();
     intervalCheckButtonData.top = new FormAttachment(enabledCheckButton, 20);
     intervalCheckButton.setLayoutData(intervalCheckButtonData);
-    FilterEntry entry = filterPhase.getFilterEntry(PropertyConstraints.ATTRIBUTE_VALUE_INTERVAL);
+    FilterEntry entry = filterPhase
+        .getFilterEntry(PropertyConstraints.ATTRIBUTE_VALUE_INTERVAL);
     intervalCheckButton.setSelection(entry.isEnabled());
     this.intervalFilterText = new Text(composite, SWT.BORDER);
     intervalFilterText.addFocusListener(new FocusListener() {
       public void focusGained(FocusEvent event) {
       }
+
       public void focusLost(FocusEvent event) {
         String key = intervalFilterText.getText();
         updateFilterValue(PropertyConstraints.ATTRIBUTE_VALUE_INTERVAL, key);
@@ -618,7 +642,7 @@ public class ReviewIdEditDialog extends Dialog {
         updateFilterEnabled(PropertyConstraints.ATTRIBUTE_VALUE_INTERVAL, isEnabled);
       }
     });
-    
+
     this.reviewerCheckButton = new Button(composite, SWT.CHECK);
     String reviewerKey = "ReviewIdEditDialog.label.tab.filters.check.reviewer";
     reviewerCheckButton.setText(ReviewI18n.getString(reviewerKey));
@@ -644,8 +668,8 @@ public class ReviewIdEditDialog extends Dialog {
     reviewerFilterCombo.setLayoutData(reviewerFilterComboData);
     reviewerFilterCombo.setEnabled(reviewerCheckButton.getSelection());
     String reviewerNameId = PropertyConstraints.ATTRIBUTE_VALUE_REVIEWER;
-    Map reviewers = reviewResource.getReviewers();
-    reviewerFilterCombo.setItems((String[]) reviewers.keySet().toArray(new String[] {}));
+    Map<String, ReviewerId> reviewers = reviewResource.getReviewers();
+    reviewerFilterCombo.setItems(reviewers.keySet().toArray(new String[] {}));
     reviewerFilterCombo.add(ReviewI18n.getString(ReviewerId.AUTOMATIC_KEY), 0);
     reviewerFilterCombo.setText(ReviewI18n.getString(entry.getValueKey()));
     reviewerCheckButton.addListener(SWT.Selection, new Listener() {
@@ -655,7 +679,7 @@ public class ReviewIdEditDialog extends Dialog {
         updateFilterEnabled(PropertyConstraints.ATTRIBUTE_VALUE_REVIEWER, isEnabled);
       }
     });
-    
+
     this.typeCheckButton = new Button(composite, SWT.CHECK);
     String typeKey = "ReviewIdEditDialog.label.tab.filters.check.type";
     typeCheckButton.setText(ReviewI18n.getString(typeKey));
@@ -679,9 +703,9 @@ public class ReviewIdEditDialog extends Dialog {
     typeFilterCombo.setLayoutData(typeFilterComboData);
     typeFilterCombo.setEnabled(typeCheckButton.getSelection());
     String typeNameId = PropertyConstraints.ATTRIBUTE_VALUE_TYPE;
-    FieldItem fieldItem = (FieldItem) this.fieldItemIdFieldItemMap.get(typeNameId);
+    FieldItem fieldItem = this.fieldItemIdFieldItemMap.get(typeNameId);
     if (fieldItem != null) {
-      typeFilterCombo.setItems((String[]) fieldItem.getEntryNameList().toArray(new String[] {}));
+      typeFilterCombo.setItems(fieldItem.getEntryNameList().toArray(new String[] {}));
     }
     typeFilterCombo.setText(ReviewI18n.getString(entry.getValueKey()));
     typeCheckButton.addListener(SWT.Selection, new Listener() {
@@ -691,7 +715,7 @@ public class ReviewIdEditDialog extends Dialog {
         updateFilterEnabled(PropertyConstraints.ATTRIBUTE_VALUE_TYPE, isEnabled);
       }
     });
-    
+
     this.severityCheckButton = new Button(composite, SWT.CHECK);
     String severityKey = "ReviewIdEditDialog.label.tab.filters.check.severity";
     severityCheckButton.setText(ReviewI18n.getString(severityKey));
@@ -715,10 +739,10 @@ public class ReviewIdEditDialog extends Dialog {
     severityFilterCombo.setLayoutData(severityFilterComboData);
     severityFilterCombo.setEnabled(severityCheckButton.getSelection());
     String severityNameId = PropertyConstraints.ATTRIBUTE_VALUE_SEVERITY;
-    fieldItem = (FieldItem) this.fieldItemIdFieldItemMap.get(severityNameId);
+    fieldItem = this.fieldItemIdFieldItemMap.get(severityNameId);
     if (fieldItem != null) {
-      List itemNameList = fieldItem.getEntryNameList();
-      severityFilterCombo.setItems((String[]) itemNameList.toArray(new String[] {}));
+      List<String> itemNameList = fieldItem.getEntryNameList();
+      severityFilterCombo.setItems(itemNameList.toArray(new String[] {}));
     }
     severityFilterCombo.setText(ReviewI18n.getString(entry.getValueKey()));
     severityCheckButton.addListener(SWT.Selection, new Listener() {
@@ -728,7 +752,7 @@ public class ReviewIdEditDialog extends Dialog {
         updateFilterEnabled(PropertyConstraints.ATTRIBUTE_VALUE_SEVERITY, isEnabled);
       }
     });
-    
+
     this.assignedToCheckButton = new Button(composite, SWT.CHECK);
     String assignedToKey = "ReviewIdEditDialog.label.tab.filters.check.assignedTo";
     assignedToCheckButton.setText(ReviewI18n.getString(assignedToKey));
@@ -749,7 +773,8 @@ public class ReviewIdEditDialog extends Dialog {
     });
     FormData assignedToFilterComboData = new FormData();
     assignedToFilterComboData.top = new FormAttachment(assignedToCheckButton, 0, SWT.CENTER);
-    assignedToFilterComboData.left = new FormAttachment(assignedToCheckButton, x + 20, SWT.LEFT);
+    assignedToFilterComboData.left = new FormAttachment(assignedToCheckButton, x + 20,
+        SWT.LEFT);
     assignedToFilterComboData.right = new FormAttachment(100, 0);
     assignedToFilterCombo.setLayoutData(assignedToFilterComboData);
     assignedToFilterCombo.setEnabled(assignedToCheckButton.getSelection());
@@ -764,7 +789,7 @@ public class ReviewIdEditDialog extends Dialog {
         updateFilterEnabled(PropertyConstraints.ATTRIBUTE_VALUE_ASSIGNED_TO, isEnabled);
       }
     });
-    
+
     this.resolutionCheckButton = new Button(composite, SWT.CHECK);
     String resolutionKey = "ReviewIdEditDialog.label.tab.filters.check.resolution";
     resolutionCheckButton.setText(ReviewI18n.getString(resolutionKey));
@@ -783,15 +808,16 @@ public class ReviewIdEditDialog extends Dialog {
     });
     FormData resolutionFilterComboData = new FormData();
     resolutionFilterComboData.top = new FormAttachment(resolutionCheckButton, 0, SWT.CENTER);
-    resolutionFilterComboData.left = new FormAttachment(resolutionCheckButton, x + 20, SWT.LEFT);
+    resolutionFilterComboData.left = new FormAttachment(resolutionCheckButton, x + 20,
+        SWT.LEFT);
     resolutionFilterComboData.right = new FormAttachment(100, 0);
     resolutionFilterCombo.setLayoutData(resolutionFilterComboData);
     resolutionFilterCombo.setEnabled(resolutionCheckButton.getSelection());
     String resolutionNameId = PropertyConstraints.ATTRIBUTE_VALUE_RESOLUTION;
-    fieldItem = (FieldItem) this.fieldItemIdFieldItemMap.get(resolutionNameId);
+    fieldItem = this.fieldItemIdFieldItemMap.get(resolutionNameId);
     if (fieldItem != null) {
-      List itemNameList = fieldItem.getEntryNameList();
-      resolutionFilterCombo.setItems((String[]) itemNameList.toArray(new String[] {}));
+      List<String> itemNameList = fieldItem.getEntryNameList();
+      resolutionFilterCombo.setItems(itemNameList.toArray(new String[] {}));
     }
     resolutionFilterCombo.setText(ReviewI18n.getString(entry.getValueKey()));
     resolutionCheckButton.addListener(SWT.Selection, new Listener() {
@@ -801,7 +827,7 @@ public class ReviewIdEditDialog extends Dialog {
         updateFilterEnabled(PropertyConstraints.ATTRIBUTE_VALUE_RESOLUTION, isEnabled);
       }
     });
-    
+
     this.statusCheckButton = new Button(composite, SWT.CHECK);
     String statusKey = "ReviewIdEditDialog.label.tab.filters.check.status";
     statusCheckButton.setText(ReviewI18n.getString(statusKey));
@@ -825,10 +851,10 @@ public class ReviewIdEditDialog extends Dialog {
     statusFilterCombo.setLayoutData(statusFilterComboData);
     statusFilterCombo.setEnabled(statusCheckButton.getSelection());
     String statusNameId = PropertyConstraints.ATTRIBUTE_VALUE_STATUS;
-    fieldItem = (FieldItem) this.fieldItemIdFieldItemMap.get(statusNameId);
+    fieldItem = this.fieldItemIdFieldItemMap.get(statusNameId);
     if (fieldItem != null) {
-      List itemNameList = fieldItem.getEntryNameList();
-      statusFilterCombo.setItems((String[]) itemNameList.toArray(new String[] {}));
+      List<String> itemNameList = fieldItem.getEntryNameList();
+      statusFilterCombo.setItems(itemNameList.toArray(new String[] {}));
     }
     statusFilterCombo.setText(ReviewI18n.getString(entry.getValueKey()));
     statusCheckButton.addListener(SWT.Selection, new Listener() {
@@ -838,7 +864,7 @@ public class ReviewIdEditDialog extends Dialog {
         updateFilterEnabled(PropertyConstraints.ATTRIBUTE_VALUE_STATUS, isEnabled);
       }
     });
-    
+
     this.fileCheckButton = new Button(composite, SWT.CHECK);
     String fileKey = "ReviewIdEditDialog.label.tab.filters.check.file";
     fileCheckButton.setText(ReviewI18n.getString(fileKey));
@@ -860,8 +886,8 @@ public class ReviewIdEditDialog extends Dialog {
     fileFilterComboData.right = new FormAttachment(100, 0);
     fileFilterCombo.setLayoutData(fileFilterComboData);
     fileFilterCombo.setEnabled(fileCheckButton.getSelection());
-    Set fileSet = reviewResource.getFileSet();
-    fileFilterCombo.setItems((String[]) fileSet.toArray(new String[] {}));
+    Set<String> fileSet = reviewResource.getFileSet();
+    fileFilterCombo.setItems(fileSet.toArray(new String[] {}));
     fileFilterCombo.setText(ReviewI18n.getString(entry.getValueKey()));
     fileCheckButton.addListener(SWT.Selection, new Listener() {
       public void handleEvent(Event event) {
@@ -873,9 +899,10 @@ public class ReviewIdEditDialog extends Dialog {
     handleEnabledCheck();
     return composite;
   }
-  
+
   /**
    * updates the filter value.
+   * 
    * @param filterName the filter name.
    * @param key the key of the filter.
    */
@@ -885,15 +912,17 @@ public class ReviewIdEditDialog extends Dialog {
     FilterEntry entry = filterPhase.getFilterEntry(filterName);
     entry.setKey(key);
   }
-  
+
   /**
    * updates the filter enable status.
+   * 
    * @param filterName the filter name. null if the filter in the phase is to be set.
-   * @param isEnabled the enabled status of the filter. <code>true</code> if the filter is enabled.
+   * @param isEnabled the enabled status of the filter. <code>true</code> if the filter is
+   *          enabled.
    */
   private void updateFilterEnabled(String filterName, boolean isEnabled) {
     String phaseName = this.phaseCombo.getText();
-    FilterPhase filterPhase = (FilterPhase) this.phaseNameFilterPhaseMap.get(phaseName);
+    FilterPhase filterPhase = this.phaseNameFilterPhaseMap.get(phaseName);
     if (filterName != null) {
       FilterEntry entry = filterPhase.getFilterEntry(filterName);
       entry.setEnabled(isEnabled);
@@ -902,55 +931,56 @@ public class ReviewIdEditDialog extends Dialog {
       filterPhase.setEnabled(isEnabled);
     }
   }
-  
-  
 
   /**
    * Fills new values in combos
+   * 
    * @param phaseName the phase name.
    */
   protected void fillNewValueInCombos(String phaseName) {
-    FilterPhase filterPhase = (FilterPhase) this.phaseNameFilterPhaseMap.get(phaseName);   
-    
-    FilterEntry entry = filterPhase.getFilterEntry(PropertyConstraints.ATTRIBUTE_VALUE_INTERVAL);
+    FilterPhase filterPhase = this.phaseNameFilterPhaseMap.get(phaseName);
+
+    FilterEntry entry = filterPhase
+        .getFilterEntry(PropertyConstraints.ATTRIBUTE_VALUE_INTERVAL);
     this.intervalCheckButton.setSelection(entry.isEnabled());
     this.intervalFilterText.setText(ReviewI18n.getString(entry.getValueKey()));
-    
+
     entry = filterPhase.getFilterEntry(PropertyConstraints.ATTRIBUTE_VALUE_REVIEWER);
     this.reviewerCheckButton.setSelection(entry.isEnabled());
     this.reviewerFilterCombo.setText(ReviewI18n.getString(entry.getValueKey()));
-    
+
     entry = filterPhase.getFilterEntry(PropertyConstraints.ATTRIBUTE_VALUE_TYPE);
     this.typeCheckButton.setSelection(entry.isEnabled());
     this.typeFilterCombo.setText(ReviewI18n.getString(entry.getValueKey()));
-    
+
     entry = filterPhase.getFilterEntry(PropertyConstraints.ATTRIBUTE_VALUE_SEVERITY);
     this.severityCheckButton.setSelection(entry.isEnabled());
     this.severityFilterCombo.setText(ReviewI18n.getString(entry.getValueKey()));
-    
+
     entry = filterPhase.getFilterEntry(PropertyConstraints.ATTRIBUTE_VALUE_ASSIGNED_TO);
     this.assignedToCheckButton.setSelection(entry.isEnabled());
     this.assignedToFilterCombo.setText(ReviewI18n.getString(entry.getValueKey()));
-    
+
     entry = filterPhase.getFilterEntry(PropertyConstraints.ATTRIBUTE_VALUE_RESOLUTION);
     this.resolutionCheckButton.setSelection(entry.isEnabled());
     this.resolutionFilterCombo.setText(ReviewI18n.getString(entry.getValueKey()));
-    
+
     entry = filterPhase.getFilterEntry(PropertyConstraints.ATTRIBUTE_VALUE_STATUS);
     this.statusCheckButton.setSelection(entry.isEnabled());
     this.statusFilterCombo.setText(ReviewI18n.getString(entry.getValueKey()));
-    
+
     entry = filterPhase.getFilterEntry(PropertyConstraints.ATTRIBUTE_VALUE_FILE);
     this.fileCheckButton.setSelection(entry.isEnabled());
     this.fileFilterCombo.setText(ReviewI18n.getString(entry.getValueKey()));
-    
+
     this.enabledCheckButton.setSelection(filterPhase.isEnabled());
-    handleEnabledCheck(); 
+    handleEnabledCheck();
   }
 
   /**
    * Handles the filter enabled check status.
-   * @param isEnabled <code>true</code>if the combo associating check box is  enabled.
+   * 
+   * @param isEnabled <code>true</code>if the combo associating check box is enabled.
    * @param scrollable the scrollable to be reflected.
    */
   protected void handleFilterEnabledCheck(boolean isEnabled, Scrollable scrollable) {
@@ -994,6 +1024,7 @@ public class ReviewIdEditDialog extends Dialog {
 
   /**
    * Creates item entries folder.
+   * 
    * @param folder the folder.
    * @return the control.
    */
@@ -1020,13 +1051,14 @@ public class ReviewIdEditDialog extends Dialog {
     itemComboData.left = new FormAttachment(0, 0);
     itemComboData.right = new FormAttachment(100, 0);
     itemCombo.setLayoutData(itemComboData);
-    
+
     createItemEntriesTable(composite);
     return composite;
   }
 
   /**
    * Creates item entries table.
+   * 
    * @param composite the composite.
    */
   private void createItemEntriesTable(Composite composite) {
@@ -1045,13 +1077,13 @@ public class ReviewIdEditDialog extends Dialog {
       }
     });
     fillItemTable(this.itemCombo.getText());
-    
+
     this.newButtonInItemEntries = new Button(composite, SWT.PUSH);
     String newKey = "ReviewIdEditDialog.label.tab.itemEntries.button.new";
     newButtonInItemEntries.setText(ReviewI18n.getString(newKey));
     newButtonInItemEntries.addListener(SWT.Selection, new Listener() {
       public void handleEvent(Event event) {
-          newItemEntry();
+        newItemEntry();
       }
     });
     FormData newButtonData = new FormData();
@@ -1059,14 +1091,14 @@ public class ReviewIdEditDialog extends Dialog {
     newButtonData.left = new FormAttachment(this.itemListTable, 10);
     newButtonData.right = new FormAttachment(100, 0);
     newButtonInItemEntries.setLayoutData(newButtonData);
-    
+
     this.editButtonInItemEntries = new Button(composite, SWT.PUSH);
     String editKey = "ReviewIdEditDialog.label.tab.itemEntries.button.edit";
     editButtonInItemEntries.setText(ReviewI18n.getString(editKey));
     editButtonInItemEntries.setEnabled(false);
     editButtonInItemEntries.addListener(SWT.Selection, new Listener() {
       public void handleEvent(Event event) {
-          editItemEntry();
+        editItemEntry();
       }
     });
     FormData editButtonData = new FormData();
@@ -1074,7 +1106,7 @@ public class ReviewIdEditDialog extends Dialog {
     editButtonData.left = new FormAttachment(this.itemListTable, 10);
     editButtonData.right = new FormAttachment(100, 0);
     editButtonInItemEntries.setLayoutData(editButtonData);
-    
+
     this.removeButtonInItemEntries = new Button(composite, SWT.PUSH);
     String removeKey = "ReviewIdEditDialog.label.tab.itemEntries.button.remove";
     removeButtonInItemEntries.setText(ReviewI18n.getString(removeKey));
@@ -1089,7 +1121,7 @@ public class ReviewIdEditDialog extends Dialog {
     removeButtonData.left = new FormAttachment(newButtonInItemEntries, 0, SWT.LEFT);
     removeButtonData.right = new FormAttachment(100, 0);
     removeButtonInItemEntries.setLayoutData(removeButtonData);
-    
+
     this.upButtonInItemEntries = new Button(composite, SWT.PUSH);
     Image upImage = ReviewPlugin.createImageDescriptor("icons/up.gif").createImage();
     upButtonInItemEntries.setImage(upImage);
@@ -1104,7 +1136,7 @@ public class ReviewIdEditDialog extends Dialog {
     upButtonData.left = new FormAttachment(newButtonInItemEntries, 0, SWT.LEFT);
     upButtonData.right = new FormAttachment(100, 0);
     upButtonInItemEntries.setLayoutData(upButtonData);
-    
+
     this.downButtonInItemEntries = new Button(composite, SWT.PUSH);
     Image downImage = ReviewPlugin.createImageDescriptor("icons/down.gif").createImage();
     downButtonInItemEntries.setImage(downImage);
@@ -1119,7 +1151,7 @@ public class ReviewIdEditDialog extends Dialog {
     downButtonData.left = new FormAttachment(newButtonInItemEntries, 0, SWT.LEFT);
     downButtonData.right = new FormAttachment(100, 0);
     downButtonInItemEntries.setLayoutData(downButtonData);
-    
+
     this.restoreButtonInItemEntries = new Button(composite, SWT.PUSH);
     String restoreKey = "ReviewIdEditDialog.label.tab.itemEntries.button.restore";
     restoreButtonInItemEntries.setText(ReviewI18n.getString(restoreKey));
@@ -1134,21 +1166,22 @@ public class ReviewIdEditDialog extends Dialog {
     restoreButtonData.right = new FormAttachment(100, 0);
     restoreButtonInItemEntries.setLayoutData(restoreButtonData);
   }
-  
+
   /**
-   * Moves the selected item entry by one upward if <code>isUpward</code> is <code>true</code>.
-   * Otherwise, moves the selected item entry by one downward.
+   * Moves the selected item entry by one upward if <code>isUpward</code> is
+   * <code>true</code>. Otherwise, moves the selected item entry by one downward.
+   * 
    * @param isUpward <code>true</code> if moving the selected item entry by one upward.
-   * <code>false</code> if moving the selected item entry by one downward.
+   *          <code>false</code> if moving the selected item entry by one downward.
    */
-  protected void moveItemEntry(boolean isUpward) { 
+  protected void moveItemEntry(boolean isUpward) {
     String fieldItemId = this.itemCombo.getText();
-    FieldItem fieldItem = (FieldItem) this.fieldItemIdFieldItemMap.get(fieldItemId);
+    FieldItem fieldItem = this.fieldItemIdFieldItemMap.get(fieldItemId);
     TableItem[] selectedItems = this.itemListTable.getSelection();
     if (selectedItems.length > 0 && fieldItem != null) {
       TableItem selectedItem = selectedItems[0];
       String itemName = selectedItem.getText();
-      List itemList = fieldItem.getEntryNameList();
+      List<String> itemList = fieldItem.getEntryNameList();
       int index = itemList.indexOf(itemName);
       if ((isUpward) ? index > 0 : index < itemList.size() - 1) {
         int nextIndex = (isUpward) ? index - 1 : index + 1;
@@ -1176,16 +1209,16 @@ public class ReviewIdEditDialog extends Dialog {
     String itemName = dialog.getValue();
     TableItem item = new TableItem(this.itemListTable, SWT.NONE);
     String fieldItemId = this.itemCombo.getText();
-    FieldItem fieldItem = (FieldItem) this.fieldItemIdFieldItemMap.get(fieldItemId);
+    FieldItem fieldItem = this.fieldItemIdFieldItemMap.get(fieldItemId);
     if (fieldItem != null) {
-      List itemList = fieldItem.getEntryNameList();
+      List<String> itemList = fieldItem.getEntryNameList();
       itemList.add(itemName);
       fillItemTable(fieldItemId);
       updateDefaultItems(fieldItemId);
       updateFilterItems(fieldItemId);
     }
   }
-  
+
   /**
    * Edits the item entry.
    */
@@ -1201,9 +1234,9 @@ public class ReviewIdEditDialog extends Dialog {
     String newName = dialog.getValue();
     item.setText(newName);
     String fieldItemId = this.itemCombo.getText();
-    FieldItem fieldItem = (FieldItem) this.fieldItemIdFieldItemMap.get(fieldItemId);
+    FieldItem fieldItem = this.fieldItemIdFieldItemMap.get(fieldItemId);
     if (fieldItem != null) {
-      List itemList = fieldItem.getEntryNameList();
+      List<String> itemList = fieldItem.getEntryNameList();
       int index = itemList.indexOf(oldName);
       itemList.remove(index);
       itemList.add(index, newName);
@@ -1212,19 +1245,21 @@ public class ReviewIdEditDialog extends Dialog {
       updateFilterItems(fieldItemId);
     }
   }
-  
+
   /**
    * Opens the dialog window.
+   * 
    * @param existingItemName the existing item name.
    * @param shortMessageKey the short message key.
    * @param longMessageKey the long message key.
    * @return the input dialog the <code>InputDialog</code>.
    */
-  private InputDialog openDialog(String existingItemName, String shortMessageKey, 
-                      String longMessageKey) {
-    FieldItem fieldItem = (FieldItem) this.fieldItemIdFieldItemMap.get(this.itemCombo.getText());
+  private InputDialog openDialog(String existingItemName, String shortMessageKey,
+      String longMessageKey) {
+    FieldItem fieldItem = this.fieldItemIdFieldItemMap.get(this.itemCombo
+        .getText());
     if (fieldItem != null) {
-      final List itemList = fieldItem.getEntryNameList();
+      final List<String> itemList = fieldItem.getEntryNameList();
       IInputValidator validator = new IInputValidator() {
         public String isValid(String newText) {
           if (!itemList.contains(ReviewI18n.getKey(newText))) {
@@ -1236,9 +1271,8 @@ public class ReviewIdEditDialog extends Dialog {
           }
         }
       };
-      InputDialog dialog = new InputDialog(getShell(), ReviewI18n.getString(shortMessageKey), 
-                                           ReviewI18n.getString(longMessageKey), existingItemName,
-                                           validator);  //$NON-NLS-1$ //$NON-NLS-2$
+      InputDialog dialog = new InputDialog(getShell(), ReviewI18n.getString(shortMessageKey),
+          ReviewI18n.getString(longMessageKey), existingItemName, validator); //$NON-NLS-1$ //$NON-NLS-2$
       dialog.open();
       return dialog;
     }
@@ -1250,9 +1284,9 @@ public class ReviewIdEditDialog extends Dialog {
    */
   protected void removeItemEntries() {
     String fieldItemId = this.itemCombo.getText();
-    FieldItem fieldItem = (FieldItem) this.fieldItemIdFieldItemMap.get(fieldItemId);
+    FieldItem fieldItem = this.fieldItemIdFieldItemMap.get(fieldItemId);
     if (fieldItem != null) {
-      List itemList = fieldItem.getEntryNameList();
+      List<String> itemList = fieldItem.getEntryNameList();
       TableItem[] items = this.itemListTable.getSelection();
       for (int i = 0; i < items.length; i++) {
         String itemName = items[i].getText();
@@ -1288,18 +1322,19 @@ public class ReviewIdEditDialog extends Dialog {
       updateFilterItems(fieldItemId);
     }
   }
-  
+
   /**
    * Updates the filter item folder.
+   * 
    * @param fieldItemId the field item id.
    */
   private void updateFilterItems(String fieldItemId) {
-    FieldItem fieldItem = (FieldItem) this.fieldItemIdFieldItemMap.get(fieldItemId);
+    FieldItem fieldItem = this.fieldItemIdFieldItemMap.get(fieldItemId);
     if (fieldItem != null) {
-      List itemNameList = fieldItem.getEntryNameList();
+      List<String> itemNameList = fieldItem.getEntryNameList();
       if (fieldItemId.equals(PropertyConstraints.ATTRIBUTE_VALUE_TYPE)) {
         String currentType = this.typeFilterCombo.getText();
-        this.typeFilterCombo.setItems((String[]) itemNameList.toArray(new String[] {}));
+        this.typeFilterCombo.setItems(itemNameList.toArray(new String[] {}));
         this.typeFilterCombo.setText(currentType);
       }
       else if (fieldItemId.equals(PropertyConstraints.ATTRIBUTE_VALUE_SEVERITY)) {
@@ -1319,33 +1354,34 @@ public class ReviewIdEditDialog extends Dialog {
       }
     }
   }
-  
+
   /**
    * Updates the default items folder.
+   * 
    * @param fieldItemId the field item id.
    */
   private void updateDefaultItems(String fieldItemId) {
-    FieldItem fieldItem = (FieldItem) this.fieldItemIdFieldItemMap.get(fieldItemId);
+    FieldItem fieldItem = this.fieldItemIdFieldItemMap.get(fieldItemId);
     if (fieldItem != null) {
-      List itemNameList = fieldItem.getEntryNameList();
+      List<String> itemNameList = fieldItem.getEntryNameList();
       if (fieldItemId.equals(PropertyConstraints.ATTRIBUTE_VALUE_TYPE)) {
         String currentType = this.defaultTypeCombo.getText();
-        this.defaultTypeCombo.setItems((String[]) itemNameList.toArray(new String[] {}));
+        this.defaultTypeCombo.setItems(itemNameList.toArray(new String[] {}));
         this.defaultTypeCombo.setText(currentType);
       }
       else if (fieldItemId.equals(PropertyConstraints.ATTRIBUTE_VALUE_SEVERITY)) {
         String currentSeverity = this.defaultSeverityCombo.getText();
-        this.defaultSeverityCombo.setItems((String[]) itemNameList.toArray(new String[] {}));
+        this.defaultSeverityCombo.setItems(itemNameList.toArray(new String[] {}));
         this.defaultSeverityCombo.setText(currentSeverity);
       }
       else if (fieldItemId.equals(PropertyConstraints.ATTRIBUTE_VALUE_RESOLUTION)) {
         String currentResolution = this.defaultResolutionCombo.getText();
-        this.defaultResolutionCombo.setItems((String[]) itemNameList.toArray(new String[] {}));
+        this.defaultResolutionCombo.setItems(itemNameList.toArray(new String[] {}));
         this.defaultResolutionCombo.setText(currentResolution);
       }
       else if (fieldItemId.equals(PropertyConstraints.ATTRIBUTE_VALUE_STATUS)) {
         String currentStatus = this.defaultStatusCombo.getText();
-        this.defaultStatusCombo.setItems((String[]) itemNameList.toArray(new String[] {}));
+        this.defaultStatusCombo.setItems(itemNameList.toArray(new String[] {}));
         this.defaultStatusCombo.setText(currentStatus);
       }
     }
@@ -1353,6 +1389,7 @@ public class ReviewIdEditDialog extends Dialog {
 
   /**
    * Handles the item id combo selection.
+   * 
    * @param itemCombo the item combo.
    */
   protected void handleItemIdComboSelection(Combo itemCombo) {
@@ -1376,14 +1413,15 @@ public class ReviewIdEditDialog extends Dialog {
 
   /**
    * Fills item data in the item table.
+   * 
    * @param fieldItemId the field item id.
    */
   private void fillItemTable(String fieldItemId) {
     removeAllItemsInItemListTable();
-    FieldItem fieldItem = (FieldItem) this.fieldItemIdFieldItemMap.get(fieldItemId);
+    FieldItem fieldItem = this.fieldItemIdFieldItemMap.get(fieldItemId);
     if (fieldItem != null) {
-      for (Iterator i = fieldItem.getEntryNameList().iterator(); i.hasNext();) {
-        String itemEntry = ReviewI18n.getString((String) i.next());
+      for (Iterator<String> i = fieldItem.getEntryNameList().iterator(); i.hasNext();) {
+        String itemEntry = ReviewI18n.getString(i.next());
         TableItem item = new TableItem(this.itemListTable, SWT.NONE);
         item.setText(itemEntry);
       }
@@ -1396,13 +1434,14 @@ public class ReviewIdEditDialog extends Dialog {
   private void removeAllItemsInItemListTable() {
     TableItem[] items = this.itemListTable.getItems();
     for (int i = 0; i < items.length; i++) {
-      TableItem item  = items[i];
+      TableItem item = items[i];
       item.dispose();
     }
   }
 
   /**
    * Creates the file folder.
+   * 
    * @param folder the folder.
    * @return the control.
    */
@@ -1422,13 +1461,13 @@ public class ReviewIdEditDialog extends Dialog {
       }
     });
     fillFileTable(this.project.getName(), reviewId.getReviewId());
-    
+
     this.addButtonInFile = new Button(composite, SWT.PUSH);
     String addKey = "ReviewIdEditDialog.label.tab.file.button.add";
     addButtonInFile.setText(ReviewI18n.getString(addKey));
     addButtonInFile.addListener(SWT.Selection, new Listener() {
       public void handleEvent(Event event) {
-          addFile();
+        addFile();
       }
     });
     FormData addButtonData = new FormData();
@@ -1436,8 +1475,7 @@ public class ReviewIdEditDialog extends Dialog {
     addButtonData.left = new FormAttachment(fileListTable, 10);
     addButtonData.right = new FormAttachment(100, 0);
     addButtonInFile.setLayoutData(addButtonData);
-    
-    
+
     this.removeButtonInFile = new Button(composite, SWT.PUSH);
     String removeKey = "ReviewIdEditDialog.label.tab.file.button.remove";
     removeButtonInFile.setText(ReviewI18n.getString(removeKey));
@@ -1452,31 +1490,33 @@ public class ReviewIdEditDialog extends Dialog {
     removeButtonData.left = new FormAttachment(addButtonInFile, 0, SWT.LEFT);
     removeButtonData.right = new FormAttachment(100, 0);
     removeButtonInFile.setLayoutData(removeButtonData);
-    
+
     return composite;
   }
 
   /**
-   * Fills the reviewer table with reviewers. Sets <code>true</code> if items are just updated.
-   * Sets <code>false</code> if items are read from the property resource.
-   * @param isUpdate <code>true</code> if items are just updated. 
-   * <code>false</code> if items are read from the property resource.
+   * Fills the reviewer table with reviewers. Sets <code>true</code> if items are just
+   * updated. Sets <code>false</code> if items are read from the property resource.
+   * 
+   * @param isUpdate <code>true</code> if items are just updated. <code>false</code> if
+   *          items are read from the property resource.
    */
   public void fillReviewerTable(boolean isUpdate) {
     removeAllItemsInReviewerTable();
     if (!isUpdate) {
       IProject project = FileResource.getProject(this.project.getName());
       String reviewIdString = reviewId.getReviewId();
-      Map reviewersMap = PropertyResource.getInstance(project, true).getReviewers(reviewIdString);
-      this.reviewers = new TreeMap(reviewersMap);
+      Map<String, ReviewerId> reviewersMap = PropertyResource.getInstance(project, true)
+          .getReviewers(reviewIdString);
+      this.reviewers = new TreeMap<String, ReviewerId>(reviewersMap);
     }
-    for (Iterator i = this.reviewers.keySet().iterator(); i.hasNext();) {
-      String reviewerId = (String) i.next();
+    for (Iterator<String> i = this.reviewers.keySet().iterator(); i.hasNext();) {
+      String reviewerId = i.next();
       TableItem item = new TableItem(this.reviewerListTable, SWT.NONE);
       item.setText(reviewerId);
     }
   }
-  
+
   /**
    * Removes all items in the review table.
    */
@@ -1486,9 +1526,10 @@ public class ReviewIdEditDialog extends Dialog {
       items[i].dispose();
     }
   }
-  
+
   /**
    * Fills the file table with files.
+   * 
    * @param projectName the project name.
    * @param reviewId the review id.
    */
@@ -1497,35 +1538,34 @@ public class ReviewIdEditDialog extends Dialog {
     PropertyResource propertyResource = PropertyResource.getInstance(project, true);
     ReviewResource reviewResource = propertyResource.getReviewResource(reviewId, true);
     if (reviewResource != null) {
-      Set targetFiles = reviewResource.getFileSet();
+      Set<String> targetFiles = reviewResource.getFileSet();
       this.files = targetFiles;
-      for (Iterator i = this.files.iterator(); i.hasNext();) {
-        String file = (String) i.next();
+      for (Iterator<String> i = this.files.iterator(); i.hasNext();) {
+        String file = i.next();
         TableItem item = new TableItem(this.fileListTable, SWT.NONE);
         item.setText(file);
       }
     }
   }
-  
+
   /**
    * Adds a reviewer to the reviewer list.
    */
   protected void addReviewer() {
-      IInputValidator validator = new IInputValidator() {
-        public String isValid(String newText) {
-          if (!reviewers.containsKey(newText)) {
-            return null;
-          }
-          else {
-            String errorKey = "ReviewIdNewReviewerPage.dialogMessage.label.error";
-            return ReviewI18n.getString(errorKey);
-          }
+    IInputValidator validator = new IInputValidator() {
+      public String isValid(String newText) {
+        if (!reviewers.containsKey(newText)) {
+          return null;
         }
-      };
-    InputDialog dialog = new InputDialog(getShell(), 
-        ReviewI18n.getString("ReviewIdNewReviewerPage.dialogMessage.label.short"),
-        ReviewI18n.getString("ReviewIdNewReviewerPage.dialogMessage.label.long"),
-        null, validator);  //$NON-NLS-1$ //$NON-NLS-2$
+        else {
+          String errorKey = "ReviewIdNewReviewerPage.dialogMessage.label.error";
+          return ReviewI18n.getString(errorKey);
+        }
+      }
+    };
+    InputDialog dialog = new InputDialog(getShell(), ReviewI18n
+        .getString("ReviewIdNewReviewerPage.dialogMessage.label.short"), ReviewI18n
+        .getString("ReviewIdNewReviewerPage.dialogMessage.label.long"), null, validator); //$NON-NLS-1$ //$NON-NLS-2$
     dialog.open();
     if (dialog.getReturnCode() != InputDialog.OK) {
       return;
@@ -1536,24 +1576,25 @@ public class ReviewIdEditDialog extends Dialog {
     fillReviewerTable(true);
     updateAuthorCandidates(this.reviewers);
   }
-  
+
   /**
    * Adds a file to the file list.
    */
   protected void addFile() {
     IWorkbench workbench = PlatformUI.getWorkbench();
     Shell shell = workbench.getActiveWorkbenchWindow().getShell();
-    FileFolderSelectionDialog dialog = new FileFolderSelectionDialog(shell, true, IResource.FILE);
+    FileFolderSelectionDialog dialog = new FileFolderSelectionDialog(shell, true,
+        IResource.FILE);
     dialog.setTitle(ReviewI18n.getString("ReviewIdEditDialog.label.tab.file.add.title"));
     dialog.setMessage(ReviewI18n.getString("ReviewIdEditDialog.label.tab.file.add.message"));
-    //dialog.setInput(project.getLocation().toFile());
+    // dialog.setInput(project.getLocation().toFile());
     try {
       IFileStore store = EFS.getStore(project.getLocationURI());
       dialog.setInput(store);
     }
     catch (Exception e) {
       e.printStackTrace();
-      // Ignore  
+      // Ignore
     }
     if (dialog.open() == FileFolderSelectionDialog.OK) {
       Object[] results = (Object[]) dialog.getResult();
@@ -1562,8 +1603,9 @@ public class ReviewIdEditDialog extends Dialog {
         String projectPath = project.getLocation().toFile().toString();
         String filePath = selectedFile.toString();
         int index = projectPath.length();
-        String projectToFilePath =  filePath.substring(index + 1);
-        String targetFile = project.getFile(projectToFilePath).getProjectRelativePath().toString();
+        String projectToFilePath = filePath.substring(index + 1);
+        String targetFile = project.getFile(projectToFilePath).getProjectRelativePath()
+            .toString();
         if (this.files.add(targetFile)) {
           TableItem item = new TableItem(this.fileListTable, SWT.NONE);
           item.setText(targetFile);
@@ -1571,13 +1613,14 @@ public class ReviewIdEditDialog extends Dialog {
       }
     }
   }
-  
+
   /**
    * Updates the author candidate list.
+   * 
    * @param reviewers the reviewers which would be the candidates for the author.
    */
-  private void updateAuthorCandidates(Map reviewers) {
-    authorCombo.setItems((String[]) reviewers.keySet().toArray(new String[] {}));
+  private void updateAuthorCandidates(Map<String, ReviewerId> reviewers) {
+    authorCombo.setItems(reviewers.keySet().toArray(new String[] {}));
     authorCombo.setText(reviewId.getAuthor());
   }
 
@@ -1594,7 +1637,7 @@ public class ReviewIdEditDialog extends Dialog {
     fillReviewerTable(true);
     this.removeButtonInReviewer.setEnabled(this.reviewerListTable.getItemCount() > 0);
   }
-  
+
   /**
    * Removes a file from the file list.
    */
@@ -1607,7 +1650,7 @@ public class ReviewIdEditDialog extends Dialog {
     }
     this.removeButtonInFile.setEnabled(this.fileListTable.getItemCount() > 0);
   }
-  
+
   /**
    * Handles the review list table selection.
    */
@@ -1616,7 +1659,7 @@ public class ReviewIdEditDialog extends Dialog {
     this.addButtonInReviewer.setEnabled(isSelected);
     this.removeButtonInReviewer.setEnabled(isSelected);
   }
-  
+
   /**
    * Handles the file list table selection.
    */
@@ -1625,7 +1668,7 @@ public class ReviewIdEditDialog extends Dialog {
     this.addButtonInFile.setEnabled(isSelected);
     this.removeButtonInFile.setEnabled(isSelected);
   }
-  
+
   /**
    * @see org.eclipse.jface.dialogs.Dialog#okPressed()
    */
@@ -1644,7 +1687,8 @@ public class ReviewIdEditDialog extends Dialog {
         String typeKey = ReviewI18n.getKey(this.defaultTypeCombo.getText());
         reviewResource.setDefaultField(PropertyConstraints.ATTRIBUTE_VALUE_TYPE, typeKey);
         String severityKey = ReviewI18n.getKey(this.defaultSeverityCombo.getText());
-        reviewResource.setDefaultField(PropertyConstraints.ATTRIBUTE_VALUE_SEVERITY, severityKey);
+        reviewResource.setDefaultField(PropertyConstraints.ATTRIBUTE_VALUE_SEVERITY,
+            severityKey);
         String resolutionKey = ReviewI18n.getKey(this.defaultResolutionCombo.getText());
         String resolutionName = PropertyConstraints.ATTRIBUTE_VALUE_RESOLUTION;
         reviewResource.setDefaultField(resolutionName, resolutionKey);
@@ -1652,7 +1696,7 @@ public class ReviewIdEditDialog extends Dialog {
         reviewResource.setDefaultField(PropertyConstraints.ATTRIBUTE_VALUE_STATUS, statusKey);
         reviewResource.setFieldItemMap(this.fieldItemIdFieldItemMap);
         reviewResource.setPhaseNameFilterPhaseMap(this.phaseNameFilterPhaseMap);
-        
+
         propertyResource.removeReviewResource(this.reviewId);
         propertyResource.addReviewResource(reviewResource);
       }
