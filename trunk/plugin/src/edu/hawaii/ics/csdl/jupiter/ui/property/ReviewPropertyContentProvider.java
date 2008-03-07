@@ -15,6 +15,7 @@ public class ReviewPropertyContentProvider implements IStructuredContentProvider
   /**
    * @see org.eclipse.jface.viewers.IStructuredContentProvider#getElements(java.lang.Object)
    */
+  @SuppressWarnings("unchecked")
   public Object[] getElements(Object input) {
     Object[] elements = null;
     if (input instanceof List) {

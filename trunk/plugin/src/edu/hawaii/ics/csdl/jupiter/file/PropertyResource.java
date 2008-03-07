@@ -9,10 +9,19 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import org.eclipse.core.resources.IProject;
-import org.jdom.Document;
-import org.jdom.Element;
 
 import edu.hawaii.ics.csdl.jupiter.ReviewException;
+import edu.hawaii.ics.csdl.jupiter.file.property.CreationDate;
+import edu.hawaii.ics.csdl.jupiter.file.property.FieldItem;
+import edu.hawaii.ics.csdl.jupiter.file.property.FieldItems;
+import edu.hawaii.ics.csdl.jupiter.file.property.Files;
+import edu.hawaii.ics.csdl.jupiter.file.property.Filter;
+import edu.hawaii.ics.csdl.jupiter.file.property.Filters;
+import edu.hawaii.ics.csdl.jupiter.file.property.ObjectFactory;
+import edu.hawaii.ics.csdl.jupiter.file.property.Phase;
+import edu.hawaii.ics.csdl.jupiter.file.property.Property;
+import edu.hawaii.ics.csdl.jupiter.file.property.Review;
+import edu.hawaii.ics.csdl.jupiter.file.property.Reviewers;
 import edu.hawaii.ics.csdl.jupiter.model.review.ReviewId;
 import edu.hawaii.ics.csdl.jupiter.model.review.ReviewerId;
 import edu.hawaii.ics.csdl.jupiter.util.JupiterLogger;
@@ -31,8 +40,8 @@ public class PropertyResource {
   private Map<String, ReviewId> reviewIdMap;
   private IProject project;
   private boolean isDefaultLoaded;
-  private Document propertyDocument;
-  private Map<String, Element> reviewIdReviewElementMap;
+  private Property property;
+  private Map<String, Review> reviewIdReviewMap;
 
   /** The default review id. */
   public static final String DEFAULT_ID = PropertyConstraints.DEFAULT_REVIEW_ID;
@@ -42,7 +51,7 @@ public class PropertyResource {
    */
   private PropertyResource() {
     this.reviewIdMap = new TreeMap<String, ReviewId>();
-    this.reviewIdReviewElementMap = new TreeMap<String, Element>();
+    this.reviewIdReviewMap = new TreeMap<String, Review>();
   }
 
   /**
@@ -55,7 +64,7 @@ public class PropertyResource {
    */
   public static PropertyResource getInstance(IProject project, boolean isDefaultLoaded) {
     theInstance.setValues(project, isDefaultLoaded);
-    theInstance.fillReviewIdReviewElementMap(project, isDefaultLoaded);
+    theInstance.fillReviewIdReviewMap(project, isDefaultLoaded);
     theInstance.fillReviewIdMap();
     return theInstance;
   }
@@ -72,34 +81,34 @@ public class PropertyResource {
   }
 
   /**
-   * Loads the 'Review' <code>Element</code>.
+   * Loads the <code>Review</code>s.
    * 
-   * @param project the project.
-   * @param isDefaultLoaded true if default review id is loaded too.
+   * @param project The project containing the reviews.
+   * @param isDefaultLoaded True if the default review ID should be loaded, otherwise false.
    */
-  private void fillReviewIdReviewElementMap(IProject project, boolean isDefaultLoaded) {
+  private void fillReviewIdReviewMap(IProject project, boolean isDefaultLoaded) {
     try {
-      this.propertyDocument = PropertyXmlSerializer.newDocument(project);
+      this.property = PropertyXmlSerializer.newProperty(project);
     }
     catch (ReviewException e) {
       log.error(e);
     }
-    if (this.propertyDocument == null) {
+    if (this.property == null) {
       return;
     }
-    Element propertyElement = this.propertyDocument.getRootElement();
-    List reviewElementList = propertyElement.getChildren(PropertyConstraints.ELEMENT_REVIEW);
-    this.reviewIdReviewElementMap.clear();
-    for (Iterator i = reviewElementList.iterator(); i.hasNext();) {
-      Element reviewElement = (Element) i.next();
-      String reviewId = reviewElement.getAttributeValue(PropertyConstraints.ATTRIBUTE_ID);
+    
+    this.reviewIdReviewMap.clear();
+    List<Review> reviews = this.property.getReview();
+    for (Review review : reviews) {
+      String reviewId = review.getId();
       if (reviewId.equals(PropertyConstraints.DEFAULT_REVIEW_ID) && !isDefaultLoaded) {
+        // don't load the default review id
         continue;
       }
-      this.reviewIdReviewElementMap.put(reviewId, reviewElement);
+      this.reviewIdReviewMap.put(reviewId, review);
     }
   }
-
+  
   /**
    * Gets the <code>ReviewResource</code> instance associating with the review id. Returns
    * null if the review id does not exist.
@@ -111,22 +120,121 @@ public class PropertyResource {
    *         null if the review id does not exist.
    */
   public ReviewResource getReviewResource(String reviewId, boolean isClone) {
-    Element reviewElement = (Element) this.reviewIdReviewElementMap.get(reviewId);
-    if (reviewElement != null) {
-      reviewElement = (isClone) ? (Element) reviewElement.clone() : reviewElement;
-      return new ReviewResource(reviewElement);
+    Review review = this.reviewIdReviewMap.get(reviewId);
+    if (review != null) {
+      review = (isClone) ? copyReview(review) : review;
+      return new ReviewResource(review);
     }
     return null;
   }
 
   /**
+   * Copies a review object.
+   * 
+   * @param review The review object to copy.
+   * @return Returns the copied review.
+   */
+  private Review copyReview(Review review) {
+    if (review == null) {
+      return null;
+    }
+    ObjectFactory objectFactory = new ObjectFactory();
+    
+    Review copiedReview = objectFactory.createReview();
+    copiedReview.setAuthor(review.getAuthor());
+    copiedReview.setDescription(review.getDescription());
+    copiedReview.setDirectory(review.getDirectory());
+    copiedReview.setId(review.getId());
+    
+    CreationDate creationDate = review.getCreationDate();
+    if (creationDate != null) {
+      CreationDate copiedCreationDate = objectFactory.createCreationDate();
+      copiedCreationDate.setFormat(creationDate.getFormat());
+      copiedCreationDate.setValue(creationDate.getValue());
+      copiedReview.setCreationDate(copiedCreationDate);
+    }
+    
+    Reviewers reviewers = review.getReviewers();
+    if (reviewers != null) {
+      Reviewers copiedReviewers = objectFactory.createReviewers();
+      
+      List<edu.hawaii.ics.csdl.jupiter.file.property.Reviewers.Entry> entryList = reviewers.getEntry();
+      for (edu.hawaii.ics.csdl.jupiter.file.property.Reviewers.Entry entry : entryList) {
+        edu.hawaii.ics.csdl.jupiter.file.property.Reviewers.Entry copiedReviewersEntry = objectFactory.createReviewersEntry();
+        copiedReviewersEntry.setId(entry.getId());
+        copiedReviewersEntry.setName(entry.getName());
+        copiedReviewers.getEntry().add(copiedReviewersEntry);
+      }
+      copiedReview.setReviewers(reviewers);
+    }
+    
+    Files files = review.getFiles();
+    if (files != null) {
+      Files copiedFiles = objectFactory.createFiles();
+      
+      List<edu.hawaii.ics.csdl.jupiter.file.property.Files.Entry> entryList = files.getEntry();
+      for (edu.hawaii.ics.csdl.jupiter.file.property.Files.Entry entry : entryList) {
+        edu.hawaii.ics.csdl.jupiter.file.property.Files.Entry copiedFilesEntry = objectFactory.createFilesEntry();
+        copiedFilesEntry.setName(entry.getName());
+        copiedFiles.getEntry().add(copiedFilesEntry);
+      }
+      copiedReview.setFiles(copiedFiles);
+    }
+    
+    FieldItems fieldItems = review.getFieldItems();
+    if (fieldItems != null) {
+      FieldItems copiedFieldItems = objectFactory.createFieldItems();
+      List<FieldItem> fieldItemList = fieldItems.getFieldItem();
+      for (FieldItem fieldItem : fieldItemList) {
+        FieldItem copiedFieldItem = objectFactory.createFieldItem();
+        copiedFieldItem.setDefault(fieldItem.getDefault());
+        copiedFieldItem.setId(fieldItem.getId());
+        
+        List<edu.hawaii.ics.csdl.jupiter.file.property.FieldItem.Entry> entryList = fieldItem.getEntry();
+        for (edu.hawaii.ics.csdl.jupiter.file.property.FieldItem.Entry entry : entryList) {
+          edu.hawaii.ics.csdl.jupiter.file.property.FieldItem.Entry copiedFieldItemEntry = objectFactory.createFieldItemEntry();
+          copiedFieldItemEntry.setName(entry.getName());
+          copiedFieldItem.getEntry().add(copiedFieldItemEntry);
+        }
+        copiedFieldItems.getFieldItem().add(copiedFieldItem);
+      }
+      copiedReview.setFieldItems(copiedFieldItems);
+    }
+    
+    Filters filters = review.getFilters();
+    if (filters != null) {
+      Filters copiedFilters = objectFactory.createFilters();
+      
+      List<Phase> phaseList = filters.getPhase();
+      for (Phase phase : phaseList) {
+        Phase copiedPhase = objectFactory.createPhase();
+        copiedPhase.setName(phase.getName());
+        copiedPhase.setEnabled(phase.isEnabled());
+        
+        // filter objects
+        List<Filter> filterList = phase.getFilter();
+        for (Filter filter : filterList) {
+          Filter copiedFilter = objectFactory.createFilter();
+          copiedFilter.setName(filter.getName());
+          copiedFilter.setValue(filter.getValue());
+          copiedFilter.setEnabled(filter.isEnabled());
+          copiedPhase.getFilter().add(copiedFilter);
+        }
+        copiedFilters.getPhase().add(copiedPhase);
+      }
+      copiedReview.setFilters(copiedFilters);
+    }
+    
+    return copiedReview;
+  }
+  
+  /**
    * Loads <code>ReviewId</code> instances for the project into review id map.
    */
   private void fillReviewIdMap() {
     this.reviewIdMap.clear();
-    for (Iterator<Element> i = this.reviewIdReviewElementMap.values().iterator(); i.hasNext();) {
-      Element reviewIdElement = i.next();
-      ReviewResource reviewResource = new ReviewResource(reviewIdElement);
+    for (Review review : this.reviewIdReviewMap.values()) {
+      ReviewResource reviewResource = new ReviewResource(review);
       ReviewId reviewId = reviewResource.getReviewId();
       this.reviewIdMap.put(reviewId.getReviewId(), reviewId);
     }
@@ -209,19 +317,18 @@ public class PropertyResource {
    *         <code>false</code> if review id already exist.
    */
   public boolean addReviewResource(ReviewResource reviewResource) throws ReviewException {
-    Element propertyElement = this.propertyDocument.getRootElement();
     if (reviewResource != null) {
-      Element reviewElement = reviewResource.getReviewElement();
+      Review review = reviewResource.getReview();
       ReviewId reviewId = reviewResource.getReviewId();
-      propertyElement.addContent(reviewElement);
-      PropertyXmlSerializer.serializeDocument(propertyDocument, project);
-      this.reviewIdReviewElementMap.put(reviewId.getReviewId(), reviewElement);
+      
+      this.property.getReview().add(review);
+      PropertyXmlSerializer.serializeProperty(this.property, this.project);
+      this.reviewIdReviewMap.put(reviewId.getReviewId(), review);
       this.reviewIdMap.put(reviewId.getReviewId(), reviewId);
       return true;
     }
-    else {
-      return false;
-    }
+    
+    return false;
   }
 
   /**
@@ -233,19 +340,16 @@ public class PropertyResource {
    *         if review id does not exist.
    */
   public boolean removeReviewResource(ReviewId reviewId) throws ReviewException {
-    Element propertyElement = this.propertyDocument.getRootElement();
     ReviewResource reviewResource = getReviewResource(reviewId.getReviewId(), false);
-    // if the element exists, i.e. the review id exists.
     if (reviewResource != null) {
-      Element targetReviewElement = reviewResource.getReviewElement();
-      propertyElement.removeContent(targetReviewElement);
-      PropertyXmlSerializer.serializeDocument(this.propertyDocument, project);
-      this.reviewIdReviewElementMap.remove(reviewId.getReviewId());
+      Review review = reviewResource.getReview();
+      this.property.getReview().remove(review);
+      PropertyXmlSerializer.serializeProperty(this.property, this.project);
+      this.reviewIdReviewMap.remove(reviewId.getReviewId());
       this.reviewIdMap.remove(reviewId.getReviewId());
       return true;
     }
-    else {
-      return false;
-    }
+    
+    return false;
   }
 }

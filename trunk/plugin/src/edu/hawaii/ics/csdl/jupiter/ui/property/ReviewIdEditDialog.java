@@ -38,7 +38,6 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.internal.ide.dialogs.FileFolderSelectionDialog;
-import org.jdom.Element;
 
 import edu.hawaii.ics.csdl.jupiter.ReviewException;
 import edu.hawaii.ics.csdl.jupiter.ReviewI18n;
@@ -49,6 +48,7 @@ import edu.hawaii.ics.csdl.jupiter.file.PropertyConstraints;
 import edu.hawaii.ics.csdl.jupiter.file.PropertyResource;
 import edu.hawaii.ics.csdl.jupiter.file.PropertyXmlSerializer;
 import edu.hawaii.ics.csdl.jupiter.file.ReviewResource;
+import edu.hawaii.ics.csdl.jupiter.file.property.Review;
 import edu.hawaii.ics.csdl.jupiter.model.review.ReviewId;
 import edu.hawaii.ics.csdl.jupiter.model.review.ReviewerId;
 import edu.hawaii.ics.csdl.jupiter.model.reviewissue.ResolutionKeyManager;
@@ -1305,8 +1305,11 @@ public class ReviewIdEditDialog extends Dialog {
     ReviewResource reviewResource = null;
     if (reviewId.getReviewId().equals(PropertyConstraints.DEFAULT_REVIEW_ID)) {
       // read from master property.xml
-      Element reviewElement = PropertyXmlSerializer.cloneDefaultReviewElement();
-      reviewResource = new ReviewResource(reviewElement);
+      Review defaultReview = PropertyXmlSerializer.cloneDefaultReview();
+      reviewResource = new ReviewResource(defaultReview);
+      // TODO REMOVE THIS
+//      Element reviewElement = PropertyXmlSerializer.cloneDefaultReviewElement();
+//      reviewResource = new ReviewResource(reviewElement);
     }
     else {
       // read from .jupiter.

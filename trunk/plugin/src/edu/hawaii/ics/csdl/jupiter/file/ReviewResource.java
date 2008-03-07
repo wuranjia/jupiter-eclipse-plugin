@@ -12,9 +12,14 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.Map.Entry;
 
-import org.jdom.Element;
-
 import edu.hawaii.ics.csdl.jupiter.ReviewI18n;
+import edu.hawaii.ics.csdl.jupiter.file.property.CreationDate;
+import edu.hawaii.ics.csdl.jupiter.file.property.Files;
+import edu.hawaii.ics.csdl.jupiter.file.property.Filter;
+import edu.hawaii.ics.csdl.jupiter.file.property.Filters;
+import edu.hawaii.ics.csdl.jupiter.file.property.Phase;
+import edu.hawaii.ics.csdl.jupiter.file.property.Review;
+import edu.hawaii.ics.csdl.jupiter.file.property.Reviewers;
 import edu.hawaii.ics.csdl.jupiter.model.review.ReviewId;
 import edu.hawaii.ics.csdl.jupiter.model.review.ReviewerId;
 import edu.hawaii.ics.csdl.jupiter.model.reviewissue.KeyManager;
@@ -28,24 +33,24 @@ import edu.hawaii.ics.csdl.jupiter.ui.view.table.FilterPhase;
  * @version $Id$
  */
 public class ReviewResource {
-  private Element reviewElement;
+  private Review review;
 
   /**
-   * Instantiates this with review element.
+   * Instantiates the resource with the <code>Review</code>.
    * 
-   * @param reviewElement the review element.
+   * @param review The review that the resource will use.
    */
-  public ReviewResource(Element reviewElement) {
-    this.reviewElement = reviewElement;
+  public ReviewResource(Review review) {
+    this.review = review;
   }
 
   /**
-   * Gets the 'Review' <code>Element</code>.
+   * Gets the <code>Review</code> associated with the resource.
    * 
-   * @return the 'Review' <code>Element</code>.
+   * @return Returns the review.
    */
-  public Element getReviewElement() {
-    return this.reviewElement;
+  public Review getReview() {
+    return this.review;
   }
 
   /**
@@ -56,13 +61,14 @@ public class ReviewResource {
    */
   public void loadEntryKey(String fieldId, KeyManager keyManager) {
     keyManager.clear();
-    ReviewElementFactory factory = ReviewElementFactory.getInstance(this.reviewElement);
-    List itemElementList = factory.getFieldItemEntryElementList(fieldId);
-    for (Iterator i = itemElementList.iterator(); i.hasNext();) {
-      Element itemElement = (Element) i.next();
-      String itemName = itemElement.getAttributeValue(PropertyConstraints.ATTRIBUTE_NAME);
-      String value = itemElement.getAttributeValue(PropertyConstraints.ATTRIBUTE_VALUE);
-      keyManager.add(itemName, value);
+    // FieldItem entries
+    List<edu.hawaii.ics.csdl.jupiter.file.property.FieldItem.Entry> entries = getEntryList(fieldId);
+
+    if (entries != null) {
+      for (edu.hawaii.ics.csdl.jupiter.file.property.FieldItem.Entry entry : entries) {
+        // TODO The value is not actually used... this should be fixed
+        keyManager.add(entry.getName(), null);
+      }
     }
   }
 
@@ -72,15 +78,14 @@ public class ReviewResource {
    * @return the list of the String field item IDs.
    */
   public List<String> getFieldItemIdList() {
-    ReviewElementFactory factory = ReviewElementFactory.getInstance(this.reviewElement);
-    List fieldItemElementList = factory.getFieldItemElementList();
     List<String> fieldItemIdList = new ArrayList<String>();
-    for (Iterator i = fieldItemElementList.iterator(); i.hasNext();) {
-      Element fieldItemElement = (Element) i.next();
-      String fieldItemId = fieldItemElement
-          .getAttributeValue(PropertyConstraints.ATTRIBUTE_ID);
-      fieldItemIdList.add(fieldItemId);
+    // get the 'FieldItem's from the JAXB objects
+    List<edu.hawaii.ics.csdl.jupiter.file.property.FieldItem> fieldItemList = this.review
+        .getFieldItems().getFieldItem();
+    for (edu.hawaii.ics.csdl.jupiter.file.property.FieldItem fieldItem : fieldItemList) {
+      fieldItemIdList.add(fieldItem.getId());
     }
+
     return fieldItemIdList;
   }
 
@@ -90,18 +95,17 @@ public class ReviewResource {
    * @return the list of the <code>FieldItem</code> instances.
    */
   public Map<String, FieldItem> getFieldItemMap() {
-    ReviewElementFactory factory = ReviewElementFactory.getInstance(this.reviewElement);
-    List fieldItemElementList = factory.getFieldItemElementList();
     Map<String, FieldItem> fieldItemMap = new TreeMap<String, FieldItem>();
-    for (Iterator i = fieldItemElementList.iterator(); i.hasNext();) {
-      Element fieldItemElement = (Element) i.next();
-      String fieldItemId = fieldItemElement
-          .getAttributeValue(PropertyConstraints.ATTRIBUTE_ID);
-      String defaultKey = fieldItemElement
-          .getAttributeValue(PropertyConstraints.ATTRIBUTE_DEFAULT);
+
+    // get the 'FieldItem's from the JAXB objects
+    List<edu.hawaii.ics.csdl.jupiter.file.property.FieldItem> fieldItemList = this.review
+        .getFieldItems().getFieldItem();
+    for (edu.hawaii.ics.csdl.jupiter.file.property.FieldItem jaxbFieldItem : fieldItemList) {
+      String fieldItemId = jaxbFieldItem.getId();
       FieldItem fieldItem = getFieldItem(fieldItemId);
       fieldItemMap.put(fieldItemId, fieldItem);
     }
+
     return fieldItemMap;
   }
 
@@ -112,18 +116,35 @@ public class ReviewResource {
    * @return the <code>FieldItem</code>.
    */
   public FieldItem getFieldItem(String fieldItemId) {
-    ReviewElementFactory factory = ReviewElementFactory.getInstance(this.reviewElement);
-    List entryElementList = factory.getFieldItemEntryElementList(fieldItemId);
-    Element fieldItemElement = factory.getFieldItemElement(fieldItemId);
-    String defaultKey = fieldItemElement
-        .getAttributeValue(PropertyConstraints.ATTRIBUTE_DEFAULT);
-    List<String> entryKeyList = new ArrayList<String>();
-    for (Iterator j = entryElementList.iterator(); j.hasNext();) {
-      Element entryElement = (Element) j.next();
-      String entryNameKey = entryElement.getAttributeValue(PropertyConstraints.ATTRIBUTE_NAME);
-      String entryName = ReviewI18n.getString(entryNameKey);
-      entryKeyList.add(entryName);
+    edu.hawaii.ics.csdl.jupiter.file.property.FieldItem jaxbFieldItem = null;
+    List<edu.hawaii.ics.csdl.jupiter.file.property.FieldItem.Entry> entryList = null;
+
+    // get the 'FieldItem's from the JAXB objects
+    List<edu.hawaii.ics.csdl.jupiter.file.property.FieldItem> fieldItemList = this.review
+        .getFieldItems().getFieldItem();
+    // find the XML FieldItem that matches the fieldId
+    for (edu.hawaii.ics.csdl.jupiter.file.property.FieldItem fieldItem : fieldItemList) {
+      if (fieldItem.getId().equals(fieldItemId)) {
+        jaxbFieldItem = fieldItem;
+        entryList = fieldItem.getEntry();
+        break;
+      }
     }
+
+    String defaultKey = null;
+    if (jaxbFieldItem != null) {
+      defaultKey = jaxbFieldItem.getDefault();
+    }
+
+    List<String> entryKeyList = new ArrayList<String>();
+    if (entryList != null) {
+      for (edu.hawaii.ics.csdl.jupiter.file.property.FieldItem.Entry entry : entryList) {
+        String entryNameKey = entry.getName();
+        String entryName = ReviewI18n.getString(entryNameKey);
+        entryKeyList.add(entryName);
+      }
+    }
+
     return new FieldItem(fieldItemId, defaultKey, entryKeyList);
   }
 
@@ -134,22 +155,28 @@ public class ReviewResource {
    *          instance.
    */
   public void setFieldItemMap(Map<String, FieldItem> fieldItemIdFieldItemMap) {
-    ReviewElementFactory factory = ReviewElementFactory.getInstance(this.reviewElement);
-    for (Iterator<Entry<String, FieldItem>> i = fieldItemIdFieldItemMap.entrySet().iterator(); i
-        .hasNext();) {
-      Map.Entry<String, FieldItem> entry = i.next();
-      String fieldItemId = entry.getKey();
-      FieldItem fieldItem = entry.getValue();
+    for (Entry<String, FieldItem> mapEntry : fieldItemIdFieldItemMap.entrySet()) {
+      String fieldItemId = mapEntry.getKey();
+      FieldItem fieldItem = mapEntry.getValue();
       String defaultKey = fieldItem.getDefaultKey();
       List<String> entryNameList = fieldItem.getEntryNameList();
-      Element fieldItemElement = factory.getFieldItemElement(fieldItemId);
-      fieldItemElement.removeContent();
-      fieldItemElement.setAttribute(PropertyConstraints.ATTRIBUTE_DEFAULT, defaultKey);
-      for (Iterator<String> j = entryNameList.iterator(); j.hasNext();) {
-        String entryNameKey = ReviewI18n.getKey(j.next());
-        Element entryElement = new Element(PropertyConstraints.ELEMENT_ENTRY);
-        entryElement.setAttribute(PropertyConstraints.ATTRIBUTE_NAME, entryNameKey);
-        fieldItemElement.addContent(entryElement);
+
+      edu.hawaii.ics.csdl.jupiter.file.property.FieldItem jaxbFieldItem = getJAXBFieldItem(fieldItemId);
+      if (jaxbFieldItem != null) {
+        jaxbFieldItem.setDefault(defaultKey);
+
+        // clear out all existing entries
+        jaxbFieldItem.getEntry().clear();
+
+        // add new entries
+        for (String entryName : entryNameList) {
+          String entryNameKey = ReviewI18n.getKey(entryName);
+
+          edu.hawaii.ics.csdl.jupiter.file.property.FieldItem.Entry entry = new edu.hawaii.ics.csdl.jupiter.file.property.FieldItem.Entry();
+          entry.setName(entryNameKey);
+
+          jaxbFieldItem.getEntry().add(entry);
+        }
       }
     }
   }
@@ -161,11 +188,11 @@ public class ReviewResource {
    * @return the default field value if any. Returns empty string if not found.
    */
   public String getDefaultField(String fieldId) {
-    ReviewElementFactory factory = ReviewElementFactory.getInstance(this.reviewElement);
-    Element fieldItemElement = factory.getFieldItemElement(fieldId);
-    if (fieldItemElement != null) {
-      return fieldItemElement.getAttributeValue(PropertyConstraints.ATTRIBUTE_DEFAULT);
+    edu.hawaii.ics.csdl.jupiter.file.property.FieldItem fieldItem = getJAXBFieldItem(fieldId);
+    if (fieldItem != null) {
+      return fieldItem.getDefault();
     }
+
     return "";
   }
 
@@ -191,7 +218,7 @@ public class ReviewResource {
    * @return the review id.
    */
   public String getReviewIdString() {
-    return this.reviewElement.getAttributeValue(PropertyConstraints.ATTRIBUTE_ID);
+    return this.review.getId();
   }
 
   /**
@@ -200,9 +227,7 @@ public class ReviewResource {
    * @return the description.
    */
   public String getDescription() {
-    String descriptionElementName = PropertyConstraints.ELEMENT_DESCRIPTION;
-    Element descriptionElement = this.reviewElement.getChild(descriptionElementName);
-    return descriptionElement.getText();
+    return this.review.getDescription();
   }
 
   /**
@@ -211,8 +236,7 @@ public class ReviewResource {
    * @return the author.
    */
   public String getAuthor() {
-    Element authorElement = this.reviewElement.getChild(PropertyConstraints.ELEMENT_AUTHOR);
-    return authorElement.getText();
+    return this.review.getAuthor();
   }
 
   /**
@@ -221,9 +245,7 @@ public class ReviewResource {
    * @return the directory.
    */
   public String getDirectory() {
-    Element directoryElement = this.reviewElement
-        .getChild(PropertyConstraints.ELEMENT_DIRECTORY);
-    return directoryElement.getText();
+    return this.review.getDirectory();
   }
 
   /**
@@ -232,20 +254,17 @@ public class ReviewResource {
    * @return the map of the reviewer id string - ReviewrId instance.
    */
   public Map<String, ReviewerId> getReviewers() {
-    Element reviewersElement = this.reviewElement
-        .getChild(PropertyConstraints.ELEMENT_REVIEWERS);
-    List reviewerIdElementList = reviewersElement
-        .getChildren(PropertyConstraints.ELEMENT_ENTRY);
-    Map<String, ReviewerId> reviewers = new TreeMap<String, ReviewerId>();
-    for (Iterator i = reviewerIdElementList.iterator(); i.hasNext();) {
-      Element reviewerIdElement = (Element) i.next();
-      String reviewerId = reviewerIdElement
-          .getAttributeValue(PropertyConstraints.ATTRIBUTE_ID);
-      String reviewerName = reviewerIdElement
-          .getAttributeValue(PropertyConstraints.ATTRIBUTE_NAME);
-      reviewers.put(reviewerId, new ReviewerId(reviewerId, reviewerName));
+    Map<String, ReviewerId> reviewerIdMap = new TreeMap<String, ReviewerId>();
+    Reviewers reviewers = this.review.getReviewers();
+    List<edu.hawaii.ics.csdl.jupiter.file.property.Reviewers.Entry> reviewersList = reviewers
+        .getEntry();
+    for (edu.hawaii.ics.csdl.jupiter.file.property.Reviewers.Entry entry : reviewersList) {
+      String reviewerId = entry.getId();
+      String reviewerName = entry.getName();
+      reviewerIdMap.put(reviewerId, new ReviewerId(reviewerId, reviewerName));
     }
-    return reviewers;
+
+    return reviewerIdMap;
   }
 
   /**
@@ -254,13 +273,11 @@ public class ReviewResource {
    * @return the set of the String target files.
    */
   public Set<String> getFileSet() {
-    Element filesElement = this.reviewElement.getChild(PropertyConstraints.ELEMENT_FILES);
-    List filesEntryElementList = filesElement.getChildren(PropertyConstraints.ELEMENT_ENTRY);
+    Files files = this.review.getFiles();
+    List<edu.hawaii.ics.csdl.jupiter.file.property.Files.Entry> fileList = files.getEntry();
     Set<String> targetFileSet = new LinkedHashSet<String>();
-    for (Iterator i = filesEntryElementList.iterator(); i.hasNext();) {
-      Element filesEntryElement = (Element) i.next();
-      String file = filesEntryElement.getAttributeValue(PropertyConstraints.ATTRIBUTE_NAME);
-      targetFileSet.add(file);
+    for (edu.hawaii.ics.csdl.jupiter.file.property.Files.Entry entry : fileList) {
+      targetFileSet.add(entry.getName());
     }
     return targetFileSet;
   }
@@ -271,14 +288,13 @@ public class ReviewResource {
    * @return the map of the String phase name - FilterPhase instance.
    */
   public Map<String, FilterPhase> getPhaseNameToFilterPhaseMap() {
-    ReviewElementFactory factory = ReviewElementFactory.getInstance(this.reviewElement);
-    List phaseElementList = factory.getPhaseElementList();
+    Filters filters = this.review.getFilters();
+    List<Phase> phases = filters.getPhase();
     Map<String, FilterPhase> phaseNameFilterPhaseMap = new TreeMap<String, FilterPhase>();
-    for (Iterator i = phaseElementList.iterator(); i.hasNext();) {
-      Element phaseElement = (Element) i.next();
-      String phaseNameKey = phaseElement.getAttributeValue(PropertyConstraints.ATTRIBUTE_NAME);
-      FilterPhase phase = getFilterPhase(phaseNameKey);
-      phaseNameFilterPhaseMap.put(ReviewI18n.getString(phaseNameKey), phase);
+    for (Phase phase : phases) {
+      String phaseNameKey = phase.getName();
+      FilterPhase filterPhase = getFilterPhase(phaseNameKey);
+      phaseNameFilterPhaseMap.put(ReviewI18n.getString(phaseNameKey), filterPhase);
     }
     return phaseNameFilterPhaseMap;
   }
@@ -289,27 +305,26 @@ public class ReviewResource {
    * @param phaseNameFilterPhaseMap the map of the String phase name - <code>FilterPhase</code>.
    */
   public void setPhaseNameFilterPhaseMap(Map<String, FilterPhase> phaseNameFilterPhaseMap) {
-    ReviewElementFactory factory = ReviewElementFactory.getInstance(this.reviewElement);
-    for (Iterator<Entry<String, FilterPhase>> i = phaseNameFilterPhaseMap.entrySet()
-        .iterator(); i.hasNext();) {
-      Map.Entry<String, FilterPhase> entry = i.next();
-      String phaseName = entry.getKey();
+    for (Entry<String, FilterPhase> mapEntry : phaseNameFilterPhaseMap.entrySet()) {
+      String phaseName = mapEntry.getKey();
       String phaseNameKey = ReviewI18n.getKey(phaseName);
-      Element phaseElemnt = factory.getPhaseElement(phaseNameKey);
-      phaseElemnt.removeContent();
-      FilterPhase filterPhase = entry.getValue();
-      phaseElemnt.setAttribute(PropertyConstraints.ATTRIBUTE_ENABLED, filterPhase.isEnabled()
-          + "");
+      FilterPhase filterPhase = mapEntry.getValue();
+      
+      Phase jaxbPhase = getJAXBPhase(phaseNameKey);
+      jaxbPhase.setEnabled(filterPhase.isEnabled());
+      
+      List<Filter> filterList = jaxbPhase.getFilter();
+      // clear out any existing filters
+      filterList.clear();
+      
       for (Iterator<FilterEntry> j = filterPhase.iterator(); j.hasNext();) {
-        FilterEntry filterEntry = (FilterEntry) j.next();
-        String filterName = filterEntry.getFilterName();
-        String valueKey = filterEntry.getValueKey();
-        String enabled = filterEntry.isEnabled() + "";
-        Element filterElement = new Element(PropertyConstraints.ELEMENT_FILTER);
-        filterElement.setAttribute(PropertyConstraints.ATTRIBUTE_NAME, filterName);
-        filterElement.setAttribute(PropertyConstraints.ATTRIBUTE_VALUE, valueKey);
-        filterElement.setAttribute(PropertyConstraints.ATTRIBUTE_ENABLED, enabled);
-        phaseElemnt.addContent(filterElement);
+        FilterEntry filterEntry = j.next();
+        Filter filter = new Filter();
+        filter.setName(filterEntry.getFilterName());
+        filter.setValue(filterEntry.getValueKey());
+        filter.setEnabled(filterEntry.isEnabled());
+        
+        filterList.add(filter);
       }
     }
   }
@@ -320,15 +335,13 @@ public class ReviewResource {
    * @return the XML ordered phase name list.
    */
   public List<String> getPhaseNameList() {
-    ReviewElementFactory factory = ReviewElementFactory.getInstance(this.reviewElement);
-    List phaseElementList = factory.getPhaseElementList();
+    List<Phase> phaseList = this.review.getFilters().getPhase();
     List<String> phaseNameList = new ArrayList<String>();
-    for (Iterator i = phaseElementList.iterator(); i.hasNext();) {
-      Element phaseElement = (Element) i.next();
-      String phaseNameKey = phaseElement.getAttributeValue(PropertyConstraints.ATTRIBUTE_NAME);
-      FilterPhase phase = getFilterPhase(phaseNameKey);
+    for (Phase phase : phaseList) {
+      String phaseNameKey = phase.getName();
       phaseNameList.add(ReviewI18n.getString(phaseNameKey));
     }
+    
     return phaseNameList;
   }
 
@@ -339,35 +352,52 @@ public class ReviewResource {
    * @return the <code>FilterPhase</code> instance.
    */
   public FilterPhase getFilterPhase(String phaseNameKey) {
-    ReviewElementFactory factory = ReviewElementFactory.getInstance(this.reviewElement);
-    Element phaseElement = factory.getPhaseElement(phaseNameKey);
-    String isEnabled = phaseElement.getAttributeValue(PropertyConstraints.ATTRIBUTE_ENABLED);
-    boolean isFilterEnabled = new Boolean(isEnabled).booleanValue();
-    List filterElementList = phaseElement.getChildren(PropertyConstraints.ELEMENT_FILTER);
+    Phase jaxbPhase = getJAXBPhase(phaseNameKey);
+
     List<FilterEntry> filterEntryList = new ArrayList<FilterEntry>();
-    for (Iterator j = filterElementList.iterator(); j.hasNext();) {
-      Element filterElement = (Element) j.next();
-      String filterName = filterElement.getAttributeValue(PropertyConstraints.ATTRIBUTE_NAME);
-      String valueKey = filterElement.getAttributeValue(PropertyConstraints.ATTRIBUTE_VALUE);
-      String enabled = filterElement.getAttributeValue(PropertyConstraints.ATTRIBUTE_ENABLED);
-      boolean isEntryFilterEnabled = new Boolean(enabled).booleanValue();
-      FilterEntry entry = new FilterEntry(filterName, valueKey, isEntryFilterEnabled);
-      filterEntryList.add(entry);
+    if (jaxbPhase != null) {
+      List<Filter> filterList = jaxbPhase.getFilter();
+      for (Filter filter : filterList) {
+        String filterName = filter.getName();
+        String valueKey = filter.getValue();
+        Boolean enabled = filter.isEnabled();
+
+        FilterEntry entry = new FilterEntry(filterName, valueKey, enabled);
+        filterEntryList.add(entry);
+      }
     }
-    return new FilterPhase(phaseNameKey, isFilterEnabled, filterEntryList);
+
+    return new FilterPhase(phaseNameKey, jaxbPhase.isEnabled(), filterEntryList);
   }
 
   /**
-   * Gets the creation Date instance in the CreationDate element.
+   * Gets the JAXB <code>Phase</code> instance with the given phase name key.
+   * 
+   * @param phaseNameKey The key of the phase to use when searching for the JAXB <code>Phase</code>.
+   * @return Returns the JAXB phase associated with the given phase name key.
+   */
+  private Phase getJAXBPhase(String phaseNameKey) {
+    List<Phase> phaseList = this.review.getFilters().getPhase();
+    Phase jaxbPhase = null;
+    // find phase matching the phase name key
+    for (Phase phase : phaseList) {
+      if (phase.getName().equals(phaseNameKey)) {
+        jaxbPhase = phase;
+        break;
+      }
+    }
+    return jaxbPhase;
+  }
+
+  /**
+   * Gets the creation Date for the review.
    * 
    * @return the creation Date instance.
    */
   public Date getCreationDate() {
-    String creationDateElementName = PropertyConstraints.ELEMENT_CREATION_DATE;
-    Element creationDateElement = this.reviewElement.getChild(creationDateElementName);
-    String format = creationDateElement
-        .getAttributeValue(PropertyConstraints.ATTRIBUTE_FORMAT);
-    String date = creationDateElement.getText();
+    CreationDate creationDate = this.review.getCreationDate();
+    String format = creationDate.getFormat();
+    String date = creationDate.getValue();
     return createDate(date, format);
   }
 
@@ -391,58 +421,51 @@ public class ReviewResource {
   }
 
   /**
-   * Sets the author in the Author element.
+   * Sets the review author.
    * 
    * @param author the author.
    */
   private void setAuthor(String author) {
-    Element authorElement = this.reviewElement.getChild(PropertyConstraints.ELEMENT_AUTHOR);
-    authorElement.setText(author);
+    this.review.setAuthor(author);
   }
 
   /**
-   * Sets the date in the CreationDate element.
+   * Sets the review creation date.
    * 
    * @param date the date.
    */
   private void setCreationDate(Date date) {
-    String creationDateElementName = PropertyConstraints.ELEMENT_CREATION_DATE;
-    Element creationDateElement = this.reviewElement.getChild(creationDateElementName);
-    String format = creationDateElement
-        .getAttributeValue(PropertyConstraints.ATTRIBUTE_FORMAT);
+    CreationDate creationDate = this.review.getCreationDate();
+    String format = creationDate.getFormat();
     String value = new SimpleDateFormat(format).format(date);
-    creationDateElement.setText(value);
+    creationDate.setValue(value);
   }
 
   /**
-   * Sets the description in the Description element.
+   * Sets the review description.
    * 
    * @param description the description.
    */
   private void setDescription(String description) {
-    String descriptionElementName = PropertyConstraints.ELEMENT_DESCRIPTION;
-    Element descriptionElement = this.reviewElement.getChild(descriptionElementName);
-    descriptionElement.setText(description);
+    this.review.setDescription(description);
   }
 
   /**
-   * Sets the directory in the Directory element.
+   * Sets the review directory.
    * 
    * @param directory the directory in which review files are stored.
    */
   private void setDirectory(String directory) {
-    Element directoryElement = this.reviewElement
-        .getChild(PropertyConstraints.ELEMENT_DIRECTORY);
-    directoryElement.setText(directory);
+    this.review.setDescription(directory);
   }
 
   /**
-   * Sets review id in the Review element.
+   * Sets the review id.
    * 
    * @param reviewId the review id.
    */
   private void setReviewId(String reviewId) {
-    this.reviewElement.setAttribute(PropertyConstraints.ATTRIBUTE_ID, reviewId);
+    this.review.setId(reviewId);
   }
 
   /**
@@ -466,10 +489,9 @@ public class ReviewResource {
    * @param defautKey the default key.
    */
   public void setDefaultField(String fieldId, String defautKey) {
-    ReviewElementFactory factory = ReviewElementFactory.getInstance(this.reviewElement);
-    Element fieldElement = factory.getFieldItemElement(fieldId);
-    if (fieldElement != null) {
-      fieldElement.setAttribute(PropertyConstraints.ATTRIBUTE_DEFAULT, defautKey);
+    edu.hawaii.ics.csdl.jupiter.file.property.FieldItem fieldItem = getJAXBFieldItem(fieldId);
+    if (fieldItem != null) {
+      fieldItem.setDefault(defautKey);
     }
   }
 
@@ -479,17 +501,20 @@ public class ReviewResource {
    * @param fieldId the field id.
    * @param itemList the list of item name.
    */
-  public void setIFieldtems(String fieldId, List<String> itemList) {
-    ReviewElementFactory factory = ReviewElementFactory.getInstance(this.reviewElement);
-    Element fieldItemElement = factory.getFieldItemElement(fieldId);
-    if (fieldItemElement != null) {
-      fieldItemElement.removeContent();
-      for (Iterator<String> i = itemList.iterator(); i.hasNext();) {
-        String itemName = i.next();
+  public void setFieldItems(String fieldId, List<String> itemList) {
+    edu.hawaii.ics.csdl.jupiter.file.property.FieldItem fieldItem = getJAXBFieldItem(fieldId);
+    if (fieldItem != null) {
+      // clear out existing entries
+      fieldItem.getEntry().clear();
+      
+      for (String itemName : itemList) {
         String itemNameKey = ReviewI18n.getKey(itemName);
-        Element itemElement = new Element(PropertyConstraints.ELEMENT_ENTRY);
-        itemElement.setAttribute(PropertyConstraints.ATTRIBUTE_NAME, itemNameKey);
-        fieldItemElement.addContent(itemElement);
+        
+        edu.hawaii.ics.csdl.jupiter.file.property.FieldItem.Entry entry = 
+          new edu.hawaii.ics.csdl.jupiter.file.property.FieldItem.Entry();
+        
+        entry.setName(itemNameKey);
+        fieldItem.getEntry().add(entry);
       }
     }
   }
@@ -500,17 +525,17 @@ public class ReviewResource {
    * @param reviewers the map of the reviewerId string - ReviewerId instance.
    */
   private void setReviewers(Map<String, ReviewerId> reviewers) {
-    Element reviewersElement = this.reviewElement
-        .getChild(PropertyConstraints.ELEMENT_REVIEWERS);
-    reviewersElement.removeContent();
-    for (Iterator<ReviewerId> i = reviewers.values().iterator(); i.hasNext();) {
-      ReviewerId reviewerId = i.next();
-      Element reviewersEntryElement = new Element(PropertyConstraints.ELEMENT_ENTRY);
-      String attributeId = PropertyConstraints.ATTRIBUTE_ID;
-      reviewersEntryElement.setAttribute(attributeId, reviewerId.getReviewerId());
-      String nameAttributeName = PropertyConstraints.ATTRIBUTE_NAME;
-      reviewersEntryElement.setAttribute(nameAttributeName, reviewerId.getReviewerName());
-      reviewersElement.addContent(reviewersEntryElement);
+    // clear out existing reviewers
+    this.review.getReviewers().getEntry().clear();
+    
+    // add all reviewers in the new map
+    for (ReviewerId reviewerId : reviewers.values()) {
+      edu.hawaii.ics.csdl.jupiter.file.property.Reviewers.Entry entry = 
+        new edu.hawaii.ics.csdl.jupiter.file.property.Reviewers.Entry();
+      
+      entry.setId(reviewerId.getReviewerId());
+      entry.setName(reviewerId.getReviewerName());
+      this.review.getReviewers().getEntry().add(entry);
     }
   }
 
@@ -520,13 +545,56 @@ public class ReviewResource {
    * @param targetFileSet the list of the String target files.
    */
   public void setTargetFiles(Set<String> targetFileSet) {
-    Element filesElement = this.reviewElement.getChild(PropertyConstraints.ELEMENT_FILES);
-    filesElement.removeContent();
-    for (Iterator<String> i = targetFileSet.iterator(); i.hasNext();) {
-      String targetFile = i.next();
-      Element filesEntryElement = new Element(PropertyConstraints.ELEMENT_ENTRY);
-      filesEntryElement.setAttribute(PropertyConstraints.ATTRIBUTE_NAME, targetFile);
-      filesElement.addContent(filesEntryElement);
+    // clear all file entries
+    this.review.getFiles().getEntry().clear();
+    
+    for (String file : targetFileSet) {
+      edu.hawaii.ics.csdl.jupiter.file.property.Files.Entry entry = 
+        new edu.hawaii.ics.csdl.jupiter.file.property.Files.Entry();
+      
+      entry.setName(file);
+      this.review.getFiles().getEntry().add(entry);
     }
+  }
+
+  /**
+   * Gets the list of <code>Entry</code> objects belonging to the JAXB <code>FieldItem</code>
+   * that matches the fieldId given.
+   * 
+   * @param fieldId The field id that will be compared to the field item ids to find entry
+   *          objects.
+   * @return Returns a list if entries or null if the fieldId did not match any FieldItems.
+   */
+  private List<edu.hawaii.ics.csdl.jupiter.file.property.FieldItem.Entry> getEntryList(
+      String fieldId) {
+    // get the 'FieldItem's from the JAXB objects
+    List<edu.hawaii.ics.csdl.jupiter.file.property.FieldItem> fieldItemList = this.review
+        .getFieldItems().getFieldItem();
+    // find the XML FieldItem that matches the fieldId
+    for (edu.hawaii.ics.csdl.jupiter.file.property.FieldItem fieldItem : fieldItemList) {
+      if (fieldItem.getId().equals(fieldId)) {
+        return fieldItem.getEntry();
+      }
+    }
+    return null;
+  }
+
+  /**
+   * Gets the JAXB <code>FieldItem</code> with the id matching the given field id.
+   * 
+   * @param fieldId The field id of the FieldItem.
+   * @return Returns the field item or null if none is found.
+   */
+  private edu.hawaii.ics.csdl.jupiter.file.property.FieldItem getJAXBFieldItem(String fieldId) {
+    // get the 'FieldItem's from the JAXB objects
+    List<edu.hawaii.ics.csdl.jupiter.file.property.FieldItem> fieldItemList = this.review
+        .getFieldItems().getFieldItem();
+    // find the XML FieldItem that matches the fieldId
+    for (edu.hawaii.ics.csdl.jupiter.file.property.FieldItem fieldItem : fieldItemList) {
+      if (fieldItem.getId().equals(fieldId)) {
+        return fieldItem;
+      }
+    }
+    return null;
   }
 }

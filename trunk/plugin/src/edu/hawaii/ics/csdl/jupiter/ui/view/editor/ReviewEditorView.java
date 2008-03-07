@@ -928,7 +928,7 @@ public class ReviewEditorView extends ViewPart {
             this.reviewIssue.getTargetFile(), this.reviewIssue.getLine(),
             (Type) typeKeyManager.getItemObject(typeKeyManager.getKey(typeCombo.getText())),
             (Severity) severityKeyManager.getItemObject(severityKey),
-            new org.jdom.Text(this.summaryText.getText()).getText(),
+            this.summaryText.getText(),
             this.descriptionText.getText(), this.annotationText.getText(), 
             this.revisionText.getText(),
             (Resolution) resolutionKeyManager.getItemObject(resolutionKey),

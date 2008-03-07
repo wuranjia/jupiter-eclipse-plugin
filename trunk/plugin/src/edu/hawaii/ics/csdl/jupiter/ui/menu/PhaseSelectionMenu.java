@@ -264,7 +264,7 @@ public class PhaseSelectionMenu {
       editorView.bringTagToTop(reviewPhaseNameKey);
     }
     catch (ReviewException e) {
-       return false; 
+      return false; 
     }
     return true;
   }

@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: edu.hawaii.ics.csdl.jupiter
 Bundle-SymbolicName: edu.hawaii.ics.csdl.jupiter;singleton:=true
-Bundle-Version: 3.2.1
+Bundle-Version: 3.3.0
 Bundle-Activator: edu.hawaii.ics.csdl.jupiter.ReviewPlugin
 Bundle-Vendor: Collaborative Software Development Laboratory
 Bundle-Localization: plugin
@@ -29,12 +29,44 @@ Require-Bundle: org.junit,
  org.eclipse.search,
  org.eclipse.ui.console
 Eclipse-LazyStart: true
-Bundle-ClassPath: lib/jdom.jar,
+Bundle-ClassPath: lib/jaxb-api.jar,
+ lib/jsr173_1.0_api.jar,
+ lib/jaxb-impl.jar,
  jupiter.jar
-Export-Package: edu.hawaii.ics.csdl.jupiter,
+Export-Package: com.sun.istack,
+ com.sun.xml.bind,
+ com.sun.xml.bind.annotation,
+ com.sun.xml.bind.api,
+ com.sun.xml.bind.api.impl,
+ com.sun.xml.bind.marshaller,
+ com.sun.xml.bind.unmarshaller,
+ com.sun.xml.bind.util,
+ com.sun.xml.bind.v2,
+ com.sun.xml.bind.v2.bytecode,
+ com.sun.xml.bind.v2.model.annotation,
+ com.sun.xml.bind.v2.model.core,
+ com.sun.xml.bind.v2.model.impl,
+ com.sun.xml.bind.v2.model.nav,
+ com.sun.xml.bind.v2.model.runtime,
+ com.sun.xml.bind.v2.runtime,
+ com.sun.xml.bind.v2.runtime.output,
+ com.sun.xml.bind.v2.runtime.property,
+ com.sun.xml.bind.v2.runtime.reflect,
+ com.sun.xml.bind.v2.runtime.reflect.opt,
+ com.sun.xml.bind.v2.runtime.unmarshaller,
+ com.sun.xml.bind.v2.schemagen,
+ com.sun.xml.bind.v2.schemagen.xmlschema,
+ com.sun.xml.bind.v2.util,
+ com.sun.xml.txw2,
+ com.sun.xml.txw2.annotation,
+ com.sun.xml.txw2.output,
+ edu.hawaii.ics.csdl.jupiter,
  edu.hawaii.ics.csdl.jupiter.ccvs,
  edu.hawaii.ics.csdl.jupiter.event,
  edu.hawaii.ics.csdl.jupiter.file,
+ edu.hawaii.ics.csdl.jupiter.file.preference,
+ edu.hawaii.ics.csdl.jupiter.file.property,
+ edu.hawaii.ics.csdl.jupiter.file.review,
  edu.hawaii.ics.csdl.jupiter.model.columndata,
  edu.hawaii.ics.csdl.jupiter.model.review,
  edu.hawaii.ics.csdl.jupiter.model.reviewissue,
@@ -48,4 +80,14 @@ Export-Package: edu.hawaii.ics.csdl.jupiter,
  edu.hawaii.ics.csdl.jupiter.ui.view.editor,
  edu.hawaii.ics.csdl.jupiter.ui.view.table,
  edu.hawaii.ics.csdl.jupiter.ui.wizard,
- edu.hawaii.ics.csdl.jupiter.util
+ edu.hawaii.ics.csdl.jupiter.util,
+ javax.xml.bind,
+ javax.xml.bind.annotation,
+ javax.xml.bind.annotation.adapters,
+ javax.xml.bind.attachment,
+ javax.xml.bind.helpers,
+ javax.xml.bind.util,
+ javax.xml.stream,
+ javax.xml.stream.events,
+ javax.xml.stream.util
+Bundle-RequiredExecutionEnvironment: J2SE-1.5

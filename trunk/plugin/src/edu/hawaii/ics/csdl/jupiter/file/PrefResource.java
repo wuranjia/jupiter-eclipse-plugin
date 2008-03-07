@@ -1,14 +1,15 @@
 package edu.hawaii.ics.csdl.jupiter.file;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.jface.viewers.ColumnPixelData;
-import org.jdom.Element;
 
 import edu.hawaii.ics.csdl.jupiter.ReviewException;
 import edu.hawaii.ics.csdl.jupiter.ReviewI18n;
+import edu.hawaii.ics.csdl.jupiter.file.preference.ColumnEntry;
+import edu.hawaii.ics.csdl.jupiter.file.preference.Phase;
+import edu.hawaii.ics.csdl.jupiter.file.preference.Preference;
 import edu.hawaii.ics.csdl.jupiter.model.columndata.ColumnData;
 import edu.hawaii.ics.csdl.jupiter.model.columndata.ColumnDataModel;
 import edu.hawaii.ics.csdl.jupiter.util.JupiterLogger;
@@ -24,14 +25,15 @@ public class PrefResource {
   private JupiterLogger log = JupiterLogger.getLogger();
   /** The singleton instance. */
   private static PrefResource theInstance;
-  /** The PrefElementFactory instance. */
-  private PrefElementFactory factory;
+
+  /** The loaded preference. */
+  private static Preference preference;
   
   /**
    * Prohibits the clients' instantiation.
    */
   private PrefResource() {
-    this.factory = PrefElementFactory.getInstance(PrefXmlSerializer.loadPreferenceElement());
+    preference = PrefXmlSerializer.loadPreference();
   }
   
   /**
@@ -51,36 +53,43 @@ public class PrefResource {
    * @param columnDataModel the <code>ColumnDataManager</code> instance.
    */
   public void storeColumnDataModel(String reviewPhaseNameKey, ColumnDataModel columnDataModel) {
-    Element phaseElement = this.factory.getPhaseElement(reviewPhaseNameKey);
-    phaseElement.removeContent();
-    List<ColumnData> columnDataList = new ArrayList<ColumnData>();
     ColumnData[] columnDataArray = columnDataModel.getAllColumnDataArray();
-    for (int i = 0; i < columnDataArray.length; i++) {
-      Element columnHeaderElement = new Element(PrefConstraints.ELEMENT_COLUMN_ENTRY);
-      int width = columnDataArray[i].getColumnPixelData().width;
-      boolean resizable = columnDataArray[i].getColumnPixelData().resizable;
-      String columnNameKey = columnDataArray[i].getColumnNameKey();
-      columnHeaderElement.setAttribute(PrefConstraints.ATTRIBUTE_NAME, columnNameKey);
-      columnHeaderElement.setAttribute(PrefConstraints.ATTRIBUTE_WIDTH, width + "");
-      columnHeaderElement.setAttribute(PrefConstraints.ATTRIBUTE_RESIZALE, resizable + "");
-      boolean isEnabled = columnDataArray[i].isEnabled();
-      columnHeaderElement.setAttribute(PrefConstraints.ATTRIBUTE_ENABLE, isEnabled + "");
-      phaseElement.addContent(columnHeaderElement);
-    }
-    try {
-      PrefXmlSerializer.serializeDocument(phaseElement.getDocument());
-    }
-    catch (ReviewException e) {
-      log.error(e);
+    
+    Phase phase = getPhase(reviewPhaseNameKey);
+    if (phase != null) {
+      // clear out all column entries
+      phase.getColumnEntry().clear();
+      
+      for (int i = 0; i < columnDataArray.length; i++) {
+        int width = columnDataArray[i].getColumnPixelData().width;
+        boolean resizable = columnDataArray[i].getColumnPixelData().resizable;
+        String columnNameKey = columnDataArray[i].getColumnNameKey();
+        boolean isEnabled = columnDataArray[i].isEnabled();
+
+        // create column data entry from scratch
+        ColumnEntry columnEntry = new ColumnEntry();
+        columnEntry.setWidth(width);
+        columnEntry.setResizable(resizable);
+        columnEntry.setName(columnNameKey);
+        columnEntry.setEnable(isEnabled);
+
+        phase.getColumnEntry().add(columnEntry);
+      }
+      try {
+        PrefXmlSerializer.serializePreference(preference);
+      }
+      catch (ReviewException e) {
+        log.error(e);
+      }
     }
   }
-
+  
   /**
    * Gets the default review phase name.
    * @return the default review phase name.
    */
   public String getDefaultPhaseNameKey() {
-    return this.factory.getViewElement().getAttributeValue(PrefConstraints.ATTRIBUTE_DEFAULT);
+    return preference.getView().getDefault();
   }
   
   /**
@@ -91,15 +100,14 @@ public class PrefResource {
    * @return the array of <code>String</code> review phase name keys or phase names.
    */
   public String[] getPhaseArray(boolean isKey) {
-    List phaseElementList = this.factory.getPhaseElementList();
+    List<Phase> phases = preference.getView().getPhase();
     List<String> phaseList = new ArrayList<String>();
-    for (Iterator i = phaseElementList.iterator(); i.hasNext();) {
-      Element phaseElement = (Element) i.next();
-      String phaseNameKey = phaseElement.getAttributeValue(PrefConstraints.ATTRIBUTE_NAME);
-      String phase = (isKey) ? phaseNameKey : ReviewI18n.getString(phaseNameKey);
-      phaseList.add(phase);
+    for (Phase phase : phases) {
+      String phaseNameKey = phase.getName();
+      String phaseString = (isKey) ? phaseNameKey : ReviewI18n.getString(phaseNameKey);
+      phaseList.add(phaseString);
     }
-    return (String[]) phaseList.toArray(new String[] {});
+    return phaseList.toArray(new String[] {});
   }
   
   /**
@@ -107,7 +115,7 @@ public class PrefResource {
    * @return the update URL string.
    */
   public String getUpdateUrl() {
-    return this.factory.getUpdateUrlElement().getText();
+    return preference.getGeneral().getUpdateUrl();
   }
   
   /**
@@ -115,7 +123,7 @@ public class PrefResource {
    * @return true if update is enabled.
    */
   public boolean getEnableUpdate() {
-    return new Boolean(this.factory.getEnableUpdateElement().getText()).booleanValue();
+    return preference.getGeneral().isEnableUpdate();
   }
   
   /**
@@ -123,7 +131,7 @@ public class PrefResource {
    * @return true if filter is enabled.
    */
   public boolean getEnableFilter() {
-    return new Boolean(this.factory.getEnableFilterElement().getText()).booleanValue();
+    return preference.getGeneral().isEnableFilter();
   }
   
   /**
@@ -142,31 +150,33 @@ public class PrefResource {
    * @return the list of the ColumnData instances given the phase name key.
    */
   public List<ColumnData> getColumnDataList(String phaseNameKey) {
-    List columnHeaderElementList = this.factory.getColumnEntryElementList(phaseNameKey);
     List<ColumnData> columnDataList = new ArrayList<ColumnData>();
-    for (Iterator i = columnHeaderElementList.iterator(); i.hasNext();) {
-      Element columnHeaderElement = (Element) i.next();
-      ColumnData columnData = createColumnData(columnHeaderElement);
+    Phase phase = getPhase(phaseNameKey);
+    for (ColumnEntry entry : phase.getColumnEntry()) {
+      String columnNameKey = entry.getName();
+      boolean enable = entry.isEnable();
+      int width = entry.getWidth();
+      boolean resizeable = entry.isResizable();
+      ColumnPixelData pixelData = new ColumnPixelData(width, resizeable);
+      ColumnData columnData = new ColumnData(columnNameKey, pixelData, enable);
       columnDataList.add(columnData);
     }
     return columnDataList;
   }
   
   /**
-   * Creates the ColumnData instance.
-   * @param columnHeaderElement the ColumnHeader element.
-   * @return the ColumnData instance.
+   * Gets the <code>Phase</code> associated with the review phase name key.
+   * 
+   * @param reviewPhaseNameKey The name key of the review phase to get.
+   * @return Returns the <code>Phase</code> with the given key or null if cannot be found.
    */
-  private ColumnData createColumnData(Element columnHeaderElement) {
-    String columnNameKey = columnHeaderElement.getAttributeValue(PrefConstraints.ATTRIBUTE_NAME);
-    String enableString = columnHeaderElement.getAttributeValue(PrefConstraints.ATTRIBUTE_ENABLE);
-    boolean enable = new Boolean(enableString).booleanValue();
-    String widthString = columnHeaderElement.getAttributeValue(PrefConstraints.ATTRIBUTE_WIDTH);
-    int width = Integer.parseInt(widthString);
-    String resizableAttributeName = PrefConstraints.ATTRIBUTE_RESIZALE;
-    String resizableString  = columnHeaderElement.getAttributeValue(resizableAttributeName);
-    boolean resizable = new Boolean(resizableString).booleanValue();
-    ColumnPixelData pixelData = new ColumnPixelData(width, resizable);
-    return new ColumnData(columnNameKey, pixelData, enable);
+  private Phase getPhase(String reviewPhaseNameKey) {
+    List<Phase> phases = preference.getView().getPhase();
+    for (Phase phase : phases) {
+      if (phase.getName().equals(reviewPhaseNameKey)) {
+        return phase;
+      }
+    }
+    return null;
   }
 }

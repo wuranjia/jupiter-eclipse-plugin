@@ -5,7 +5,6 @@ import org.eclipse.core.resources.IProject;
 
 import edu.hawaii.ics.csdl.jupiter.file.FileResource;
 import edu.hawaii.ics.csdl.jupiter.file.ReviewIssueXmlSerializer;
-import edu.hawaii.ics.csdl.jupiter.file.Ver1ReviewHelper;
 import edu.hawaii.ics.csdl.jupiter.model.review.ReviewId;
 
 /**
@@ -52,9 +51,9 @@ public class ReviewIssueModelManager {
     IFile[] reviewIFiles = FileResource.getReviewIFiles(project, reviewId);
     ReviewIssueXmlSerializer.read(reviewId, this.model, reviewIFiles);
     // compatible to the version 1.
-    if (this.model.size() <= 0) {
-      Ver1ReviewHelper.read(reviewId, this.model, reviewIFiles);
-    }
+//    if (this.model.size() <= 0) {
+//      Ver1ReviewHelper.read(reviewId, this.model, reviewIFiles);
+//    }
     this.model.sortByPreviousComparator();
     this.model.clearComparator();
     return this.model;

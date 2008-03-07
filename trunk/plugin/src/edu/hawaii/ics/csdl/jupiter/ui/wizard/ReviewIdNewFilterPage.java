@@ -560,7 +560,7 @@ public class ReviewIdNewFilterPage extends WizardPage {
   public void updateFilterItems(String fieldItemId) {
     IWizardPage page = getWizard().getPage(ReviewIdNewWizard.PAGE_ITEM_ENTRIES);
     ReviewIdNewItemEntriesPage itemEntryPage = (ReviewIdNewItemEntriesPage) page;
-    Map fieldItemIdFieldItemMap = itemEntryPage.getFieldItemIdFieldItemMap();
+    Map<String, FieldItem> fieldItemIdFieldItemMap = itemEntryPage.getFieldItemIdFieldItemMap();
     FieldItem fieldItem = (FieldItem) fieldItemIdFieldItemMap.get(fieldItemId);
     if (fieldItem != null) {
       List<String> itemNameList = fieldItem.getEntryNameList();

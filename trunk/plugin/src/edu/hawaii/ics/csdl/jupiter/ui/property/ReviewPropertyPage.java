@@ -33,9 +33,6 @@ import edu.hawaii.ics.csdl.jupiter.ReviewI18n;
 import edu.hawaii.ics.csdl.jupiter.file.FileResource;
 import edu.hawaii.ics.csdl.jupiter.file.PropertyConstraints;
 import edu.hawaii.ics.csdl.jupiter.file.PropertyResource;
-import edu.hawaii.ics.csdl.jupiter.file.PropertyXmlSerializer;
-import edu.hawaii.ics.csdl.jupiter.file.ReviewResource;
-import edu.hawaii.ics.csdl.jupiter.file.Ver1PropertyHelper;
 import edu.hawaii.ics.csdl.jupiter.model.review.ReviewId;
 import edu.hawaii.ics.csdl.jupiter.util.JupiterLogger;
 import edu.hawaii.ics.csdl.jupiter.util.ReviewDialog;
@@ -147,32 +144,32 @@ public class ReviewPropertyPage extends PropertyPage implements IWorkbenchProper
     tableViewer.setInput(PropertyResource.getInstance(this.project, true).getReviewIdList());
 
     // routine for the version 1 compatibility.
-    if (tableViewer.getTable().getItemCount() <= 0) {
-      // version 1.
-      List<ReviewId> reviewIdList = Ver1PropertyHelper.getReviewIdList(this.project.getName(),
-          false);
-      IFile jupiterConfigFile = project.getFile(PropertyXmlSerializer.PROPERTY_XML_FILE);
-      FileResource.remove(new IFile[] { jupiterConfigFile });
-      // create version 2 .jupiter file.
-      String defaultName = PropertyConstraints.DEFAULT_REVIEW_ID;
-      PropertyResource propertyResource = null;
-      for (Iterator<ReviewId> i = reviewIdList.iterator(); i.hasNext();) {
-        ReviewId reviewId = (ReviewId) i.next();
-        propertyResource = PropertyResource.getInstance(this.project, true);
-        ReviewResource reviewResource = propertyResource.getReviewResource(defaultName, true);
-        ReviewId defaultReviewId = reviewResource.getReviewId();
-        String directory = defaultReviewId.getDirectory();
-        reviewId.setDirectory(directory);
-        reviewResource.setReviewId(reviewId);
-        try {
-          propertyResource.addReviewResource(reviewResource);
-        }
-        catch (ReviewException e) {
-          log.debug(e.getMessage());
-        }
-      }
-      tableViewer.setInput(propertyResource.getReviewIdList());
-    }
+//    if (tableViewer.getTable().getItemCount() <= 0) {
+//      // version 1.
+//      List<ReviewId> reviewIdList = Ver1PropertyHelper.getReviewIdList(this.project.getName(),
+//          false);
+//      IFile jupiterConfigFile = project.getFile(PropertyXmlSerializer.PROPERTY_XML_FILE);
+//      FileResource.remove(new IFile[] { jupiterConfigFile });
+//      // create version 2 .jupiter file.
+//      String defaultName = PropertyConstraints.DEFAULT_REVIEW_ID;
+//      PropertyResource propertyResource = null;
+//      for (Iterator<ReviewId> i = reviewIdList.iterator(); i.hasNext();) {
+//        ReviewId reviewId = (ReviewId) i.next();
+//        propertyResource = PropertyResource.getInstance(this.project, true);
+//        ReviewResource reviewResource = propertyResource.getReviewResource(defaultName, true);
+//        ReviewId defaultReviewId = reviewResource.getReviewId();
+//        String directory = defaultReviewId.getDirectory();
+//        reviewId.setDirectory(directory);
+//        reviewResource.setReviewId(reviewId);
+//        try {
+//          propertyResource.addReviewResource(reviewResource);
+//        }
+//        catch (ReviewException e) {
+//          log.debug(e.getMessage());
+//        }
+//      }
+//      tableViewer.setInput(propertyResource.getReviewIdList());
+//    }
     tableViewer.addDoubleClickListener(new IDoubleClickListener() {
       public void doubleClick(DoubleClickEvent event) {
         editReviewId();

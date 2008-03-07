@@ -5,7 +5,6 @@ import java.util.Date;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
-import org.jdom.Text;
 
 import edu.hawaii.ics.csdl.jupiter.ReviewException;
 import edu.hawaii.ics.csdl.jupiter.model.review.ReviewId;
@@ -563,10 +562,6 @@ public class ReviewIssue {
     if (object instanceof ReviewIssue) {
       ReviewIssue reviewIssue = (ReviewIssue) object;
       String fullPath = reviewIssue.getReviewIFile().getFullPath().toString();
-      // This normalization is needed because the delimiter of the String from JDOM 
-      // and String from eclipse Text is different. I'm not sure there is more better way.
-      String thisNormalizedDescription = new Text(this.description).getTextNormalize();
-      String normalizedDescription = new Text(reviewIssue.getDescription()).getTextNormalize();
       if (this.reviewIFile.getFullPath().toString().equals(fullPath)
           && this.reviewer.equals(reviewIssue.getReviewer())
           && this.assignedTo.equals(reviewIssue.getAssignedTo())
@@ -577,7 +572,7 @@ public class ReviewIssue {
           && this.resolution.getKey().equals(reviewIssue.getResolution().getKey())
           && this.status.getKey().equals(reviewIssue.getStatus().getKey())
           && this.summary.equals(reviewIssue.getSummary())
-          && thisNormalizedDescription.equals(normalizedDescription)
+          && this.description.equals(reviewIssue.getDescription())
           && this.annotation.equals(reviewIssue.getAnnotation())
           && this.revision.equals(reviewIssue.getRevision())) {
         return true;

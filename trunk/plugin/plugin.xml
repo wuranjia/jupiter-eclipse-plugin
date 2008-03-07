@@ -214,11 +214,12 @@
   </extension>
   <extension point="org.eclipse.ui.propertyPages">
     <page
-        adaptable="true"
-        objectClass="org.eclipse.core.resources.IProject"
         name="%propertyName"
         class="edu.hawaii.ics.csdl.jupiter.ui.property.ReviewPropertyPage"
         id="edu.hawaii.ics.csdl.jupiter.ui.property.ReviewPropertyPage">
+        <enabledWhen>
+        	<instanceof value="org.eclipse.core.resources.IProject"/>
+        </enabledWhen>
     </page>
   </extension>
   <extension point="org.eclipse.ui.perspectives">
