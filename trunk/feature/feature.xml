@@ -2,7 +2,7 @@
 <feature
       id="edu.hawaii.ics.csdl.jupiter"
       label="Jupiter Feature"
-      version="3.2.1"
+      version="3.3.0"
       provider-name="Collaborative Software Development Laboratory"
       image="hackystat.gif">
 
@@ -22,6 +22,6 @@
          id="edu.hawaii.ics.csdl.jupiter"
          download-size="798"
          install-size="798"
-         version="3.2.1"/>
+         version="0.0.0"/>
 
 </feature>
