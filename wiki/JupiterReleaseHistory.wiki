@@ -4,15 +4,13 @@
 = Introduction =
 Takuya Yamashita wrote Jupiter while working on his master thesis in Information and Computer Sciences Department at the University of Hawaii.
 
+The Jupiter project is now maintained by Hongbing Kou and Julie Ann Sakuda.
 
 
 = Releases =
 
-* First Alpha Release: Oct 21, 2003 
-* Jupiter 3.1.0 : Sept, 2005
-* Jupiter 3.2.0 : Jul, 2006
-
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+ * First Alpha Release: Oct 21, 2003 
+ * Jupiter 3.1.0 : Sept, 2005
+ * Jupiter 3.2.0 : Jul, 2006
+ * Jupiter 3.2.1 : March 2007
+ * Jupiter 3.3.0 : March 2008
