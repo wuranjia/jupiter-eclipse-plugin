@@ -29,7 +29,8 @@ Require-Bundle: org.junit,
  org.eclipse.search,
  org.eclipse.ui.console
 Eclipse-LazyStart: true
-Bundle-ClassPath: lib/jaxb-api.jar,
+Bundle-ClassPath: lib/activation.jar,
+ lib/jaxb-api.jar,
  lib/jsr173_1.0_api.jar,
  lib/jaxb-impl.jar,
  jupiter.jar
