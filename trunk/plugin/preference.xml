@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Preference>
   <General>
-    <UpdateUrl>http://csdl.ics.hawaii.edu/Tools/Jupiter/Update3/site.xml</UpdateUrl>
+    <UpdateUrl>http://jupiter-eclipse-plugin.googlecode.com/svn/trunk/site/site.xml</UpdateUrl>
     <EnableUpdate>true</EnableUpdate>
     <EnableFilter>false</EnableFilter>
   </General>
