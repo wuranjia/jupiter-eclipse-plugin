@@ -6,11 +6,11 @@
    <feature url="features/edu.hawaii.ics.csdl.jupiter_3.2.1.jar" id="edu.hawaii.ics.csdl.jupiter" version="3.2.1">
       <category name="Jupiter"/>
    </feature>
-   <feature url="features/edu.hawaii.ics.csdl.jupiter_3.3.0.jar" id="edu.hawaii.ics.csdl.jupiter" version="3.3.0">
+   <feature url="features/edu.hawaii.ics.csdl.jupiter_3.3.0.1.jar" id="edu.hawaii.ics.csdl.jupiter" version="3.3.0.1">
       <category name="Jupiter"/>
    </feature>
    <archive path="plugin/edu.hawaii.ics.csdl.jupiter_3.2.1.jar" url="plugins/edu.hawaii.ics.csdl.jupiter_3.2.1.jar"/>
-   <archive path="plugin/edu.hawaii.ics.csdl.jupiter_3.3.0.jar" url="plugins/edu.hawaii.ics.csdl.jupiter_3.3.0.jar"/>
+   <archive path="plugin/edu.hawaii.ics.csdl.jupiter_3.3.0.1.jar" url="plugins/edu.hawaii.ics.csdl.jupiter_3.3.0.1.jar"/>
    <category-def name="Jupiter" label="Jupiter for Eclipse">
       <description>
          This category contains the features of the Jupiter for Eclipse.
