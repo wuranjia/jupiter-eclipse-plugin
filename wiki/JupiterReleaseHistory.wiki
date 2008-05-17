@@ -14,3 +14,4 @@ The Jupiter project is now maintained by Hongbing Kou and Julie Ann Sakuda.
  * Jupiter 3.2.0 : Jul, 2006
  * Jupiter 3.2.1 : March 2007
  * Jupiter 3.3.0 : March 2008
+ * Jupiter 3.3.0.1 : May 2008
