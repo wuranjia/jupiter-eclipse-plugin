@@ -125,19 +125,19 @@ public class PropertyXmlSerializer {
    */
   private static File copyDefaultConfigFileTo(File outputPropertyFile) throws IOException,
       CoreException {
-    System.out.println("about to copy a file to " + outputPropertyFile);
+    // System.out.println("about to copy a file to " + outputPropertyFile);
     if (!outputPropertyFile.exists()) {
       outputPropertyFile.createNewFile();
     }
 
     URL pluginUrl = ReviewPlugin.getInstance().getInstallURL();
-    System.out.println(pluginUrl.getFile());
+    // System.out.println(pluginUrl.getFile());
     URL xmlUrl = FileLocator.toFileURL(new URL(pluginUrl, DEFAULT_PROPERTY_XML_FILE));
-    System.out.println("From : " + xmlUrl);
+    // System.out.println("From : " + xmlUrl);
 
     File sourceXmlFile = new File(xmlUrl.getFile());
     // copy XML file in the plug-in directory to the state location.
-    System.out.println("From : " + sourceXmlFile);
+    // System.out.println("From : " + sourceXmlFile);
     PrefXmlSerializer.copy(sourceXmlFile, outputPropertyFile);
     return outputPropertyFile;
   }
