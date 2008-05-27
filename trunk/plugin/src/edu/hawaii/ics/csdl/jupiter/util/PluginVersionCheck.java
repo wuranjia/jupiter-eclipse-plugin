@@ -3,6 +3,8 @@ package edu.hawaii.ics.csdl.jupiter.util;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.util.Comparator;
+import java.util.TreeSet;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -22,10 +24,10 @@ import edu.hawaii.ics.csdl.jupiter.ReviewPlugin;
 import edu.hawaii.ics.csdl.jupiter.ui.preference.GeneralPreferencePage;
 
 /**
- * Provides the version check function. Clients may call <code>processUpdateDialog()</code> to
- * check new version on the server, whose URL is specified in the preference page, and bring
+ * Provides the version check function. Clients may call <code>processUpdateDialog()</code>
+ * to check new version on the server, whose URL is specified in the preference page, and bring
  * update info dialog if the new version is available.
- *
+ * 
  * @author Takuya Yamashita
  * @version $Id$
  */
@@ -34,7 +36,8 @@ public class PluginVersionCheck {
   private static JupiterLogger log = JupiterLogger.getLogger();
 
   /**
-   * Processes update dialog to the user. The current version and new version appear in the dialog.
+   * Processes update dialog to the user. The current version and new version appear in the
+   * dialog.
    */
   public static void processUpdateDialog() {
     IPreferenceStore store = ReviewPlugin.getInstance().getPreferenceStore();
@@ -44,25 +47,23 @@ public class PluginVersionCheck {
         // Gets current version info.
         Version localVerIdentifier = getLocalPluginVersionIdentifier();
         final String localVersionId = localVerIdentifier.toString();
-        String qualifierVersion = localVerIdentifier.getQualifier();
 
         // Gets new version info.
         URL url = new URL(updateUrl);
         Document serverDocument = parseXml(url.openStream());
-        Version serverVerIdentifier = getVersionIdentifier(serverDocument,
-            qualifierVersion);
-        
+        Version serverVerIdentifier = getNewestVersionIdentifier(serverDocument);
+
         if (serverVerIdentifier != null) {
           final String serverVersionId = serverVerIdentifier.toString();
           // Check if current version is not new version, then show pop up update dialog.
-          if ((serverVerIdentifier != null) 
-               && serverVerIdentifier.compareTo(localVerIdentifier) > 0) {
+          if ((serverVerIdentifier != null)
+              && serverVerIdentifier.compareTo(localVerIdentifier) > 0) {
             IWorkbench workbench = ReviewPlugin.getInstance().getWorkbench();
             if (workbench.getWorkbenchWindows().length > 0) {
               Display.getDefault().asyncExec(new Runnable() {
                 public void run() {
-                  int result = ReviewDialog.processVersionCheckDialog(localVersionId, 
-                                                                          serverVersionId);
+                  int result = ReviewDialog.processVersionCheckDialog(localVersionId,
+                      serverVersionId);
                   if (result == MessageDialog.OK) {
                     ReviewDialog.proccessOpenNewUpdatesWizard();
                   }
@@ -83,9 +84,10 @@ public class PluginVersionCheck {
       }
     }
   }
-  
+
   /**
    * Gets the local plug-in version identifier.
+   * 
    * @return the local plug-in version identifier.
    */
   public static Version getLocalPluginVersionIdentifier() {
@@ -93,23 +95,25 @@ public class PluginVersionCheck {
   }
 
   /**
-   * Gets version information from the given Document object, checking the qualifier version. The
-   * qualifier version is the last token of the version identifier. For example, if the version
-   * identifier is 1.4.204.2x, the qualifier version is 2x.
-   *
-   * @param document The Document object parsed from XML file.
-   * @param qualifierVersion The qualifier version. e.g 2x for the 1.4.204.2x
-   *
-   * @return The PluginVersionIdentifier instance if it's found.Returns null if the version
-   *         information is not found.
+   * Gets the version information from the given Document object. The qualifier version is no
+   * longer taken into account.
+   * 
+   * @param document The Document with the plugin version information.
+   * @return Returns the newest plugin version found or null if there is no version
+   *         information.
    */
-  private static Version getVersionIdentifier(Document document,
-    String qualifierVersion) {
+  private static Version getNewestVersionIdentifier(Document document) {
     if (document != null) {
       Element root = document.getDocumentElement();
       NodeList list = root.getChildNodes();
       final String feature = "feature";
       final String version = "version";
+      TreeSet<Version> allVersions = new TreeSet<Version>(new Comparator<Version>() {
+        @Override
+        public int compare(Version o1, Version o2) {
+          return o1.compareTo(o2);
+        }
+      });
       for (int i = 0; i < list.getLength(); i++) {
         if ((list.item(i).getNodeType() == Node.ELEMENT_NODE)
             && list.item(i).getNodeName().equalsIgnoreCase(feature)) {
@@ -117,23 +121,23 @@ public class PluginVersionCheck {
           if (element.hasAttribute(version)) {
             String versionValue = element.getAttribute(version);
             Version identifier = new Version(versionValue);
-            if (identifier.getQualifier().equals(qualifierVersion)) {
-              return identifier;
-            }
+            allVersions.add(identifier);
           }
         }
       }
+      // newest version should sort to the end
+      return allVersions.last();
     }
     return null;
   }
 
   /**
    * Parses XML file to generate Document object from a given input stream.
-   *
+   * 
    * @param input The given input stream from which XML file is read.
-   *
-   * @return The Documentation object which contains the content parsed from the XML file. Returns
-   *         null if parse error occurs.
+   * 
+   * @return The Documentation object which contains the content parsed from the XML file.
+   *         Returns null if parse error occurs.
    */
   private static Document parseXml(InputStream input) {
     try {
