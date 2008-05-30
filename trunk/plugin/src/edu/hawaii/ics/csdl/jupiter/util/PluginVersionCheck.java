@@ -109,7 +109,6 @@ public class PluginVersionCheck {
       final String feature = "feature";
       final String version = "version";
       TreeSet<Version> allVersions = new TreeSet<Version>(new Comparator<Version>() {
-        @Override
         public int compare(Version o1, Version o2) {
           return o1.compareTo(o2);
         }
