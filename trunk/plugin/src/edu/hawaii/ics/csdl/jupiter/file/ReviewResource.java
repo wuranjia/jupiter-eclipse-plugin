@@ -456,7 +456,7 @@ public class ReviewResource {
    * @param directory the directory in which review files are stored.
    */
   private void setDirectory(String directory) {
-    this.review.setDescription(directory);
+    this.review.setDirectory(directory);
   }
 
   /**
