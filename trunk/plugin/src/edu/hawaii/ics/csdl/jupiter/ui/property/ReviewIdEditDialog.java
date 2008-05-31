@@ -9,6 +9,7 @@ import java.util.TreeMap;
 
 import org.eclipse.core.filesystem.EFS;
 import org.eclipse.core.filesystem.IFileStore;
+import org.eclipse.core.internal.filesystem.local.LocalFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.jface.dialogs.Dialog;
@@ -1602,9 +1603,9 @@ public class ReviewIdEditDialog extends Dialog {
     if (dialog.open() == FileFolderSelectionDialog.OK) {
       Object[] results = (Object[]) dialog.getResult();
       for (int i = 0; i < results.length; i++) {
-        File selectedFile = (File) results[i];
+        LocalFile file = (LocalFile) results[i];
+        String filePath = file.toString();
         String projectPath = project.getLocation().toFile().toString();
-        String filePath = selectedFile.toString();
         int index = projectPath.length();
         String projectToFilePath = filePath.substring(index + 1);
         String targetFile = project.getFile(projectToFilePath).getProjectRelativePath()
