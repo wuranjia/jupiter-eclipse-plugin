@@ -13,7 +13,7 @@ Jupiter requires Java 5 or newer and Eclipse 3.3 (Europa) or newer.  Because Jup
 
 == 2.2 Installing Jupiter from the Jupiter Update Site ==
 
-The best way to install Jupiter is by using the Software Update mechanism in Eclipse. This feature enables you to install or update Jupiter easily when new versions are released.
+The best way to install Jupiter is by using the Software Update mechanism in Eclipse. This feature enables easy installation and/or updating of Jupiter when new versions are released.
 
 Select "Help | Software Updates | Find and Install..", select the "Search for new features to install" option, and then add the update site by clicking on the "Add Update Site" button. Provide a name such as "Jupiter Update Server" and use the URL http://jupiter-eclipse-plugin.googlecode.com/svn/trunk/site/.
 
@@ -24,9 +24,9 @@ Check the newly created Jupiter site, then follow the wizards to complete the in
 
 == 2.3 Installing Jupiter from downloaded jar file ==
 
-Get the latest Jupiter release from http://code.google.com/p/jupiter-eclipse-plugin/downloads/list.  You should get a jar file with a name similar to {{{edu.hawaii.ics.csdl.jupiter_<version>.jar}}}.
+Get the latest Jupiter release from http://code.google.com/p/jupiter-eclipse-plugin/downloads/list.  A jar file with a name similar to {{{edu.hawaii.ics.csdl.jupiter_<version>.jar}}} should be available.
 
-Place the downloaded jar file in your eclipse/plugins directory.
+Place the downloaded jar file in the eclipse/plugins directory.
 
 Jupiter will be available the next time Eclipse starts up.
 
@@ -77,7 +77,7 @@ The next step is to specify the files to be reviewed. These files will be listed
 
 [http://jupiter-eclipse-plugin.googlecode.com/svn/wiki/images/ReviewFileSelection.jpg]
 
-Now you can see the set of reviewing files.
+The set of files selected will now appear in the list of files to be reviewed.
 
 [http://jupiter-eclipse-plugin.googlecode.com/svn/wiki/images/ReviewFileSetting.jpg]
 
@@ -121,7 +121,7 @@ The next step configures filter settings. Each phase has its own filter.  Here a
 
 After all settings are done, click the "Finish" button. The ".jupiter" configuration file is created in the project root.
 
-Finally, don't forget commit the ".jupiter" file to your configuration management system.  Now an email can be sent out to announce the review.
+Finally, don't forget commit the ".jupiter" file to the configuration management system.  Now an email can be sent out to announce the review.
 
 === 3.4 Removing a Review ID ===
 To remove a review ID, select the review ID to be removed and click the "Remove" button. Please note that deleting the review ID causes all related review files to be removed as well.
@@ -133,14 +133,14 @@ The following seven "controllerpackage1" related review file will be removed if 
 [http://jupiter-eclipse-plugin.googlecode.com/svn/wiki/images/RemoveReviewFiles.jpg]
 
 = 4.0 Conducting a Review: Individual -> Team -> Rework =
-After Jupiter was installed, a purple Jupiter icon should have appeared on the Eclipse toolbar.  This toolbar action will allow you to select the appropriate phase of review to be executed.  Switching to the Jupiter perspective will also allow you to select the review phase.
+After Jupiter was installed, a purple Jupiter icon should have appeared on the Eclipse toolbar.  This toolbar has a drop that menu that allows for the review phase to be selected.  Switching to the Jupiter perspective will also provide the option of selecting the review phase.
 
 == 4.1 Individual Phase ==
 After configuration, it's time to add review issues. First, update the Project to be reviewed from the configuration management system so that the .jupiter file containing the new review ID is retrieved.  Then, select the Jupiter Perspective, and select "Individual Phase" mode.  There should be an icon on the main tool bar (the purple '4', which is the Greek symbol for Jupiter) that drops down to show the Jupiter review phases. Note: if the icon is not available, select "Customize Perspective", then click on the "Commands" label to display the Commands group, then click "Review".
 
 [http://jupiter-eclipse-plugin.googlecode.com/svn/wiki/images/IndividualSelection.jpg]
 
-A dialog will then appear and allow the project to be reviewed, the review ID, and reviewer to be selected.  Selecting the project to be reviewed will populate the review ID drop down with all the review IDs available for that project.  Once the review ID is selected the reviewer drop down will be populated with all the reviewers configured for that particular review ID.  Note: If you don't see the desired project in the drop down, press "Cancel", make sure that the project is open and selected, then select the Individual Phase mode again.
+A dialog will then appear and allow the project to be reviewed, the review ID, and reviewer to be selected.  Selecting the project to be reviewed will populate the review ID drop down with all the review IDs available for that project.  Once the review ID is selected the reviewer drop down will be populated with all the reviewers configured for that particular review ID.  Note: If the desired project is NOT in the drop down, press "Cancel", make sure that the project is open and selected, then select the Individual Phase mode again.
 
 [http://jupiter-eclipse-plugin.googlecode.com/svn/wiki/images/ReviewIdSelection.jpg]
 
@@ -166,7 +166,7 @@ If the author of the review ID specified the files to be reviewed, the files wil
 
 http://jupiter-eclipse-plugin.googlecode.com/svn/wiki/images/ReviewIdListSelection.jpg
 
-To add a review issue entry, you must click on "Add Jupiter Issue", which is available in several places: 
+To add a review issue entry, click on "Add Jupiter Issue", which is available in several places: 
 
  # Right-click on the Compilation Unit (Java file) in the Package Explore of the Java Perspective.
  # Right-click on the members in the Outline pane of the Java Perspective.
@@ -198,11 +198,11 @@ Finally, don't forget to commit the generated .review  file to version control. 
 == 4.2 Team Phase ==
 In this phase, team members review all of the issues that have been generated for a given Project and Review ID as a group.  Before beginning this phase the project should be updated from source control to retrieve all the .review files from those who participated in the Individual Phase.
 
-A well filtered view will save you a great deal of time in the group meeting. To begin the Team Review Phase, select the Team Phase from the Jupiter phase selection drop down on the main toolbar.
+A well filtered view will save a great deal of time in the group meeting. To begin the Team Review Phase, select the Team Phase from the Jupiter phase selection drop down on the main toolbar.
 
 http://jupiter-eclipse-plugin.googlecode.com/svn/wiki/images/TeamSelection.jpg
 
-After clicking the purple "Team Phase" mode button above, the review ID selection page will pop up. If the correct project is not listed, select "Cancel" and select the project in the "Navigator" or "Package Explore" pane.  Then select the "Team Phase" mode again. After making sure the project name is correct, you can select the review ID and reviewer ID.  The reviewer ID for the team phase is usually the person that setup the review or the owner of the code that is under review.
+After clicking the purple "Team Phase" mode button above, the review ID selection page will pop up. If the correct project is not listed, select "Cancel" and select the project in the "Navigator" or "Package Explore" pane.  Then select the "Team Phase" mode again. After making sure the project name is correct, select the review ID and reviewer ID.  The reviewer ID for the team phase is usually the person that setup the review or the owner of the code that is under review.
 
 http://jupiter-eclipse-plugin.googlecode.com/svn/wiki/images/ReviewIdSelection.jpg
 
