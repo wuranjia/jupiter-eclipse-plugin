@@ -17,6 +17,9 @@ The best way to install Jupiter is by using the Software Update mechanism in Ecl
 
 Select "Help | Software Updates | Find and Install..", select the "Search for new features to install" option, and then add the update site by clicking on the "Add Update Site" button. Provide a name such as "Jupiter Update Server" and use the URL http://jupiter-eclipse-plugin.googlecode.com/svn/trunk/site/.
 
+_TODO: Replace image_
+[http://jupiter-eclipse-plugin.googlecode.com/svn/wiki/images/NewSite.jpg]
+
 Check the newly created Jupiter site, then follow the wizards to complete the installation process.
 
 == 2.3 Installing Jupiter from downloaded jar file ==
