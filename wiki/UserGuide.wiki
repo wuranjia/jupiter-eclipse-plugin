@@ -130,7 +130,9 @@ The next step configures filter settings. Each phase has its own filter.  Here a
 
 After all settings are done, click the "Finish" button. The ".jupiter" configuration file is created in the project root.
 
-Finally, don't forget commit the ".jupiter" file to the configuration management system.  Now an email can be sent out to announce the review.
+Finally, don't forget commit the ".jupiter" file to the configuration management system.  After that is done an email announcement can be sent out to the review participants informing them of the review details.
+
+Note: By default Eclipse filters out "." resources from the Package Explorer view.  To turn this of go to the little down arrow on the right side of the view's toolbar an select "Filters...".  In the dialog that appears, uncheck "{{{.* resources}}}" and click "OK".  All "." files should now appear in the Package Explorer, including the ".jupiter" file.
 
 === 3.4 Removing a Review ID ===
 To remove a review ID, select the review ID to be removed and click the "Remove" button. Please note that deleting the review ID causes all related review files to be removed as well.
