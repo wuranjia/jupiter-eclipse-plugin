@@ -17,7 +17,6 @@ The best way to install Jupiter is by using the Software Update mechanism in Ecl
 
 Select "Help | Software Updates | Find and Install..", select the "Search for new features to install" option, and then add the update site by clicking on the "Add Update Site" button. Provide a name such as "Jupiter Update Server" and use the URL http://jupiter-eclipse-plugin.googlecode.com/svn/trunk/site/.
 
-_TODO: Replace image_
 [http://jupiter-eclipse-plugin.googlecode.com/svn/wiki/images/NewSite.jpg]
 
 Check the newly created Jupiter site, then follow the wizards to complete the installation process.
@@ -66,7 +65,6 @@ Note that each project has a different DEFAULT review ID (see below), and that t
 == 3.3 Adding a New Review ID ===
 To add a review ID, right-click on a project in either "Package Explore" or "Navigator" view, then select "Properties" to show the property window associated with the project.  Selecting 'Review' will bring up the properties for Jupiter.
 
-_TODO: REPLACE IMAGE_
 [http://jupiter-eclipse-plugin.googlecode.com/svn/wiki/images/ConfigProperty.jpg]
 
 Click the "New.." button to open the new Review ID wizard. Fill in the Review ID and Description fields. It is recommended that the Review ID not have any whitespace because it will be used as a part of the review storage file name. Provide a short description of this review in the description field.
