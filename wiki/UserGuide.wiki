@@ -12,8 +12,6 @@ University of Hawaii
 
 http://jupiter-eclipse-plugin.googlecode.com/svn/wiki/images/JupiterThumbnail.jpg
 
-_This guide assumes that the user is familiar with the Eclipse IDE. _
-
 = 1.0 Introduction =
 Jupiter is an open-source code review tool that has been developed for a very popular IDE called [http://www.eclipse.org Eclipse].  Jupiter easily plugs into Eclipse and allows for its users to facilitate code reviews on existing code.
 
