@@ -2,7 +2,11 @@
 #labels Featured
 
 = Jupiter User's Guide =
-[http://csdl.ics.hawaii.edu/Members/TakuyaYamashita.html Takuya Yamashita], [http://csdl.ics.hawaii.edu/~hongbing Hongbing Kou], Julie Ann Sakuda
+[http://csdl.ics.hawaii.edu/Members/TakuyaYamashita.html Takuya Yamashita]
+
+[http://csdl.ics.hawaii.edu/~hongbing Hongbing Kou]
+
+Julie Ann Sakuda
 
 [http://csdl.ics.hawaii.edu/ Collaborative Software Development Laboratory]
 
