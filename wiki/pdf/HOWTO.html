@@ -1,0 +1,29 @@
+<html>
+	<head><title>Generating Jupiter User Guide PDF</title></head>
+    <body>
+        <h1>How To Generate Jupiter User Guide PDF</h1>
+        <h4>Please note this script is meant for Linux/Unix.  There is no Windows version.</h4>
+        <ol>
+            <li>From the Jupiter SVN repository checkout the wiki folder.  See <a href="http://code.google.com/p/jupiter-eclipse-plugin/source/checkout">http://code.google.com/p/jupiter-eclipse-plugin/source/checkout</a> for information on accessing the Jupiter SVN repository.</li>
+            <li>Make sure Perl is installed and available.  The easiest way to install Perl is to use the ActivePerl distribution at <a href="http://www.activestate.com/Products/activeperl/index.mhtml">http://www.activestate.com/Products/activeperl/index.mhtml</a>.</li>
+            <li>Make sure that Java is installed and available.  Java can be obtained from <a href="http://java.sun.com">http://java.sun.com</a>.</li>
+            <li>Install wt2db (WikiText to DocBook).  Download the latest version of wt2db from <a href="http://tldp.org/downloads/">http://tldp.org/downloads/</a>.  Follow the instructions in the INSTALL file included in the archive.</li>
+            <li>Download DocMan (DocBook Toolchain Manager) from <a href="http://www.goshaky.com/docman-distfiles/DocMan/">http://www.goshaky.com/docman-distfiles/DocMan/</a>.  <strong>Extract the files to a folder called "docman" and place this folder inside of the wiki/pdf folder.</strong></li>
+            <li>On the command line change directory to the "pdf" folder inside of the "wiki" folder.  Execute the script by typing <strong>./make.pdf.sh</strong>.  The script does not work if not executed while in the wiki/pdf folder.  The generated PDF will be in the wiki/pdf folder.</li>
+        </ol>
+
+        <h5>Directory Structure: </h5>
+        <pre>
+        wiki/
+            UserGuide.wiki
+            pdf/
+                footer.xml
+                header.xml
+                HOWTO.html
+                make.pdf.sh
+                ug2pdf.docman
+                UserGuide.pdf (generated after following the directions above)
+                docman/  (created in the directions above)
+        </pre>
+    </body>
+</html>
