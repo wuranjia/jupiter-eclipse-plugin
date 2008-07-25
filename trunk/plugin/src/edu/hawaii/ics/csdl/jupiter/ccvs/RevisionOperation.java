@@ -22,14 +22,12 @@ import org.eclipse.team.internal.ccvs.core.syncinfo.FolderSyncInfo;
 import org.eclipse.team.internal.ccvs.core.util.KnownRepositories;
 import org.eclipse.team.internal.ccvs.ui.CVSUIPlugin;
 import org.eclipse.team.internal.ccvs.ui.Policy;
-import org.eclipse.team.internal.ccvs.ui.RemoteAnnotationEditorInput;
 import org.eclipse.team.internal.ccvs.ui.operations.CVSOperation;
 import org.eclipse.ui.IEditorDescriptor;
 import org.eclipse.ui.IEditorRegistry;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
-import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.internal.ide.IDEWorkbenchPlugin;
 
 import edu.hawaii.ics.csdl.jupiter.ReviewPlugin;
@@ -119,18 +117,18 @@ public class RevisionOperation extends CVSOperation {
         final Display display = workbench.getDisplay();
         display.asyncExec(new Runnable() {
           public void run() {
-            try {
-              
-//              FileEditorInput input = new FileEditorInput((IFile) file.getIResource());
-//              page.openEditor(input, id);
-//              RemoteAnnotationEditorInput rInput = 
-//              new RemoteAnnotationEditorInput(file, contents);
-              page.openEditor(new RemoteAnnotationEditorInput(file, contents), id);
-            }
-            catch (PartInitException e) {
-              // TODO Auto-generated catch block
-              e.printStackTrace();
-            }
+//            try {
+//              
+////              FileEditorInput input = new FileEditorInput((IFile) file.getIResource());
+////              page.openEditor(input, id);
+////              RemoteAnnotationEditorInput rInput = 
+////              new RemoteAnnotationEditorInput(file, contents);
+//              page.openEditor(new RemoteAnnotationEditorInput(file, contents), id);
+//            }
+//            catch (PartInitException e) {
+//              // TODO Auto-generated catch block
+//              e.printStackTrace();
+//            }
           }
         });
       }
