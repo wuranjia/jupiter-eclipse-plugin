@@ -79,7 +79,7 @@ public class ReviewIssueModelListenerAdapter implements IReviewIssueModelListene
             return;
           }
           
-          ReviewIssueXmlSerializer.write(reviewId, reviewIssueModel, file);
+          ReviewIssueXmlSerializer.write(reviewId, reviewIssueModel, file, iFile);
           
           try {
             if (iFile.isDerived()) {

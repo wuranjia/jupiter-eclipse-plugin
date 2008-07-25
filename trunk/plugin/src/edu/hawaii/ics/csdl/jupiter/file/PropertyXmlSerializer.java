@@ -105,6 +105,15 @@ public class PropertyXmlSerializer {
       Marshaller marshaller = context.createMarshaller();
       marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
       marshaller.marshal(property, ouput);
+
+      // try to refresh .jupiter file after modifications
+      // this forces Eclipse to know that the file was updated externally
+      try {
+        outputPropertyIFile.refreshLocal(IResource.DEPTH_ZERO, null);
+      }
+      catch (CoreException e) {
+        log.debug("Could not refresh file " + outputPropertyFile.getAbsolutePath());
+      }
     }
     catch (JAXBException e) {
       throw new ReviewException("JAXBException: " + e.getMessage());

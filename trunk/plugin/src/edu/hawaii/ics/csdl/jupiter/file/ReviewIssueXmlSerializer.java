@@ -18,6 +18,7 @@ import javax.xml.bind.Unmarshaller;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 
 import edu.hawaii.ics.csdl.jupiter.ReviewException;
@@ -131,8 +132,8 @@ public class ReviewIssueXmlSerializer {
    * 
    * @return The filled <code>ReviewIssue</code> instance.
    * 
-   * @throws ReviewException Thrown if a problem occurs when <code>ReviewIssue</code> is
-   *           being created.
+   * @throws ReviewException Thrown if a problem occurs when <code>ReviewIssue</code> is being
+   *           created.
    */
   private static ReviewIssue createReviewIssue(
       edu.hawaii.ics.csdl.jupiter.file.review.ReviewIssue xmlReviewIssue, IFile reviewIFile)
@@ -310,9 +311,9 @@ public class ReviewIssueXmlSerializer {
   }
 
   /**
-   * Creates the <code>Date</code> instance associated with the <code>dateString</code>.
-   * Note the this returns current time <code>Date</code> instance if <code>dateString</code>
-   * could not be parsed with <code>dateFormat</code>.
+   * Creates the <code>Date</code> instance associated with the <code>dateString</code>. Note
+   * the this returns current time <code>Date</code> instance if <code>dateString</code> could
+   * not be parsed with <code>dateFormat</code>.
    * 
    * @param dateString the date string to be parsed.
    * @param dateFormat the date format to let parser know the date string to be parsed.
@@ -350,11 +351,38 @@ public class ReviewIssueXmlSerializer {
   /**
    * Writes the content of all the code review data stored in the model into the XML file. Note
    * that clients does not need to check if the specified file path (either directory or file)
+   * exists. The IFile parameter allows the file to be refreshed in Eclipse.
+   * <p>
+   * Clients should check if the passing <code>File</code> or/and <code>ReviewIssueModel</code>
+   * instance is not null. Otherwise the <code>IllegalArgumentException</code> is thrown.
+   * 
+   * @param reviewId the review ID.
+   * @param model The model which contains the <code>ReviewIssue</code> instances.
+   * @param xmlFile The output XML file with absolute path.
+   * @param iFile The iFile instance for the review file.
+   * 
+   * @throws IOException if problems occur.
+   * @throws JAXBException Thrown if there are errors writing the review to file.
+   */
+  public static void write(ReviewId reviewId, ReviewIssueModel model, File xmlFile, IFile iFile)
+      throws IOException, JAXBException {
+    write(reviewId, model, xmlFile);
+    // try to refresh the file so Eclipse picks up the external changes
+    try {
+      iFile.refreshLocal(IResource.DEPTH_ZERO, null);
+    }
+    catch (CoreException e) {
+      log.debug("Cannot refresh review file " + xmlFile.getAbsolutePath());
+    }
+  }
+
+  /**
+   * Writes the content of all the code review data stored in the model into the XML file. Note
+   * that clients does not need to check if the specified file path (either directory or file)
    * exists.
    * <p>
-   * Clients should check if the passing <code>File</code> or/and
-   * <code>ReviewIssueModel</code> instance is not null. Otherwise the
-   * <code>IllegalArgumentException</code> is thrown.
+   * Clients should check if the passing <code>File</code> or/and <code>ReviewIssueModel</code>
+   * instance is not null. Otherwise the <code>IllegalArgumentException</code> is thrown.
    * 
    * @param reviewId the review ID.
    * @param model The model which contains the <code>ReviewIssue</code> instances.
@@ -447,16 +475,16 @@ public class ReviewIssueXmlSerializer {
 
   /**
    * Reads the xmlFile of the <code>IFile</code> instance to create <code>ReviewIssue</code>
-   * instances in the <code>ReviewIssueModel</code> instance. Note that the review file will
-   * be skipped if the problems occur on the reading process (e.g. XML file is not valid due to
+   * instances in the <code>ReviewIssueModel</code> instance. Note that the review file will be
+   * skipped if the problems occur on the reading process (e.g. XML file is not valid due to
    * error in XML structure).
    * 
    * @param reviewId the review id.
    * @param model The <code>ReviewIssueModel</code> instance to hold <code>ReviewIssue</code>
    *          instances.
    * @param iFiles The array of IFile implementing class instance to hold file path.
-   * @return <code>true</code> if all files are successfully read. <code>false</code> if
-   *         there is a file to be unread.
+   * @return <code>true</code> if all files are successfully read. <code>false</code> if there
+   *         is a file to be unread.
    */
   public static boolean read(ReviewId reviewId, ReviewIssueModel model, IFile[] iFiles) {
     if (reviewId == null || model == null || iFiles == null) {
@@ -483,8 +511,9 @@ public class ReviewIssueXmlSerializer {
       if (reviewIdName != null && reviewId != null
           && reviewIdName.equals(reviewId.getReviewId())) {
         boolean isSuccessIterationForFile = true;
-        
-        List<edu.hawaii.ics.csdl.jupiter.file.review.ReviewIssue> xmlReviewIssues = review.getReviewIssue();
+
+        List<edu.hawaii.ics.csdl.jupiter.file.review.ReviewIssue> xmlReviewIssues = review
+            .getReviewIssue();
         List<ReviewIssue> tempCodeReviewList = new ArrayList<ReviewIssue>();
         for (edu.hawaii.ics.csdl.jupiter.file.review.ReviewIssue xmlReviewIssue : xmlReviewIssues) {
           try {
@@ -513,7 +542,8 @@ public class ReviewIssueXmlSerializer {
    * 
    * @param reviewId the review ID.
    * @param reviewFile the review file to be checked.
-   * @return <code>true</code> if the code>File</code> instance is associated with <code>String</code>.
+   * @return <code>true</code> if the code>File</code> instance is associated with
+   *         <code>String</code>.
    * @throws ReviewException if problems occur during file reading process.
    */
   static boolean isReviewIdAssociatedFile(String reviewId, File reviewFile)
