@@ -29,7 +29,7 @@ Jupiter requires Java 5 or newer and Eclipse 3.3 (Europa) or newer.  Because Jup
 The best way to install Jupiter is by using the Software Update mechanism in Eclipse. This feature enables easy installation and/or updating of Jupiter when new versions are released.
 
 === 2.2.1 Installing Jupiter in Eclipse 3.4 Ganymede ===
-Select "Help | Software Updates...".  In the dialog that appears select the "Available Software" tab.  On the right, press the "Add Site..." button.  Type in the Jupiter Update Site URL (http://jupiter-eclipse-plugin.googlecode.com/svn/trunk/site/) in the box that appears.  Press "OK".  Look for the newly created update site in the tree and expand it to see the Jupiter versions available from the Jupiter Update Site.  Check the desired version and press the "Install..." button on the upper right corner of the "Available Software" tab.
+Select "Help | Software Updates...".  In the dialog that appears, select the "Available Software" tab.  On the right, press the "Add Site..." button.  Type in the Jupiter Update Site URL (http://jupiter-eclipse-plugin.googlecode.com/svn/trunk/site/) in the box that appears.  Press "OK".  Look for the newly created update site in the tree and expand it to see the Jupiter versions available from the Jupiter Update Site.  Check the desired version and press the "Install..." button on the upper right corner of the "Available Software" tab.
 
 http://jupiter-eclipse-plugin.googlecode.com/svn/wiki/images/NewSiteGanymede.jpg
 
