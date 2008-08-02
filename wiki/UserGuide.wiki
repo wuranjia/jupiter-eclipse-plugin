@@ -163,7 +163,7 @@ To remove a review ID, select the review ID to be removed and click the "Remove"
 
 http://jupiter-eclipse-plugin.googlecode.com/svn/wiki/images/PropertyRemoval.jpg
 
-The following four 'TestReview' related review files will be removed if the review ID is deleted.
+The following four '!TestReview' related review files will be removed if the review ID is deleted.
 
 http://jupiter-eclipse-plugin.googlecode.com/svn/wiki/images/RemoveReviewFiles.jpg
 
