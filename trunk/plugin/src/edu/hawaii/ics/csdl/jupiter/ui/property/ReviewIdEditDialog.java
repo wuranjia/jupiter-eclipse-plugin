@@ -7,11 +7,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
-import org.eclipse.core.filesystem.EFS;
-import org.eclipse.core.filesystem.IFileStore;
-import org.eclipse.core.internal.filesystem.local.LocalFile;
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IResource;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IInputValidator;
 import org.eclipse.jface.dialogs.InputDialog;
@@ -38,7 +34,7 @@ import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.internal.ide.dialogs.FileFolderSelectionDialog;
+import org.eclipse.ui.dialogs.ElementTreeSelectionDialog;
 
 import edu.hawaii.ics.csdl.jupiter.ReviewException;
 import edu.hawaii.ics.csdl.jupiter.ReviewI18n;
@@ -56,6 +52,9 @@ import edu.hawaii.ics.csdl.jupiter.model.reviewissue.ResolutionKeyManager;
 import edu.hawaii.ics.csdl.jupiter.model.reviewissue.SeverityKeyManager;
 import edu.hawaii.ics.csdl.jupiter.model.reviewissue.StatusKeyManager;
 import edu.hawaii.ics.csdl.jupiter.model.reviewissue.TypeKeyManager;
+import edu.hawaii.ics.csdl.jupiter.ui.ReviewFileContentProvider;
+import edu.hawaii.ics.csdl.jupiter.ui.ReviewFileLabelProvider;
+import edu.hawaii.ics.csdl.jupiter.ui.ReviewFileSelectionStatusValidator;
 import edu.hawaii.ics.csdl.jupiter.ui.view.table.FilterEntry;
 import edu.hawaii.ics.csdl.jupiter.ui.view.table.FilterPhase;
 import edu.hawaii.ics.csdl.jupiter.util.JupiterLogger;
@@ -1169,8 +1168,8 @@ public class ReviewIdEditDialog extends Dialog {
   }
 
   /**
-   * Moves the selected item entry by one upward if <code>isUpward</code> is
-   * <code>true</code>. Otherwise, moves the selected item entry by one downward.
+   * Moves the selected item entry by one upward if <code>isUpward</code> is <code>true</code>.
+   * Otherwise, moves the selected item entry by one downward.
    * 
    * @param isUpward <code>true</code> if moving the selected item entry by one upward.
    *          <code>false</code> if moving the selected item entry by one downward.
@@ -1257,8 +1256,7 @@ public class ReviewIdEditDialog extends Dialog {
    */
   private InputDialog openDialog(String existingItemName, String shortMessageKey,
       String longMessageKey) {
-    FieldItem fieldItem = this.fieldItemIdFieldItemMap.get(this.itemCombo
-        .getText());
+    FieldItem fieldItem = this.fieldItemIdFieldItemMap.get(this.itemCombo.getText());
     if (fieldItem != null) {
       final List<String> itemList = fieldItem.getEntryNameList();
       IInputValidator validator = new IInputValidator() {
@@ -1309,8 +1307,8 @@ public class ReviewIdEditDialog extends Dialog {
       Review defaultReview = PropertyXmlSerializer.cloneDefaultReview();
       reviewResource = new ReviewResource(defaultReview);
       // TODO REMOVE THIS
-//      Element reviewElement = PropertyXmlSerializer.cloneDefaultReviewElement();
-//      reviewResource = new ReviewResource(reviewElement);
+      //      Element reviewElement = PropertyXmlSerializer.cloneDefaultReviewElement();
+      //      reviewResource = new ReviewResource(reviewElement);
     }
     else {
       // read from .jupiter.
@@ -1499,11 +1497,11 @@ public class ReviewIdEditDialog extends Dialog {
   }
 
   /**
-   * Fills the reviewer table with reviewers. Sets <code>true</code> if items are just
-   * updated. Sets <code>false</code> if items are read from the property resource.
+   * Fills the reviewer table with reviewers. Sets <code>true</code> if items are just updated.
+   * Sets <code>false</code> if items are read from the property resource.
    * 
-   * @param isUpdate <code>true</code> if items are just updated. <code>false</code> if
-   *          items are read from the property resource.
+   * @param isUpdate <code>true</code> if items are just updated. <code>false</code> if items
+   *          are read from the property resource.
    */
   public void fillReviewerTable(boolean isUpdate) {
     removeAllItemsInReviewerTable();
@@ -1587,28 +1585,24 @@ public class ReviewIdEditDialog extends Dialog {
   protected void addFile() {
     IWorkbench workbench = PlatformUI.getWorkbench();
     Shell shell = workbench.getActiveWorkbenchWindow().getShell();
-    FileFolderSelectionDialog dialog = new FileFolderSelectionDialog(shell, true,
-        IResource.FILE);
+
+    ElementTreeSelectionDialog dialog = new ElementTreeSelectionDialog(shell,
+        new ReviewFileLabelProvider(), new ReviewFileContentProvider());
+    dialog.setValidator(new ReviewFileSelectionStatusValidator());
+    dialog.setBlockOnOpen(true);
+    dialog.setInput(new File(this.project.getLocation().toString()));
     dialog.setTitle(ReviewI18n.getString("ReviewIdEditDialog.label.tab.file.add.title"));
     dialog.setMessage(ReviewI18n.getString("ReviewIdEditDialog.label.tab.file.add.message"));
-    // dialog.setInput(project.getLocation().toFile());
-    try {
-      IFileStore store = EFS.getStore(project.getLocationURI());
-      dialog.setInput(store);
-    }
-    catch (Exception e) {
-      e.printStackTrace();
-      // Ignore
-    }
-    if (dialog.open() == FileFolderSelectionDialog.OK) {
+
+    if (dialog.open() == ElementTreeSelectionDialog.OK) {
       Object[] results = (Object[]) dialog.getResult();
       for (int i = 0; i < results.length; i++) {
-        LocalFile file = (LocalFile) results[i];
+        File file = (File) results[i];
         String filePath = file.toString();
-        String projectPath = project.getLocation().toFile().toString();
+        String projectPath = this.project.getLocation().toFile().toString();
         int index = projectPath.length();
         String projectToFilePath = filePath.substring(index + 1);
-        String targetFile = project.getFile(projectToFilePath).getProjectRelativePath()
+        String targetFile = this.project.getFile(projectToFilePath).getProjectRelativePath()
             .toString();
         if (this.files.add(targetFile)) {
           TableItem item = new TableItem(this.fileListTable, SWT.NONE);

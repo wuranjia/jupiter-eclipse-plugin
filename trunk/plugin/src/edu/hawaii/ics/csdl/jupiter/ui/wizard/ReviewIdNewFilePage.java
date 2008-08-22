@@ -1,13 +1,10 @@
 package edu.hawaii.ics.csdl.jupiter.ui.wizard;
 
+import java.io.File;
 import java.util.Iterator;
 import java.util.Set;
 
-import org.eclipse.core.filesystem.EFS;
-import org.eclipse.core.filesystem.IFileStore;
-import org.eclipse.core.internal.filesystem.local.LocalFile;
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IResource;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
@@ -24,7 +21,7 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.internal.ide.dialogs.FileFolderSelectionDialog;
+import org.eclipse.ui.dialogs.ElementTreeSelectionDialog;
 
 import edu.hawaii.ics.csdl.jupiter.ReviewI18n;
 import edu.hawaii.ics.csdl.jupiter.ReviewPlugin;
@@ -32,6 +29,9 @@ import edu.hawaii.ics.csdl.jupiter.file.FileResource;
 import edu.hawaii.ics.csdl.jupiter.file.PropertyConstraints;
 import edu.hawaii.ics.csdl.jupiter.file.PropertyResource;
 import edu.hawaii.ics.csdl.jupiter.file.ReviewResource;
+import edu.hawaii.ics.csdl.jupiter.ui.ReviewFileContentProvider;
+import edu.hawaii.ics.csdl.jupiter.ui.ReviewFileLabelProvider;
+import edu.hawaii.ics.csdl.jupiter.ui.ReviewFileSelectionStatusValidator;
 
 /**
  * Provides review file configuration page.
@@ -173,34 +173,32 @@ public class ReviewIdNewFilePage extends WizardPage {
   protected void addFile() {
     IWorkbench workbench = PlatformUI.getWorkbench();
     Shell shell = workbench.getActiveWorkbenchWindow().getShell();
-    FileFolderSelectionDialog dialog = new FileFolderSelectionDialog(shell, true, IResource.FILE);
+    
+    ElementTreeSelectionDialog dialog = new ElementTreeSelectionDialog(shell,
+        new ReviewFileLabelProvider(), new ReviewFileContentProvider());
+    dialog.setValidator(new ReviewFileSelectionStatusValidator());
+    dialog.setBlockOnOpen(true);
+    dialog.setInput(new File(this.project.getLocation().toString()));
     dialog.setTitle(ReviewI18n.getString("ReviewIdEditDialog.label.tab.file.add.title"));
     dialog.setMessage(ReviewI18n.getString("ReviewIdEditDialog.label.tab.file.add.message"));
-    //dialog.setInput(project.getLocation().toFile());
-    try {
-      IFileStore store = EFS.getStore(project.getLocationURI());
-      dialog.setInput(store);
-    }
-    catch (Exception e) {
-      e.printStackTrace();
-      // Ignore  
-    }
-    
-    if (dialog.open() == FileFolderSelectionDialog.OK) {
+
+    if (dialog.open() == ElementTreeSelectionDialog.OK) {
       Object[] results = (Object[]) dialog.getResult();
       for (int i = 0; i < results.length; i++) {
-        LocalFile file = (LocalFile) results[i];
+        File file = (File) results[i];
         String filePath = file.toString();
-        String projectPath = project.getLocation().toFile().toString();
+        String projectPath = this.project.getLocation().toFile().toString();
         int index = projectPath.length();
         String projectToFilePath = filePath.substring(index + 1);
-        String targetFile = project.getFile(projectToFilePath).getProjectRelativePath().toString();
+        String targetFile = this.project.getFile(projectToFilePath).getProjectRelativePath()
+            .toString();
         if (this.files.add(targetFile)) {
           TableItem item = new TableItem(this.fileListTable, SWT.NONE);
-          item.setText(targetFile); 
+          item.setText(targetFile);
         }
       }
     }
+    
     setPageComplete(isTableNonEmpty());
   }
 
