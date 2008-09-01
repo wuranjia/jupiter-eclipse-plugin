@@ -59,13 +59,16 @@ public class PropertyResource {
    * 
    * @param project the project.
    * @param isDefaultLoaded sets <code>true</code> if the default review id is loaded too.
-   * @return the review id wrapper class which contains set of <code>ReviewID</code>
-   *         instances.
+   * @return the review id wrapper class which contains set of <code>ReviewID</code> instances.
    */
   public static PropertyResource getInstance(IProject project, boolean isDefaultLoaded) {
-    theInstance.setValues(project, isDefaultLoaded);
-    theInstance.fillReviewIdReviewMap(project, isDefaultLoaded);
-    theInstance.fillReviewIdMap();
+    if (project != theInstance.project || isDefaultLoaded != theInstance.isDefaultLoaded) {
+      // reload
+      theInstance.setValues(project, isDefaultLoaded);
+      theInstance.fillReviewIdReviewMap(project, isDefaultLoaded);
+      theInstance.fillReviewIdMap();
+    }
+    
     return theInstance;
   }
 
@@ -96,7 +99,7 @@ public class PropertyResource {
     if (this.property == null) {
       return;
     }
-    
+
     this.reviewIdReviewMap.clear();
     List<Review> reviews = this.property.getReview();
     for (Review review : reviews) {
@@ -108,10 +111,10 @@ public class PropertyResource {
       this.reviewIdReviewMap.put(reviewId, review);
     }
   }
-  
+
   /**
-   * Gets the <code>ReviewResource</code> instance associating with the review id. Returns
-   * null if the review id does not exist.
+   * Gets the <code>ReviewResource</code> instance associating with the review id. Returns null
+   * if the review id does not exist.
    * 
    * @param reviewId the review id.
    * @param isClone true if the <code>ReviewResource</code> contains the clone of the review
@@ -139,13 +142,13 @@ public class PropertyResource {
       return null;
     }
     ObjectFactory objectFactory = new ObjectFactory();
-    
+
     Review copiedReview = objectFactory.createReview();
     copiedReview.setAuthor(review.getAuthor());
     copiedReview.setDescription(review.getDescription());
     copiedReview.setDirectory(review.getDirectory());
     copiedReview.setId(review.getId());
-    
+
     CreationDate creationDate = review.getCreationDate();
     if (creationDate != null) {
       CreationDate copiedCreationDate = objectFactory.createCreationDate();
@@ -153,34 +156,37 @@ public class PropertyResource {
       copiedCreationDate.setValue(creationDate.getValue());
       copiedReview.setCreationDate(copiedCreationDate);
     }
-    
+
     Reviewers reviewers = review.getReviewers();
     if (reviewers != null) {
       Reviewers copiedReviewers = objectFactory.createReviewers();
-      
-      List<edu.hawaii.ics.csdl.jupiter.file.property.Reviewers.Entry> entryList = reviewers.getEntry();
+
+      List<edu.hawaii.ics.csdl.jupiter.file.property.Reviewers.Entry> entryList = reviewers
+          .getEntry();
       for (edu.hawaii.ics.csdl.jupiter.file.property.Reviewers.Entry entry : entryList) {
-        edu.hawaii.ics.csdl.jupiter.file.property.Reviewers.Entry copiedReviewersEntry = objectFactory.createReviewersEntry();
+        edu.hawaii.ics.csdl.jupiter.file.property.Reviewers.Entry copiedReviewersEntry = objectFactory
+            .createReviewersEntry();
         copiedReviewersEntry.setId(entry.getId());
         copiedReviewersEntry.setName(entry.getName());
         copiedReviewers.getEntry().add(copiedReviewersEntry);
       }
       copiedReview.setReviewers(reviewers);
     }
-    
+
     Files files = review.getFiles();
     if (files != null) {
       Files copiedFiles = objectFactory.createFiles();
-      
+
       List<edu.hawaii.ics.csdl.jupiter.file.property.Files.Entry> entryList = files.getEntry();
       for (edu.hawaii.ics.csdl.jupiter.file.property.Files.Entry entry : entryList) {
-        edu.hawaii.ics.csdl.jupiter.file.property.Files.Entry copiedFilesEntry = objectFactory.createFilesEntry();
+        edu.hawaii.ics.csdl.jupiter.file.property.Files.Entry copiedFilesEntry = objectFactory
+            .createFilesEntry();
         copiedFilesEntry.setName(entry.getName());
         copiedFiles.getEntry().add(copiedFilesEntry);
       }
       copiedReview.setFiles(copiedFiles);
     }
-    
+
     FieldItems fieldItems = review.getFieldItems();
     if (fieldItems != null) {
       FieldItems copiedFieldItems = objectFactory.createFieldItems();
@@ -189,10 +195,12 @@ public class PropertyResource {
         FieldItem copiedFieldItem = objectFactory.createFieldItem();
         copiedFieldItem.setDefault(fieldItem.getDefault());
         copiedFieldItem.setId(fieldItem.getId());
-        
-        List<edu.hawaii.ics.csdl.jupiter.file.property.FieldItem.Entry> entryList = fieldItem.getEntry();
+
+        List<edu.hawaii.ics.csdl.jupiter.file.property.FieldItem.Entry> entryList = fieldItem
+            .getEntry();
         for (edu.hawaii.ics.csdl.jupiter.file.property.FieldItem.Entry entry : entryList) {
-          edu.hawaii.ics.csdl.jupiter.file.property.FieldItem.Entry copiedFieldItemEntry = objectFactory.createFieldItemEntry();
+          edu.hawaii.ics.csdl.jupiter.file.property.FieldItem.Entry copiedFieldItemEntry = objectFactory
+              .createFieldItemEntry();
           copiedFieldItemEntry.setName(entry.getName());
           copiedFieldItem.getEntry().add(copiedFieldItemEntry);
         }
@@ -200,17 +208,17 @@ public class PropertyResource {
       }
       copiedReview.setFieldItems(copiedFieldItems);
     }
-    
+
     Filters filters = review.getFilters();
     if (filters != null) {
       Filters copiedFilters = objectFactory.createFilters();
-      
+
       List<Phase> phaseList = filters.getPhase();
       for (Phase phase : phaseList) {
         Phase copiedPhase = objectFactory.createPhase();
         copiedPhase.setName(phase.getName());
         copiedPhase.setEnabled(phase.isEnabled());
-        
+
         // filter objects
         List<Filter> filterList = phase.getFilter();
         for (Filter filter : filterList) {
@@ -224,10 +232,10 @@ public class PropertyResource {
       }
       copiedReview.setFilters(copiedFilters);
     }
-    
+
     return copiedReview;
   }
-  
+
   /**
    * Loads <code>ReviewId</code> instances for the project into review id map.
    */
@@ -320,14 +328,14 @@ public class PropertyResource {
     if (reviewResource != null) {
       Review review = reviewResource.getReview();
       ReviewId reviewId = reviewResource.getReviewId();
-      
+
       this.property.getReview().add(review);
       PropertyXmlSerializer.serializeProperty(this.property, this.project);
       this.reviewIdReviewMap.put(reviewId.getReviewId(), review);
       this.reviewIdMap.put(reviewId.getReviewId(), reviewId);
       return true;
     }
-    
+
     return false;
   }
 
@@ -336,8 +344,8 @@ public class PropertyResource {
    * 
    * @param reviewId the <code>ReviewId</code> instance.
    * @throws ReviewException if the review id could not be written.
-   * @return <code>true</code> if review id exists and could be written. <code>false</code>
-   *         if review id does not exist.
+   * @return <code>true</code> if review id exists and could be written. <code>false</code> if
+   *         review id does not exist.
    */
   public boolean removeReviewResource(ReviewId reviewId) throws ReviewException {
     ReviewResource reviewResource = getReviewResource(reviewId.getReviewId(), false);
@@ -349,7 +357,7 @@ public class PropertyResource {
       this.reviewIdMap.remove(reviewId.getReviewId());
       return true;
     }
-    
+
     return false;
   }
 }
