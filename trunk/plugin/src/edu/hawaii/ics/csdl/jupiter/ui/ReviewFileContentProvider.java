@@ -14,7 +14,6 @@ import org.eclipse.jface.viewers.Viewer;
 public class ReviewFileContentProvider implements ITreeContentProvider {
 
   /** {@inheritDoc} */
-  @Override
   public Object[] getChildren(Object parentElement) {
     if (parentElement instanceof File) {
       File file = (File) parentElement;
@@ -25,7 +24,6 @@ public class ReviewFileContentProvider implements ITreeContentProvider {
   }
 
   /** {@inheritDoc} */
-  @Override
   public Object getParent(Object element) {
     if (element instanceof File) {
       File file = (File) element;
@@ -36,7 +34,6 @@ public class ReviewFileContentProvider implements ITreeContentProvider {
   }
 
   /** {@inheritDoc} */
-  @Override
   public boolean hasChildren(Object element) {
     if (element instanceof File) {
       File file = (File) element;
@@ -47,7 +44,6 @@ public class ReviewFileContentProvider implements ITreeContentProvider {
   }
 
   /** {@inheritDoc} */
-  @Override
   public Object[] getElements(Object inputElement) {
     if (inputElement instanceof File) {
       return getChildren(inputElement);
@@ -57,13 +53,11 @@ public class ReviewFileContentProvider implements ITreeContentProvider {
   }
 
   /** {@inheritDoc} */
-  @Override
   public void dispose() {
     // do nothing
   }
 
   /** {@inheritDoc} */
-  @Override
   public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
     // do nothing
   }
