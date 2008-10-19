@@ -8,11 +8,6 @@
 
 package edu.hawaii.ics.csdl.jupiter.file.property;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
 
 
 /**
@@ -34,16 +29,10 @@ import javax.xml.bind.annotation.XmlType;
  * 
  * 
  */
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "")
-@XmlRootElement(name = "Filter")
 public class Filter {
 
-    @XmlAttribute
     protected Boolean enabled;
-    @XmlAttribute
     protected String name;
-    @XmlAttribute
     protected String value;
 
     /**

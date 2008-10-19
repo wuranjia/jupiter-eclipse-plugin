@@ -8,12 +8,6 @@
 
 package edu.hawaii.ics.csdl.jupiter.file.review;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.XmlValue;
 
 
 /**
@@ -33,16 +27,9 @@ import javax.xml.bind.annotation.XmlValue;
  * 
  * 
  */
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "value"
-})
-@XmlRootElement(name = "LastModificationDate")
 public class LastModificationDate {
 
-    @XmlValue
     protected String value;
-    @XmlAttribute
     protected String format;
 
     /**

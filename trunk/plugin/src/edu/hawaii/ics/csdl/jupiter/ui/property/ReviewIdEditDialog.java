@@ -1306,9 +1306,6 @@ public class ReviewIdEditDialog extends Dialog {
       // read from master property.xml
       Review defaultReview = PropertyXmlSerializer.cloneDefaultReview();
       reviewResource = new ReviewResource(defaultReview);
-      // TODO REMOVE THIS
-      //      Element reviewElement = PropertyXmlSerializer.cloneDefaultReviewElement();
-      //      reviewResource = new ReviewResource(reviewElement);
     }
     else {
       // read from .jupiter.

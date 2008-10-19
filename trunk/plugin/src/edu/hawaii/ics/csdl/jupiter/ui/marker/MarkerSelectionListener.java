@@ -7,7 +7,6 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.jface.text.ITextSelection;
 import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.ui.IEditorInput;
@@ -19,7 +18,6 @@ import org.eclipse.ui.PlatformUI;
 import edu.hawaii.ics.csdl.jupiter.model.review.ReviewModel;
 import edu.hawaii.ics.csdl.jupiter.model.reviewissue.ReviewIssue;
 import edu.hawaii.ics.csdl.jupiter.ui.view.table.ReviewTableView;
-import edu.hawaii.ics.csdl.jupiter.ui.view.table.ReviewTableViewAction;
 
 /**
  * Provides the marker selection listener. When a marker is selected, selects the review issue
@@ -77,13 +75,17 @@ public class MarkerSelectionListener implements ISelectionListener {
           for (int j = 0; j < items.length; j++) {
             ReviewIssue reviewIssue = (ReviewIssue) items[j].getData();
 
-            IFile targetFileInReviewIssue = project.getFile(reviewIssue.getTargetFile());
+            String targetFileRelativePath = reviewIssue.getTargetFile();
+            if (targetFileRelativePath == null || "".equals(targetFileRelativePath)) {
+              continue;
+            }
+            IFile targetFileInReviewIssue = project.getFile(targetFileRelativePath);
             File targetFile = targetFileInReviewIssue.getRawLocation().toFile();
             
             // verify that the issue is in the file that is currently open, and that the line number matches
             if (activeFile.equals(targetFile) && lineNumber.equals(reviewIssue.getLine())) {
-              tableView.getViewer().setSelection(new StructuredSelection(reviewIssue), true);
-              ReviewTableViewAction.NOTIFY_EDITOR.run();
+              //tableView.getViewer().setSelection(new StructuredSelection(reviewIssue), true);
+              //ReviewTableViewAction.NOTIFY_EDITOR.run();
               break;
             }
           }

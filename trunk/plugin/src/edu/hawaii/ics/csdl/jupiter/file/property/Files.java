@@ -10,12 +10,6 @@ package edu.hawaii.ics.csdl.jupiter.file.property;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
 
 
 /**
@@ -45,14 +39,8 @@ import javax.xml.bind.annotation.XmlType;
  * 
  * 
  */
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "entry"
-})
-@XmlRootElement(name = "Files")
 public class Files {
 
-    @XmlElement(name = "Entry")
     protected List<Files.Entry> entry;
 
     /**
@@ -102,11 +90,8 @@ public class Files {
      * 
      * 
      */
-    @XmlAccessorType(XmlAccessType.FIELD)
-    @XmlType(name = "")
     public static class Entry {
 
-        @XmlAttribute
         protected String name;
 
         /**

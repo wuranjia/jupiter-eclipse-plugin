@@ -5,403 +5,315 @@
 // Generated on: 2008.02.29 at 06:28:52 AM GMT 
 //
 
-
 package edu.hawaii.ics.csdl.jupiter.file.review;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
-
-
 /**
- * <p>Java class for anonymous complex type.
+ * <p>
+ * Java class for anonymous complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>
+ * The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType>
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element ref="{}ReviewIssueMeta"/>
- *         &lt;element ref="{}ReviewerId"/>
- *         &lt;element ref="{}AssignedTo"/>
- *         &lt;element ref="{}File"/>
- *         &lt;element ref="{}Type"/>
- *         &lt;element ref="{}Severity"/>
- *         &lt;element ref="{}Summary"/>
- *         &lt;element ref="{}Description"/>
- *         &lt;element ref="{}Annotation"/>
- *         &lt;element ref="{}Revision"/>
- *         &lt;element ref="{}Resolution"/>
- *         &lt;element ref="{}Status"/>
- *       &lt;/sequence>
- *       &lt;attribute ref="{}id"/>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}anyType&quot;&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element ref=&quot;{}ReviewIssueMeta&quot;/&gt;
+ *         &lt;element ref=&quot;{}ReviewerId&quot;/&gt;
+ *         &lt;element ref=&quot;{}AssignedTo&quot;/&gt;
+ *         &lt;element ref=&quot;{}File&quot;/&gt;
+ *         &lt;element ref=&quot;{}Type&quot;/&gt;
+ *         &lt;element ref=&quot;{}Severity&quot;/&gt;
+ *         &lt;element ref=&quot;{}Summary&quot;/&gt;
+ *         &lt;element ref=&quot;{}Description&quot;/&gt;
+ *         &lt;element ref=&quot;{}Annotation&quot;/&gt;
+ *         &lt;element ref=&quot;{}Revision&quot;/&gt;
+ *         &lt;element ref=&quot;{}Resolution&quot;/&gt;
+ *         &lt;element ref=&quot;{}Status&quot;/&gt;
+ *       &lt;/sequence&gt;
+ *       &lt;attribute ref=&quot;{}id&quot;/&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 
  */
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "reviewIssueMeta",
-    "reviewerId",
-    "assignedTo",
-    "file",
-    "type",
-    "severity",
-    "summary",
-    "description",
-    "annotation",
-    "revision",
-    "resolution",
-    "status"
-})
-@XmlRootElement(name = "ReviewIssue")
 public class ReviewIssue {
 
-    @XmlElement(name = "ReviewIssueMeta", required = true)
-    protected ReviewIssueMeta reviewIssueMeta;
-    @XmlElement(name = "ReviewerId", required = true)
-    protected String reviewerId;
-    @XmlElement(name = "AssignedTo", required = true)
-    protected String assignedTo;
-    @XmlElement(name = "File", required = true)
-    protected File file;
-    @XmlElement(name = "Type", required = true)
-    protected String type;
-    @XmlElement(name = "Severity", required = true)
-    protected String severity;
-    @XmlElement(name = "Summary", required = true)
-    protected String summary;
-    @XmlElement(name = "Description", required = true)
-    protected String description;
-    @XmlElement(name = "Annotation", required = true)
-    protected String annotation;
-    @XmlElement(name = "Revision", required = true)
-    protected String revision;
-    @XmlElement(name = "Resolution", required = true)
-    protected String resolution;
-    @XmlElement(name = "Status", required = true)
-    protected String status;
-    @XmlAttribute
-    protected String id;
+  protected ReviewIssueMeta reviewIssueMeta;
+  protected String reviewerId = "";
+  protected String assignedTo = "";
+  protected File file;
+  protected String type = "";
+  protected String severity = "";
+  protected String summary = "";
+  protected String description = "";
+  protected String annotation = "";
+  protected String revision = "";
+  protected String resolution = "";
+  protected String status = "";
+  protected String id = "";
 
-    /**
-     * Gets the value of the reviewIssueMeta property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link ReviewIssueMeta }
-     *     
-     */
-    public ReviewIssueMeta getReviewIssueMeta() {
-        return reviewIssueMeta;
-    }
+  /**
+   * Gets the value of the reviewIssueMeta property.
+   * 
+   * @return possible object is {@link ReviewIssueMeta }
+   * 
+   */
+  public ReviewIssueMeta getReviewIssueMeta() {
+    return reviewIssueMeta;
+  }
 
-    /**
-     * Sets the value of the reviewIssueMeta property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link ReviewIssueMeta }
-     *     
-     */
-    public void setReviewIssueMeta(ReviewIssueMeta value) {
-        this.reviewIssueMeta = value;
-    }
+  /**
+   * Sets the value of the reviewIssueMeta property.
+   * 
+   * @param value allowed object is {@link ReviewIssueMeta }
+   * 
+   */
+  public void setReviewIssueMeta(ReviewIssueMeta value) {
+    this.reviewIssueMeta = value;
+  }
 
-    /**
-     * Gets the value of the reviewerId property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getReviewerId() {
-        return reviewerId;
-    }
+  /**
+   * Gets the value of the reviewerId property.
+   * 
+   * @return possible object is {@link String }
+   * 
+   */
+  public String getReviewerId() {
+    return reviewerId;
+  }
 
-    /**
-     * Sets the value of the reviewerId property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setReviewerId(String value) {
-        this.reviewerId = value;
-    }
+  /**
+   * Sets the value of the reviewerId property.
+   * 
+   * @param value allowed object is {@link String }
+   * 
+   */
+  public void setReviewerId(String value) {
+    this.reviewerId = value;
+  }
 
-    /**
-     * Gets the value of the assignedTo property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getAssignedTo() {
-        return assignedTo;
-    }
+  /**
+   * Gets the value of the assignedTo property.
+   * 
+   * @return possible object is {@link String }
+   * 
+   */
+  public String getAssignedTo() {
+    return assignedTo;
+  }
 
-    /**
-     * Sets the value of the assignedTo property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setAssignedTo(String value) {
-        this.assignedTo = value;
-    }
+  /**
+   * Sets the value of the assignedTo property.
+   * 
+   * @param value allowed object is {@link String }
+   * 
+   */
+  public void setAssignedTo(String value) {
+    this.assignedTo = value;
+  }
 
-    /**
-     * Gets the value of the file property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link File }
-     *     
-     */
-    public File getFile() {
-        return file;
-    }
+  /**
+   * Gets the value of the file property.
+   * 
+   * @return possible object is {@link File }
+   * 
+   */
+  public File getFile() {
+    return file;
+  }
 
-    /**
-     * Sets the value of the file property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link File }
-     *     
-     */
-    public void setFile(File value) {
-        this.file = value;
-    }
+  /**
+   * Sets the value of the file property.
+   * 
+   * @param value allowed object is {@link File }
+   * 
+   */
+  public void setFile(File value) {
+    this.file = value;
+  }
 
-    /**
-     * Gets the value of the type property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getType() {
-        return type;
-    }
+  /**
+   * Gets the value of the type property.
+   * 
+   * @return possible object is {@link String }
+   * 
+   */
+  public String getType() {
+    return type;
+  }
 
-    /**
-     * Sets the value of the type property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setType(String value) {
-        this.type = value;
-    }
+  /**
+   * Sets the value of the type property.
+   * 
+   * @param value allowed object is {@link String }
+   * 
+   */
+  public void setType(String value) {
+    this.type = value;
+  }
 
-    /**
-     * Gets the value of the severity property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getSeverity() {
-        return severity;
-    }
+  /**
+   * Gets the value of the severity property.
+   * 
+   * @return possible object is {@link String }
+   * 
+   */
+  public String getSeverity() {
+    return severity;
+  }
 
-    /**
-     * Sets the value of the severity property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setSeverity(String value) {
-        this.severity = value;
-    }
+  /**
+   * Sets the value of the severity property.
+   * 
+   * @param value allowed object is {@link String }
+   * 
+   */
+  public void setSeverity(String value) {
+    this.severity = value;
+  }
 
-    /**
-     * Gets the value of the summary property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getSummary() {
-        return summary;
-    }
+  /**
+   * Gets the value of the summary property.
+   * 
+   * @return possible object is {@link String }
+   * 
+   */
+  public String getSummary() {
+    return summary;
+  }
 
-    /**
-     * Sets the value of the summary property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setSummary(String value) {
-        this.summary = value;
-    }
+  /**
+   * Sets the value of the summary property.
+   * 
+   * @param value allowed object is {@link String }
+   * 
+   */
+  public void setSummary(String value) {
+    this.summary = value;
+  }
 
-    /**
-     * Gets the value of the description property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getDescription() {
-        return description;
-    }
+  /**
+   * Gets the value of the description property.
+   * 
+   * @return possible object is {@link String }
+   * 
+   */
+  public String getDescription() {
+    return description;
+  }
 
-    /**
-     * Sets the value of the description property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setDescription(String value) {
-        this.description = value;
-    }
+  /**
+   * Sets the value of the description property.
+   * 
+   * @param value allowed object is {@link String }
+   * 
+   */
+  public void setDescription(String value) {
+    this.description = value;
+  }
 
-    /**
-     * Gets the value of the annotation property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getAnnotation() {
-        return annotation;
-    }
+  /**
+   * Gets the value of the annotation property.
+   * 
+   * @return possible object is {@link String }
+   * 
+   */
+  public String getAnnotation() {
+    return annotation;
+  }
 
-    /**
-     * Sets the value of the annotation property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setAnnotation(String value) {
-        this.annotation = value;
-    }
+  /**
+   * Sets the value of the annotation property.
+   * 
+   * @param value allowed object is {@link String }
+   * 
+   */
+  public void setAnnotation(String value) {
+    this.annotation = value;
+  }
 
-    /**
-     * Gets the value of the revision property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getRevision() {
-        return revision;
-    }
+  /**
+   * Gets the value of the revision property.
+   * 
+   * @return possible object is {@link String }
+   * 
+   */
+  public String getRevision() {
+    return revision;
+  }
 
-    /**
-     * Sets the value of the revision property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setRevision(String value) {
-        this.revision = value;
-    }
+  /**
+   * Sets the value of the revision property.
+   * 
+   * @param value allowed object is {@link String }
+   * 
+   */
+  public void setRevision(String value) {
+    this.revision = value;
+  }
 
-    /**
-     * Gets the value of the resolution property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getResolution() {
-        return resolution;
-    }
+  /**
+   * Gets the value of the resolution property.
+   * 
+   * @return possible object is {@link String }
+   * 
+   */
+  public String getResolution() {
+    return resolution;
+  }
 
-    /**
-     * Sets the value of the resolution property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setResolution(String value) {
-        this.resolution = value;
-    }
+  /**
+   * Sets the value of the resolution property.
+   * 
+   * @param value allowed object is {@link String }
+   * 
+   */
+  public void setResolution(String value) {
+    this.resolution = value;
+  }
 
-    /**
-     * Gets the value of the status property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getStatus() {
-        return status;
-    }
+  /**
+   * Gets the value of the status property.
+   * 
+   * @return possible object is {@link String }
+   * 
+   */
+  public String getStatus() {
+    return status;
+  }
 
-    /**
-     * Sets the value of the status property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setStatus(String value) {
-        this.status = value;
-    }
+  /**
+   * Sets the value of the status property.
+   * 
+   * @param value allowed object is {@link String }
+   * 
+   */
+  public void setStatus(String value) {
+    this.status = value;
+  }
 
-    /**
-     * Gets the value of the id property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getId() {
-        return id;
-    }
+  /**
+   * Gets the value of the id property.
+   * 
+   * @return possible object is {@link String }
+   * 
+   */
+  public String getId() {
+    return id;
+  }
 
-    /**
-     * Sets the value of the id property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setId(String value) {
-        this.id = value;
-    }
+  /**
+   * Sets the value of the id property.
+   * 
+   * @param value allowed object is {@link String }
+   * 
+   */
+  public void setId(String value) {
+    this.id = value;
+  }
 
 }

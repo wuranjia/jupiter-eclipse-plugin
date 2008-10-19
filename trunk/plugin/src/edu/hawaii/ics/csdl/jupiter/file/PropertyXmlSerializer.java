@@ -2,15 +2,19 @@ package edu.hawaii.ics.csdl.jupiter.file;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
-import java.nio.channels.FileChannel;
+import java.util.List;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
+import javanet.staxutils.StaxUtilsXMLOutputFactory;
+
+import javax.xml.stream.XMLInputFactory;
+import javax.xml.stream.XMLOutputFactory;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamReader;
+import javax.xml.stream.XMLStreamWriter;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
@@ -20,7 +24,6 @@ import org.eclipse.core.runtime.FileLocator;
 
 import edu.hawaii.ics.csdl.jupiter.ReviewException;
 import edu.hawaii.ics.csdl.jupiter.ReviewPlugin;
-import edu.hawaii.ics.csdl.jupiter.file.property.ObjectFactory;
 import edu.hawaii.ics.csdl.jupiter.file.property.Property;
 import edu.hawaii.ics.csdl.jupiter.file.property.Review;
 import edu.hawaii.ics.csdl.jupiter.util.JupiterLogger;
@@ -57,37 +60,59 @@ public class PropertyXmlSerializer {
     File jupiterConfigFile = jupiterConfigIFile.getLocation().toFile();
     Property property = null;
 
-    try {
-      JAXBContext context = JAXBContext.newInstance(ObjectFactory.class);
-      Unmarshaller unmarshaller = context.createUnmarshaller();
+    XMLInputFactory xmlif = XMLInputFactory.newInstance();
+    xmlif.setProperty(XMLInputFactory.IS_REPLACING_ENTITY_REFERENCES, Boolean.TRUE);
+    xmlif.setProperty(XMLInputFactory.IS_SUPPORTING_EXTERNAL_ENTITIES, Boolean.FALSE);
+    xmlif.setProperty(XMLInputFactory.IS_COALESCING, Boolean.FALSE);
 
+    XMLStreamReader reader = null;
+
+    try {
       if (jupiterConfigFile.exists()) {
-        property = (Property) unmarshaller.unmarshal(jupiterConfigFile);
+        reader = xmlif.createXMLStreamReader(jupiterConfigFile.getAbsolutePath(),
+            new FileInputStream(jupiterConfigFile));
+
+        property = StaxPropertyXmlUtil.parsePropertyFile(reader);
       }
       else {
+        // parse the defaults
         if (FileResource.getActiveProject().getName().equals(project.getName())) {
           File configFile = copyDefaultConfigFileTo(jupiterConfigFile);
-          property = (Property) unmarshaller.unmarshal(configFile);
+          reader = xmlif.createXMLStreamReader(configFile.getAbsolutePath(),
+              new FileInputStream(configFile));
+          property = StaxPropertyXmlUtil.parsePropertyFile(reader);
           jupiterConfigIFile.refreshLocal(IResource.DEPTH_ONE, null);
         }
       }
     }
+    catch (FileNotFoundException e) {
+      throw new ReviewException("FileNotFoundException: " + e.getMessage(), e);
+    }
+    catch (XMLStreamException e) {
+      throw new ReviewException("XMLStreamException: " + e.getMessage(), e);
+    }
     catch (CoreException e) {
       throw new ReviewException("CoreException: " + e.getMessage(), e);
     }
-    catch (JAXBException e) {
-      throw new ReviewException("JAXBException: " + e.getMessage(), e);
-    }
     catch (IOException e) {
-      e.printStackTrace();
       throw new ReviewException("IOException: " + e.getMessage(), e);
+    }
+    finally {
+      if (reader != null) {
+        try {
+          reader.close();
+        }
+        catch (XMLStreamException e) {
+          log.error(e);
+        }
+      }
     }
 
     return property;
   }
 
   /**
-   * Serializes a <code>Property</code> to the jupiter config file using JAXB.
+   * Serializes a <code>Property</code> to the jupiter config.
    * 
    * @param property The properties to save.
    * @param project The project that the property is for.
@@ -98,34 +123,44 @@ public class PropertyXmlSerializer {
     IFile outputPropertyIFile = project.getFile(PROPERTY_XML_FILE);
     File outputPropertyFile = outputPropertyIFile.getLocation().toFile();
 
+    StaxUtilsXMLOutputFactory xmlof = new StaxUtilsXMLOutputFactory(XMLOutputFactory
+        .newInstance());
+    xmlof.setProperty(StaxUtilsXMLOutputFactory.INDENTING, true);
+    XMLStreamWriter writer = null;
     try {
-      FileOutputStream ouput = new FileOutputStream(outputPropertyFile);
+      writer = xmlof.createXMLStreamWriter(new FileOutputStream(outputPropertyFile));
+      writer.writeStartDocument("UTF-8", "1.0");
 
-      JAXBContext context = JAXBContext.newInstance(ObjectFactory.class);
-      Marshaller marshaller = context.createMarshaller();
-      marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-      marshaller.marshal(property, ouput);
+      writer.writeStartElement(PropertyConstraints.ELEMENT_PROPERTY);
 
-      // try to refresh .jupiter file after modifications
-      // this forces Eclipse to know that the file was updated externally
-      try {
-        outputPropertyIFile.refreshLocal(IResource.DEPTH_ZERO, null);
+      List<Review> reviews = property.getReview();
+      for (Review review : reviews) {
+        StaxPropertyXmlUtil.writeReview(writer, review);
       }
-      catch (CoreException e) {
-        log.debug("Could not refresh file " + outputPropertyFile.getAbsolutePath());
+
+      writer.writeEndElement(); // Property
+    }
+    catch (FileNotFoundException e) {
+      throw new ReviewException("FileNotFoundException: " + e.getMessage(), e);
+    }
+    catch (XMLStreamException e) {
+      throw new ReviewException("XMLStreamException: " + e.getMessage(), e);
+    }
+    finally {
+      if (writer != null) {
+        try {
+          writer.close();
+        }
+        catch (XMLStreamException e) {
+          log.error(e);
+        }
       }
-    }
-    catch (JAXBException e) {
-      throw new ReviewException("JAXBException: " + e.getMessage());
-    }
-    catch (IOException e) {
-      throw new ReviewException("IOException: " + e.getMessage());
     }
   }
 
   /**
-   * Copies default config file in the <code>Project</code>. Leave the current config file
-   * in the project if the file already exists.
+   * Copies default config file in the <code>Project</code>. Leave the current config file in
+   * the project if the file already exists.
    * 
    * @param outputPropertyFile the output property file.
    * @return the config file <code>File</code> instance.
@@ -147,46 +182,50 @@ public class PropertyXmlSerializer {
     File sourceXmlFile = new File(xmlUrl.getFile());
     // copy XML file in the plug-in directory to the state location.
     // System.out.println("From : " + sourceXmlFile);
-    PrefXmlSerializer.copy(sourceXmlFile, outputPropertyFile);
+    FileUtil.copy(sourceXmlFile, outputPropertyFile);
     return outputPropertyFile;
   }
 
   /**
-   * Loads the default review from property.xml. 
+   * Loads the default review from property.xml.
    * 
    * @return Returns the <code>Review</code> object or null.
    */
   public static Review cloneDefaultReview() {
     URL pluginUrl = ReviewPlugin.getInstance().getInstallURL();
+    
+    XMLInputFactory xmlif = XMLInputFactory.newInstance();
+    xmlif.setProperty(XMLInputFactory.IS_REPLACING_ENTITY_REFERENCES, Boolean.TRUE);
+    xmlif.setProperty(XMLInputFactory.IS_SUPPORTING_EXTERNAL_ENTITIES, Boolean.FALSE);
+    xmlif.setProperty(XMLInputFactory.IS_COALESCING, Boolean.FALSE);
+    
+    XMLStreamReader reader = null;
     try {
       URL xmlUrl = FileLocator.toFileURL(new URL(pluginUrl, DEFAULT_PROPERTY_XML_FILE));
-      JAXBContext context = JAXBContext.newInstance(ObjectFactory.class);
-      Unmarshaller unmarshaller = context.createUnmarshaller();
-      Property property = (Property) unmarshaller.unmarshal(xmlUrl);
+      
+      reader = xmlif.createXMLStreamReader(xmlUrl.getFile(), new FileInputStream(xmlUrl
+          .getFile()));
+
+      Property property = StaxPropertyXmlUtil.parsePropertyFile(reader);
       // there should only be the default review in the list
       return property.getReview().get(0);
     }
     catch (IOException e) {
       log.error(e);
     }
-    catch (JAXBException e) {
+    catch (XMLStreamException e) {
       log.error(e);
     }
+    finally {
+      if (reader != null) {
+        try {
+          reader.close();
+        }
+        catch (XMLStreamException e) {
+          log.error(e);
+        }
+      }
+    }
     return null;
-  }
-
-  /**
-   * Copy the source file to the destination file.
-   * 
-   * @param srouceFile the source <code>File</code>.
-   * @param destinationFile the destination <code>File</code>.
-   * @throws IOException if problems occur.
-   */
-  private static void copy(File srouceFile, File destinationFile) throws IOException {
-    FileChannel sourceChannel = new FileInputStream(srouceFile).getChannel();
-    FileChannel destinationChannel = new FileOutputStream(destinationFile).getChannel();
-    destinationChannel.transferFrom(sourceChannel, 0, sourceChannel.size());
-    sourceChannel.close();
-    destinationChannel.close();
   }
 }

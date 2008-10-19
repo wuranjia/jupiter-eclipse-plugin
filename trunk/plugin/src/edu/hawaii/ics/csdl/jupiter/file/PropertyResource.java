@@ -17,7 +17,6 @@ import edu.hawaii.ics.csdl.jupiter.file.property.FieldItems;
 import edu.hawaii.ics.csdl.jupiter.file.property.Files;
 import edu.hawaii.ics.csdl.jupiter.file.property.Filter;
 import edu.hawaii.ics.csdl.jupiter.file.property.Filters;
-import edu.hawaii.ics.csdl.jupiter.file.property.ObjectFactory;
 import edu.hawaii.ics.csdl.jupiter.file.property.Phase;
 import edu.hawaii.ics.csdl.jupiter.file.property.Property;
 import edu.hawaii.ics.csdl.jupiter.file.property.Review;
@@ -141,9 +140,8 @@ public class PropertyResource {
     if (review == null) {
       return null;
     }
-    ObjectFactory objectFactory = new ObjectFactory();
 
-    Review copiedReview = objectFactory.createReview();
+    Review copiedReview = new Review();
     copiedReview.setAuthor(review.getAuthor());
     copiedReview.setDescription(review.getDescription());
     copiedReview.setDirectory(review.getDirectory());
@@ -151,7 +149,7 @@ public class PropertyResource {
 
     CreationDate creationDate = review.getCreationDate();
     if (creationDate != null) {
-      CreationDate copiedCreationDate = objectFactory.createCreationDate();
+      CreationDate copiedCreationDate = new CreationDate();
       copiedCreationDate.setFormat(creationDate.getFormat());
       copiedCreationDate.setValue(creationDate.getValue());
       copiedReview.setCreationDate(copiedCreationDate);
@@ -159,13 +157,11 @@ public class PropertyResource {
 
     Reviewers reviewers = review.getReviewers();
     if (reviewers != null) {
-      Reviewers copiedReviewers = objectFactory.createReviewers();
+      Reviewers copiedReviewers = new Reviewers();
 
-      List<edu.hawaii.ics.csdl.jupiter.file.property.Reviewers.Entry> entryList = reviewers
-          .getEntry();
-      for (edu.hawaii.ics.csdl.jupiter.file.property.Reviewers.Entry entry : entryList) {
-        edu.hawaii.ics.csdl.jupiter.file.property.Reviewers.Entry copiedReviewersEntry = objectFactory
-            .createReviewersEntry();
+      List<Reviewers.Entry> entryList = reviewers.getEntry();
+      for (Reviewers.Entry entry : entryList) {
+        Reviewers.Entry copiedReviewersEntry = new Reviewers.Entry();
         copiedReviewersEntry.setId(entry.getId());
         copiedReviewersEntry.setName(entry.getName());
         copiedReviewers.getEntry().add(copiedReviewersEntry);
@@ -175,12 +171,11 @@ public class PropertyResource {
 
     Files files = review.getFiles();
     if (files != null) {
-      Files copiedFiles = objectFactory.createFiles();
+      Files copiedFiles = new Files();
 
-      List<edu.hawaii.ics.csdl.jupiter.file.property.Files.Entry> entryList = files.getEntry();
-      for (edu.hawaii.ics.csdl.jupiter.file.property.Files.Entry entry : entryList) {
-        edu.hawaii.ics.csdl.jupiter.file.property.Files.Entry copiedFilesEntry = objectFactory
-            .createFilesEntry();
+      List<Files.Entry> entryList = files.getEntry();
+      for (Files.Entry entry : entryList) {
+        Files.Entry copiedFilesEntry = new Files.Entry();
         copiedFilesEntry.setName(entry.getName());
         copiedFiles.getEntry().add(copiedFilesEntry);
       }
@@ -189,18 +184,16 @@ public class PropertyResource {
 
     FieldItems fieldItems = review.getFieldItems();
     if (fieldItems != null) {
-      FieldItems copiedFieldItems = objectFactory.createFieldItems();
+      FieldItems copiedFieldItems = new FieldItems();
       List<FieldItem> fieldItemList = fieldItems.getFieldItem();
       for (FieldItem fieldItem : fieldItemList) {
-        FieldItem copiedFieldItem = objectFactory.createFieldItem();
+        FieldItem copiedFieldItem = new FieldItem();
         copiedFieldItem.setDefault(fieldItem.getDefault());
         copiedFieldItem.setId(fieldItem.getId());
 
-        List<edu.hawaii.ics.csdl.jupiter.file.property.FieldItem.Entry> entryList = fieldItem
-            .getEntry();
-        for (edu.hawaii.ics.csdl.jupiter.file.property.FieldItem.Entry entry : entryList) {
-          edu.hawaii.ics.csdl.jupiter.file.property.FieldItem.Entry copiedFieldItemEntry = objectFactory
-              .createFieldItemEntry();
+        List<FieldItem.Entry> entryList = fieldItem.getEntry();
+        for (FieldItem.Entry entry : entryList) {
+          FieldItem.Entry copiedFieldItemEntry = new FieldItem.Entry();
           copiedFieldItemEntry.setName(entry.getName());
           copiedFieldItem.getEntry().add(copiedFieldItemEntry);
         }
@@ -211,18 +204,18 @@ public class PropertyResource {
 
     Filters filters = review.getFilters();
     if (filters != null) {
-      Filters copiedFilters = objectFactory.createFilters();
+      Filters copiedFilters = new Filters();
 
       List<Phase> phaseList = filters.getPhase();
       for (Phase phase : phaseList) {
-        Phase copiedPhase = objectFactory.createPhase();
+        Phase copiedPhase = new Phase();
         copiedPhase.setName(phase.getName());
         copiedPhase.setEnabled(phase.isEnabled());
 
         // filter objects
         List<Filter> filterList = phase.getFilter();
         for (Filter filter : filterList) {
-          Filter copiedFilter = objectFactory.createFilter();
+          Filter copiedFilter = new Filter();
           copiedFilter.setName(filter.getName());
           copiedFilter.setValue(filter.getValue());
           copiedFilter.setEnabled(filter.isEnabled());

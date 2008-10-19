@@ -3,7 +3,7 @@ package edu.hawaii.ics.csdl.jupiter.event;
 import java.io.File;
 import java.io.IOException;
 
-import javax.xml.bind.JAXBException;
+import javax.xml.stream.XMLStreamException;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
@@ -95,7 +95,7 @@ public class ReviewIssueModelListenerAdapter implements IReviewIssueModelListene
           // it was not written in a file.
           e.printStackTrace();
         }
-        catch (JAXBException e) {
+        catch (XMLStreamException e) {
           // should the ReviewIssue be removed?
           e.printStackTrace();
         }

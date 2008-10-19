@@ -8,11 +8,6 @@
 
 package edu.hawaii.ics.csdl.jupiter.file.preference;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
 
 
 /**
@@ -35,18 +30,11 @@ import javax.xml.bind.annotation.XmlType;
  * 
  * 
  */
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "")
-@XmlRootElement(name = "ColumnEntry")
 public class ColumnEntry {
 
-    @XmlAttribute
     protected Boolean enable;
-    @XmlAttribute
     protected String name;
-    @XmlAttribute
     protected Boolean resizable;
-    @XmlAttribute
     protected Integer width;
 
     /**

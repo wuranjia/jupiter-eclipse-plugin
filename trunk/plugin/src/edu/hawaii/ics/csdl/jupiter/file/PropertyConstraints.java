@@ -6,6 +6,8 @@ package edu.hawaii.ics.csdl.jupiter.file;
  * @version $Id$
  */
 public class PropertyConstraints {
+  /** The Property element name. */
+  public static final String ELEMENT_PROPERTY = "Property";
   /** The Review element name. */
   public static final String ELEMENT_REVIEW = "Review";
   /** The Description element name. */

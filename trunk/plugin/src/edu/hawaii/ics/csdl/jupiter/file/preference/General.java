@@ -8,11 +8,6 @@
 
 package edu.hawaii.ics.csdl.jupiter.file.preference;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
 
 
 /**
@@ -36,20 +31,10 @@ import javax.xml.bind.annotation.XmlType;
  * 
  * 
  */
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "updateUrl",
-    "enableUpdate",
-    "enableFilter"
-})
-@XmlRootElement(name = "General")
 public class General {
 
-    @XmlElement(name = "UpdateUrl", required = true)
     protected String updateUrl;
-    @XmlElement(name = "EnableUpdate")
     protected boolean enableUpdate;
-    @XmlElement(name = "EnableFilter")
     protected boolean enableFilter;
 
     /**

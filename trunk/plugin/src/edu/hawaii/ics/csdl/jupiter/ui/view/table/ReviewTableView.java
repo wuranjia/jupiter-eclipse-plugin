@@ -79,7 +79,7 @@ public class ReviewTableView extends TableViewPart {
     theInstance = this;
     this.modelListener = new ReviewIssueModelChangeListener();
     this.partListener = new ReviewTableViewPartListenerAdapter();
-    this.markerSelectionListener = new MarkerSelectionListener();
+    // this.markerSelectionListener = new MarkerSelectionListener();
     
     model = ReviewIssueModelManager.getInstance().getCurrentModel();
     ReviewModel reviewModel = ReviewModel.getInstance();
@@ -165,7 +165,7 @@ public class ReviewTableView extends TableViewPart {
     model.notifyListeners(ReviewIssueModelEvent.MERGE);
     IWorkbenchPage page = getSite().getPage();
     page.addPartListener(this.partListener);
-    page.addSelectionListener(this.markerSelectionListener);
+    //    page.addSelectionListener(this.markerSelectionListener);
     IWorkspace workspace = ResourcesPlugin.getWorkspace();
     workspace.addResourceChangeListener(new ProjectResourceChangeListener());
     
@@ -351,7 +351,7 @@ public class ReviewTableView extends TableViewPart {
     super.dispose();
     model.removeListener(modelListener);
     getViewSite().getPage().removePartListener(this.partListener);
-    getViewSite().getPage().removeSelectionListener(this.markerSelectionListener);
+    //    getViewSite().getPage().removeSelectionListener(this.markerSelectionListener);
     theInstance = null;
   }
 
@@ -418,6 +418,9 @@ public class ReviewTableView extends TableViewPart {
     ReviewTableView[] views = new ReviewTableView[windows.length];
     for (int i = 0; i < windows.length; i++) {
       IWorkbenchPage page = windows[i].getActivePage();
+      if (page == null) {
+        continue;
+      }
       IViewPart viewPart = page.findView(VIEW_ID);
       views[i] = (ReviewTableView) viewPart;
     }

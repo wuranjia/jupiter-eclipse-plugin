@@ -10,12 +10,6 @@ package edu.hawaii.ics.csdl.jupiter.file.review;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
 
 
 /**
@@ -38,16 +32,9 @@ import javax.xml.bind.annotation.XmlType;
  * 
  * 
  */
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "reviewIssue"
-})
-@XmlRootElement(name = "Review")
 public class Review {
 
-    @XmlElement(name = "ReviewIssue")
     protected List<ReviewIssue> reviewIssue;
-    @XmlAttribute
     protected String id;
 
     /**
