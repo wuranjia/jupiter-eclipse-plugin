@@ -82,7 +82,7 @@ public class ReviewAdditionActionDelegate implements IEditorActionDelegate {
     if (!isDetermined) {
       return;
     }
-    IFile selectedFile = FileResource.getSelectedIFile();  
+    IFile selectedFile = FileResource.getSelectedIFile();
     this.targetFilePath = (selectedFile != null) 
                              ? selectedFile.getProjectRelativePath().toString() : "";
     
@@ -111,7 +111,15 @@ public class ReviewAdditionActionDelegate implements IEditorActionDelegate {
     try {
       ReviewEditorView editorView = ReviewEditorView.bringViewToTop();
       editorView.setEnable(true);
-      String line = getLineNumber();
+      
+      // you cannot just get the line number, verify that the active file is the same as the target file
+      // TODO Is it ok to assume that just because the files match the line number should be used?
+      // this may not be case if the file is active and the user right-clicked on it from the package manager
+      String line = "";
+      if (selectedFile != null && selectedFile.equals(FileResource.getActiveFile())) {
+        line = getLineNumber();
+      }
+      
       if (!targetFilePath.equals("")) {
         ReviewIssue reviewIssue = new ReviewIssue(new Date(), new Date(), 
           reviewerId.getReviewerId(), "", targetFilePath, line, 
