@@ -5,7 +5,7 @@ This system is distributed with a number of optional packages, and it is our int
 
 || *Package* || *License* ||
 ||jupiter source, jupiter.jar||Common Public License, Apache 2.0 License||
-||stax-1.2.0.jar||Apache 2.0 License||
+||stax-1.2.0.jar, jsr173_1.0_api.jar||Apache 2.0 License||
 ||stax-utils.jar||BSD License||
 
 == Common Public License ==
