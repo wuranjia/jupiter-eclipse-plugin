@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: edu.hawaii.ics.csdl.jupiter
 Bundle-SymbolicName: edu.hawaii.ics.csdl.jupiter;singleton:=true
-Bundle-Version: 3.4.1
+Bundle-Version: 3.4.1.1
 Bundle-Activator: edu.hawaii.ics.csdl.jupiter.ReviewPlugin
 Bundle-Vendor: Collaborative Software Development Laboratory
 Bundle-Localization: plugin
