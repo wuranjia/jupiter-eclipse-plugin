@@ -350,11 +350,7 @@ public class ReviewIssueXmlSerializer {
       writer = xmlof.createXMLStreamWriter(new FileOutputStream(outputXml), "UTF-8");
       writer.writeStartDocument("UTF-8", "1.0");
 
-      writer.writeStartElement(PropertyConstraints.ELEMENT_REVIEW);
-
       StaxReviewXmlUtil.writeReview(writer, review);
-
-      writer.writeEndElement(); // Review
     }
     finally {
       if (writer != null) {
