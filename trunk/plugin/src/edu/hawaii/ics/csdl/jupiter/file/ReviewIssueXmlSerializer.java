@@ -347,7 +347,7 @@ public class ReviewIssueXmlSerializer {
     xmlof.setProperty(StaxUtilsXMLOutputFactory.INDENTING, true);
     XMLStreamWriter writer = null;
     try {
-      writer = xmlof.createXMLStreamWriter(new FileOutputStream(outputXml));
+      writer = xmlof.createXMLStreamWriter(new FileOutputStream(outputXml), "UTF-8");
       writer.writeStartDocument("UTF-8", "1.0");
 
       writer.writeStartElement(PropertyConstraints.ELEMENT_REVIEW);

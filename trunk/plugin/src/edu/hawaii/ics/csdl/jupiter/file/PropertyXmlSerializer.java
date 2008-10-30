@@ -128,7 +128,7 @@ public class PropertyXmlSerializer {
     xmlof.setProperty(StaxUtilsXMLOutputFactory.INDENTING, true);
     XMLStreamWriter writer = null;
     try {
-      writer = xmlof.createXMLStreamWriter(new FileOutputStream(outputPropertyFile));
+      writer = xmlof.createXMLStreamWriter(new FileOutputStream(outputPropertyFile), "UTF-8");
       writer.writeStartDocument("UTF-8", "1.0");
 
       writer.writeStartElement(PropertyConstraints.ELEMENT_PROPERTY);
