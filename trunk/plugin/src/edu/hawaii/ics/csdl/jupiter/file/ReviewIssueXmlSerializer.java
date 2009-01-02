@@ -510,7 +510,7 @@ public class ReviewIssueXmlSerializer {
     XMLInputFactory xmlif = XMLInputFactory.newInstance();
     xmlif.setProperty(XMLInputFactory.IS_REPLACING_ENTITY_REFERENCES, Boolean.TRUE);
     xmlif.setProperty(XMLInputFactory.IS_SUPPORTING_EXTERNAL_ENTITIES, Boolean.FALSE);
-    xmlif.setProperty(XMLInputFactory.IS_COALESCING, Boolean.FALSE);
+    xmlif.setProperty(XMLInputFactory.IS_COALESCING, Boolean.TRUE);
 
     boolean isSuccessIterationForAll = true;
     for (int i = 0; i < iFiles.length; i++) {
@@ -576,7 +576,7 @@ public class ReviewIssueXmlSerializer {
       XMLInputFactory xmlif = XMLInputFactory.newInstance();
       xmlif.setProperty(XMLInputFactory.IS_REPLACING_ENTITY_REFERENCES, Boolean.TRUE);
       xmlif.setProperty(XMLInputFactory.IS_SUPPORTING_EXTERNAL_ENTITIES, Boolean.FALSE);
-      xmlif.setProperty(XMLInputFactory.IS_COALESCING, Boolean.FALSE);
+      xmlif.setProperty(XMLInputFactory.IS_COALESCING, Boolean.TRUE);
 
       XMLStreamReader reader = xmlif.createXMLStreamReader(reviewFile.getAbsolutePath(),
           new FileInputStream(reviewFile));
