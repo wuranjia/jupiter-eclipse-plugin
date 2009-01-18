@@ -260,31 +260,55 @@ public class StaxReviewXmlUtil {
           }
           else if (ELEMENT_SUMMARY.equals(elementName)) {
             // get the CHARACTERS event to get the summary
-            eventType = reader.next();
-            if (eventType == XMLStreamConstants.CHARACTERS) {
-              reviewIssue.setSummary(StaxReviewXmlUtil.getFixedText(reader.getText()));
+            StringBuilder sb = new StringBuilder();
+            // this won't work if end element ever needs to be handled
+            while (reader.next() == XMLStreamConstants.CHARACTERS) {
+              sb.append(StaxReviewXmlUtil.getFixedText(reader.getText()));
             }
+            reviewIssue.setSummary(sb.toString());
+//            eventType = reader.next();
+//            if (eventType == XMLStreamConstants.CHARACTERS) {
+//              reviewIssue.setSummary(StaxReviewXmlUtil.getFixedText(reader.getText()));
+//            }
           }
           else if (ELEMENT_DESCRIPTION.equals(elementName)) {
             // get the CHARACTERS event to get the description
-            eventType = reader.next();
-            if (eventType == XMLStreamConstants.CHARACTERS) {
-              reviewIssue.setDescription(StaxReviewXmlUtil.getFixedText(reader.getText()));
+            StringBuilder sb = new StringBuilder();
+            // this won't work if end element ever needs to be handled
+            while (reader.next() == XMLStreamConstants.CHARACTERS) {
+              sb.append(StaxReviewXmlUtil.getFixedText(reader.getText()));
             }
+            reviewIssue.setDescription(sb.toString());
+//            eventType = reader.next();
+//            if (eventType == XMLStreamConstants.CHARACTERS) {
+//              reviewIssue.setDescription(StaxReviewXmlUtil.getFixedText(reader.getText()));
+//            }
           }
           else if (ELEMENT_ANNOTATION.equals(elementName)) {
             // get the CHARACTERS event to get the annotation
-            eventType = reader.next();
-            if (eventType == XMLStreamConstants.CHARACTERS) {
-              reviewIssue.setAnnotation(StaxReviewXmlUtil.getFixedText(reader.getText()));
+            StringBuilder sb = new StringBuilder();
+            // this won't work if end element ever needs to be handled
+            while (reader.next() == XMLStreamConstants.CHARACTERS) {
+              sb.append(StaxReviewXmlUtil.getFixedText(reader.getText()));
             }
+            reviewIssue.setAnnotation(sb.toString());
+//            eventType = reader.next();
+//            if (eventType == XMLStreamConstants.CHARACTERS) {
+//              reviewIssue.setAnnotation(StaxReviewXmlUtil.getFixedText(reader.getText()));
+//            }
           }
           else if (ELEMENT_REVISION.equals(elementName)) {
             // get the CHARACTERS event to get the revision
-            eventType = reader.next();
-            if (eventType == XMLStreamConstants.CHARACTERS) {
-              reviewIssue.setRevision(StaxReviewXmlUtil.getFixedText(reader.getText()));
+            StringBuilder sb = new StringBuilder();
+            // this won't work if end element ever needs to be handled
+            while (reader.next() == XMLStreamConstants.CHARACTERS) {
+              sb.append(StaxReviewXmlUtil.getFixedText(reader.getText()));
             }
+            reviewIssue.setRevision(sb.toString());
+//            eventType = reader.next();
+//            if (eventType == XMLStreamConstants.CHARACTERS) {
+//              reviewIssue.setRevision(StaxReviewXmlUtil.getFixedText(reader.getText()));
+//            }
           }
           else if (ELEMENT_RESOLUTION.equals(elementName)) {
             // get the CHARACTERS event to get the resolution
