@@ -34,13 +34,13 @@
           name="projectNature"
           value="org.eclipse.jdt.core.javanature"></filter>
       <action
-          label="%actionLabel"
-          icon="icons/jupiter.gif"
-          helpContextId="edu.hawaii.ics.csdl.jupiter.ui.action.ReviewAdditionActionDelegate"
-          class="edu.hawaii.ics.csdl.jupiter.ui.action.ReviewAdditionActionDelegate"
-          menubarPath="add"
-          enablesFor="1"
-          id="edu.hawaii.ics.csdl.jupiter.ui.action.ReviewAdditionActionDelegate"></action>
+            class="edu.hawaii.ics.csdl.jupiter.ui.action.ReviewAdditionActionDelegate"
+            enablesFor="1"
+            helpContextId="edu.hawaii.ics.csdl.jupiter.ui.action.ReviewAdditionActionDelegate"
+            icon="icons/jupiter.gif"
+            id="edu.hawaii.ics.csdl.jupiter.ui.action.ReviewAdditionActionDelegate"
+            label="%actionLabel"
+            menubarPath="add"></action>
     </objectContribution>
     <!-- Registers code review action to the IMember which gives the menu in a class.-->
     <objectContribution
@@ -200,7 +200,7 @@
     <actionSet
         label="%actionSetLabel"
         visible="true"
-        id="edu.hawaii.ics.csdl.jupiter.ui.action.PhaseSelectionActionDelegate">
+        id="edu.hawaii.ics.csdl.jupiter.ui.actionSets">
       <action
             class="edu.hawaii.ics.csdl.jupiter.ui.action.PhaseSelectionActionDelegate"
             icon="icons/jupiter.gif"
@@ -210,6 +210,14 @@
             toolbarPath="Normal/additions"
             tooltip="%actionSetActionToolTip">
       </action>
+      <action
+            class="edu.hawaii.ics.csdl.jupiter.ui.action.ReviewAdditionActionDelegate"
+            definitionId="edu.hawaii.ics.csdl.jupiter.ui.command.ReviewAdditionActionDelegate"
+            helpContextId="edu.hawaii.ics.csdl.jupiter.ui.action.ReviewAdditionActionDelegate"
+            icon="icons/jupiter.gif"
+            id="edu.hawaii.ics.csdl.jupiter.ui.action.ReviewAdditionActionDelegate"
+            label="%actionLabel">
+       </action>
     </actionSet>
   </extension>
   <extension point="org.eclipse.ui.propertyPages">
@@ -326,5 +334,30 @@
       <fileTypes
             extension="jupiter"
             type="text"/>
+   </extension>
+   <extension
+         id="edu.hawaii.ics.csdl.jupiter.bindings"
+         name="Jupiter Keybindings"
+         point="org.eclipse.ui.bindings">
+      <key
+            commandId="edu.hawaii.ics.csdl.jupiter.ui.command.ReviewAdditionActionDelegate"
+            contextId="org.eclipse.ui.contexts.window"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="Ctrl+Alt+R">
+      </key>
+   </extension>
+   <extension
+         id="edu.hawaii.ics.csdl.jupiter.ui.commands"
+         name="Jupiter Commands"
+         point="org.eclipse.ui.commands">
+      <category
+         id="edu.hawaii.ics.csdl.jupiter.ui.commands.category"
+         name="Jupiter">
+      </category>   
+      <command
+            categoryId="edu.hawaii.ics.csdl.jupiter.ui.commands.category"
+            id="edu.hawaii.ics.csdl.jupiter.ui.command.ReviewAdditionActionDelegate"
+            name="Add Review Issue">
+      </command>
    </extension>
 </plugin>
