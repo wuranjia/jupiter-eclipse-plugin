@@ -121,6 +121,15 @@ public class PropertyXmlSerializer {
   public static void serializeProperty(Property property, IProject project)
       throws ReviewException {
     IFile outputPropertyIFile = project.getFile(PROPERTY_XML_FILE);
+    try {
+      // try to refresh the resource since some plugins (CVS) 
+      // don't refresh after updating the project files
+      outputPropertyIFile.refreshLocal(IResource.DEPTH_ONE, null);
+    } 
+    catch (CoreException e) {
+      log.error(e);
+    }
+    
     File outputPropertyFile = outputPropertyIFile.getLocation().toFile();
 
     StaxUtilsXMLOutputFactory xmlof = new StaxUtilsXMLOutputFactory(XMLOutputFactory
