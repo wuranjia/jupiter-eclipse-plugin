@@ -26,7 +26,22 @@
     </view>
   </extension>
   <extension point="org.eclipse.ui.popupMenus">
+    <objectContribution 
+        id="edu.hawaii.ics.csdl.jupiter.action.contribution.popup.objectIFile"
+        objectClass="org.eclipse.core.resources.IFile"
+   		adaptable="true">
+   	  <action
+      		label="%actionLabel"
+      		icon="icons/jupiter.gif"
+     	 	helpContextId="edu.hawaii.ics.csdl.jupiter.ui.action.ReviewAdditionActionDelegate"
+      		class="edu.hawaii.ics.csdl.jupiter.ui.action.ReviewAdditionActionDelegate"
+      		menubarPath="add"
+      		enablesFor="1"
+      		id="edu.hawaii.ics.csdl.jupiter.ui.action.ReviewAdditionActionDelegate">
+   	  </action>
+	</objectContribution>
     <!-- Registers code review action to the menu of CompilationUnit which can be seen in Java perspective. -->
+    <!--
     <objectContribution
         objectClass="org.eclipse.jdt.core.ICompilationUnit"
         id="edu.hawaii.ics.csdl.jupiter.ui.action.contribution.popup.objectICompilationUnit">
@@ -42,7 +57,9 @@
             label="%actionLabel"
             menubarPath="add"></action>
     </objectContribution>
+    -->
     <!-- Registers code review action to the IMember which gives the menu in a class.-->
+    <!--
     <objectContribution
         objectClass="org.eclipse.jdt.core.IMember"
         id="edu.hawaii.ics.csdl.jupiter.ui.action.contribution.popup.member.objectICompilationUnit">
@@ -56,7 +73,9 @@
           id="edu.hawaii.ics.csdl.jupiter.ui.action.ReviewAdditionActionDelegate">
       </action>
     </objectContribution>
+    -->
     <!-- Registers code review action to the menu of IFile which can be seen in Resource perspective. -->
+    <!--
     <objectContribution 
         id="edu.hawaii.ics.csdl.jupiter.action.contribution.popup.objectIFile"
         objectClass="org.eclipse.core.resources.IFile">
@@ -70,6 +89,7 @@
           enablesFor="1">
       </action>
     </objectContribution>
+    -->
     <!-- Registers to the context menu of the text editor.-->
     <viewerContribution
         targetID="#TextEditorContext"
@@ -97,6 +117,7 @@
          </action>
   	</viewerContribution>
     <!-- Registers to the context menu of the compilation unit editor.-->
+    <!--
     <viewerContribution
         targetID="#CompilationUnitEditorContext"
         id="edu.hawaii.ics.csdl.jupiter.ui.action.ReviewAdditionActionDelegate">
@@ -109,6 +130,7 @@
           id="edu.hawaii.ics.csdl.jupiter.ui.action.ReviewAdditionActionDelegate">
       </action>
     </viewerContribution>
+    -->
     <!-- Registers to the ruler menu of the compilation unit editor.-->
     <viewerContribution
         targetID="#CompilationUnitRulerContext"
@@ -123,6 +145,7 @@
       </action>
     </viewerContribution>
     <!-- Registers to the context menu of the c editor.-->
+    <!--
     <viewerContribution
         targetID="#CEditorContext"
         id="edu.hawaii.ics.csdl.jupiter.ui.action.ReviewAdditionActionDelegate">
@@ -135,6 +158,7 @@
           id="edu.hawaii.ics.csdl.jupiter.ui.action.ReviewAdditionActionDelegate">
       </action>
     </viewerContribution>
+    -->
     <!-- Registers to the ruler menu of the c editor.-->
     <viewerContribution
         targetID="#CEditorRulerContext"
