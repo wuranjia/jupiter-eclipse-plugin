@@ -18,6 +18,7 @@ import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.IWorkbenchWindowActionDelegate;
 
 import edu.hawaii.ics.csdl.jupiter.ReviewException;
 import edu.hawaii.ics.csdl.jupiter.ReviewI18n;
@@ -58,7 +59,7 @@ import edu.hawaii.ics.csdl.jupiter.util.ReviewDialog;
  * @author Takuya Yamashita
  * @version $Id$
  */
-public class ReviewAdditionActionDelegate implements IEditorActionDelegate {
+public class ReviewAdditionActionDelegate implements IEditorActionDelegate, IWorkbenchWindowActionDelegate {
   /** Jupiter logger */
   private JupiterLogger log = JupiterLogger.getLogger();
 
@@ -310,5 +311,22 @@ public class ReviewAdditionActionDelegate implements IEditorActionDelegate {
   public void setActiveEditor(IAction action, IEditorPart targetEditor) {
 //    log.debug("setActiveEditor was called.");
     // Do nothing so far.
+  }
+
+  /**
+   * Disposes this action delegate.  The implementor should unhook any references
+   * to itself so that garbage collection can occur.
+   */
+  public void dispose() {
+    // do nothing
+  }
+
+  /**
+   * Initializes this action delegate with the workbench window it will work in.
+   *
+   * @param window the window that provides the context for this delegate
+   */
+  public void init(IWorkbenchWindow window) {
+    // do nothing
   }
 }
