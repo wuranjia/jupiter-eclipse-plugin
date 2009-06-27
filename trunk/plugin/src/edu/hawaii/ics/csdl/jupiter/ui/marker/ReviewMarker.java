@@ -79,8 +79,8 @@ public class ReviewMarker {
         for (int i = 0; i < markers.length; i++) {
           IMarker marker = markers[i];
           String reviewIssueKey = ReviewMarker.ATTRIBUTE_REVIEW_ISSUE;
-          ReviewIssue reviewIssueInMarker = (ReviewIssue) marker.getAttribute(reviewIssueKey);
-          if (reviewIssueInMarker != null && reviewIssueInMarker.getIssueId().equals(issueId)) {
+          String reviewIssueId = (String) marker.getAttribute(reviewIssueKey);
+          if (reviewIssueId != null && reviewIssueId.equals(issueId)) {
             marker.delete();
           }
         }
@@ -108,9 +108,8 @@ public class ReviewMarker {
           for (int i = 0; i < markers.length; i++) {
             IMarker marker = markers[i];
             String reviewIssueKey = ATTRIBUTE_REVIEW_ISSUE;
-            ReviewIssue reviewIssueInMarker = (ReviewIssue) marker.getAttribute(reviewIssueKey);
-            if (reviewIssueInMarker != null
-                && reviewIssueInMarker.getIssueId().equals(reviewIssue.getIssueId())) {
+            String reviewIssueId = (String) marker.getAttribute(reviewIssueKey);
+            if (reviewIssueId != null && reviewIssueId.equals(reviewIssue.getIssueId())) {
               marker.setAttribute(IMarker.MESSAGE, reviewIssue.getSummary());
             }
           }
@@ -256,7 +255,7 @@ public class ReviewMarker {
         attributes.put(IMarker.CHAR_END, new Integer(start));
         String summary = reviewIssue.getSummary() + " [" + reviewIssue.getReviewer() + "]";
         attributes.put(IMarker.MESSAGE, summary);
-        attributes.put(ATTRIBUTE_REVIEW_ISSUE, reviewIssue);
+        attributes.put(ATTRIBUTE_REVIEW_ISSUE, reviewIssue.getIssueId());
       }
     }
     return attributes;

@@ -101,7 +101,9 @@ public class MarkerResourceChangeListener
         log.debug("new marker line number: " + newLineNumber.intValue());
         isReviewMarker = true;
         String reviewIssueKey = ReviewMarker.ATTRIBUTE_REVIEW_ISSUE;
-        ReviewIssue savingReviewIssue = (ReviewIssue) marker.getAttribute(reviewIssueKey);
+        String reviewIssueId = (String) marker.getAttribute(reviewIssueKey);
+        ReviewIssueModel model = ReviewIssueModelManager.getInstance().getCurrentModel();
+        ReviewIssue savingReviewIssue = model.get(reviewIssueId);
         savingReviewIssue.setLine(newLineNumber.intValue() + "");
       }
       if (isReviewMarker) {

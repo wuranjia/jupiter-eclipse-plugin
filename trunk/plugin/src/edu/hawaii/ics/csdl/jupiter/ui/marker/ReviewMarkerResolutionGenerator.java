@@ -75,8 +75,10 @@ public class ReviewMarkerResolutionGenerator implements IMarkerResolutionGenerat
     private ReviewMarkerResolution(IMarker marker) {
       String reviewIssueKey = ReviewMarker.ATTRIBUTE_REVIEW_ISSUE;
       try {
-        this.reviewIssue = (ReviewIssue) marker.getAttribute(reviewIssueKey);
-      }
+        String reviewIssueId = (String) marker.getAttribute(reviewIssueKey);
+        ReviewIssueModel model = ReviewIssueModelManager.getInstance().getCurrentModel();
+        this.reviewIssue = model.get(reviewIssueId);
+      } 
       catch (CoreException e) {
         e.printStackTrace();
       }
