@@ -6,8 +6,7 @@ Bundle-Version: 3.5.0
 Bundle-Activator: edu.hawaii.ics.csdl.jupiter.ReviewPlugin
 Bundle-Vendor: Collaborative Software Development Laboratory
 Bundle-Localization: plugin
-Require-Bundle: org.junit,
- org.eclipse.ui.ide,
+Require-Bundle: org.eclipse.ui.ide,
  org.eclipse.ui.views,
  org.eclipse.jface.text,
  org.eclipse.ui.workbench.texteditor,
@@ -15,14 +14,11 @@ Require-Bundle: org.junit,
  org.eclipse.core.resources,
  org.eclipse.ui,
  org.eclipse.core.runtime,
- org.eclipse.jdt.core,
- org.eclipse.jdt.ui,
  org.eclipse.update.ui,
  org.eclipse.team.cvs.core,
  org.eclipse.team.cvs.ui,
  org.eclipse.debug.ui,
  org.apache.ant,
- org.eclipse.jdt.launching,
  org.eclipse.core.filesystem,
  org.eclipse.team.ui,
  org.eclipse.team.core,
@@ -32,6 +28,7 @@ Eclipse-LazyStart: true
 Bundle-ClassPath: lib/stax/jsr173_1.0_api.jar,
  lib/stax/stax-1.2.0.jar,
  lib/stax/stax-utils.jar,
+ lib/junit/junit-4.7.jar,
  jupiter.jar
 Export-Package: edu.hawaii.ics.csdl.jupiter,
  edu.hawaii.ics.csdl.jupiter.ccvs,

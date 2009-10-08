@@ -5,8 +5,6 @@ import java.util.Date;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
-import org.eclipse.jdt.core.ICompilationUnit;
-import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.text.ITextSelection;
@@ -286,21 +284,21 @@ public class ReviewAdditionActionDelegate implements IEditorActionDelegate, IWor
                              ? selectedFile.getProjectRelativePath().toString() : "";
   }
 
-  /**
-   * Gets the <code>ICompilationUnit</code> instance. Returns <code>null</code> if corresponding
-   * compilation unit does not exist.
-   * 
-   * @param file the <code>File</code> instance to convert to the compilation unit.
-   * @return the <code>ICompilationUnit</code> instance.
-   */
-  private ICompilationUnit getCompilationUnit(IFile file) {
-    if ((file != null) && file.getLocation().toString().endsWith(".java")) {
-      return JavaCore.createCompilationUnitFrom(file);
-    }
-    else {
-      return null;
-    }
-  }
+//  /**
+//   * Gets the <code>ICompilationUnit</code> instance. Returns <code>null</code> if corresponding
+//   * compilation unit does not exist.
+//   * 
+//   * @param file the <code>File</code> instance to convert to the compilation unit.
+//   * @return the <code>ICompilationUnit</code> instance.
+//   */
+//  private ICompilationUnit getCompilationUnit(IFile file) {
+//    if ((file != null) && file.getLocation().toString().endsWith(".java")) {
+//      return JavaCore.createCompilationUnitFrom(file);
+//    }
+//    else {
+//      return null;
+//    }
+//  }
 
   /**
    * Sets the active editor for the delegate.

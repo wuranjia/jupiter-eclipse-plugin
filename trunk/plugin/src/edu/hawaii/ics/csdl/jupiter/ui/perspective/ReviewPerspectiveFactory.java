@@ -1,7 +1,6 @@
 package edu.hawaii.ics.csdl.jupiter.ui.perspective;
 
 import org.eclipse.debug.ui.IDebugUIConstants;
-import org.eclipse.jdt.ui.JavaUI;
 import org.eclipse.search.ui.NewSearchUI;
 import org.eclipse.ui.IFolderLayout;
 import org.eclipse.ui.IPageLayout;
@@ -26,7 +25,6 @@ public class ReviewPerspectiveFactory implements IPerspectiveFactory {
   
   private static final String ID_REVIEW_EDITOR_VIEW = "edu.hawaii.ics.csdl.jupiter.ui.view.editor";
   private static final String ID_REVIEW_TABLE_VIEW = "edu.hawaii.ics.csdl.jupiter.ui.view.table";
-  private static final String PACKAGE_EXPLORER_ID = "org.eclipse.jdt.ui.PackageExplorer";
   private static final String BOTTOM = "bottom";
 
   /** Jupiter logger */
@@ -53,8 +51,8 @@ public class ReviewPerspectiveFactory implements IPerspectiveFactory {
                                                      BOTTOM);
     bottomRight.addView(ID_REVIEW_EDITOR_VIEW);
     bottomRight.addPlaceholder(IPageLayout.ID_PROBLEM_VIEW);
-    bottomRight.addPlaceholder(JavaUI.ID_JAVADOC_VIEW);
-    bottomRight.addPlaceholder(JavaUI.ID_SOURCE_VIEW);
+//    bottomRight.addPlaceholder(JavaUI.ID_JAVADOC_VIEW);
+//    bottomRight.addPlaceholder(JavaUI.ID_SOURCE_VIEW);
     bottomRight.addPlaceholder(NewSearchUI.SEARCH_VIEW_ID);
     bottomRight.addPlaceholder(IConsoleConstants.ID_CONSOLE_VIEW);
     bottomRight.addPlaceholder(IPageLayout.ID_BOOKMARKS);
@@ -62,22 +60,24 @@ public class ReviewPerspectiveFactory implements IPerspectiveFactory {
     
     IFolderLayout folder = layout.createFolder("topLeft", IPageLayout.LEFT, (float) 0.25,
                                                editorArea);
-    folder.addView(JavaUI.ID_PACKAGES);
-    folder.addView(IPageLayout.ID_RES_NAV);
-    folder.addPlaceholder(JavaUI.ID_TYPE_HIERARCHY);
+    folder.addView(IPageLayout.ID_PROJECT_EXPLORER);
+    
+//    folder.addView(JavaUI.ID_PACKAGES);
+//    folder.addView(IPageLayout.ID_RES_NAV);
+//    folder.addPlaceholder(JavaUI.ID_TYPE_HIERARCHY);
     
     layout.addView(IPageLayout.ID_OUTLINE, IPageLayout.RIGHT, (float) 0.75, editorArea);
     
     layout.addActionSet(IDebugUIConstants.LAUNCH_ACTION_SET);
-    layout.addActionSet(JavaUI.ID_ACTION_SET);
-    layout.addActionSet(JavaUI.ID_ELEMENT_CREATION_ACTION_SET);
+//    layout.addActionSet(JavaUI.ID_ACTION_SET);
+//    layout.addActionSet(JavaUI.ID_ELEMENT_CREATION_ACTION_SET);
     layout.addActionSet(IPageLayout.ID_NAVIGATE_ACTION_SET);
     
     // views - java
-    layout.addShowViewShortcut(JavaUI.ID_PACKAGES);
-    layout.addShowViewShortcut(JavaUI.ID_TYPE_HIERARCHY);
-    layout.addShowViewShortcut(JavaUI.ID_SOURCE_VIEW);
-    layout.addShowViewShortcut(JavaUI.ID_JAVADOC_VIEW);
+//    layout.addShowViewShortcut(JavaUI.ID_PACKAGES);
+//    layout.addShowViewShortcut(JavaUI.ID_TYPE_HIERARCHY);
+//    layout.addShowViewShortcut(JavaUI.ID_SOURCE_VIEW);
+//    layout.addShowViewShortcut(JavaUI.ID_JAVADOC_VIEW);
   }
   
   /**

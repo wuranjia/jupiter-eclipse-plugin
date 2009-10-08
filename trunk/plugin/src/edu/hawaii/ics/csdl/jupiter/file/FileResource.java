@@ -16,7 +16,6 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.IRegion;
@@ -48,7 +47,7 @@ public class FileResource {
   /** The active resource. */
   private static IResource selectedResource;
   /** Used for the fully qualified class search. */
-  private static IJavaElement javaElement;
+//  private static IJavaElement javaElement;
   /** The default text editor ID. */
   private static final String DEFAULT_TEXT_EDITOR_ID = "org.eclipse.ui.DefaultTextEditor";
   /** The C editor ID. */

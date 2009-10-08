@@ -3,8 +3,6 @@ package edu.hawaii.ics.csdl.jupiter.event;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IAdaptable;
-import org.eclipse.jdt.core.IJavaElement;
-import org.eclipse.jdt.core.IMember;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.IEditorPart;
@@ -53,12 +51,12 @@ public class ReviewSelectionListener implements ISelectionListener {
           IAdaptable adaptable = (IAdaptable) object;
           IResource resource = (IResource) adaptable.getAdapter(IResource.class);
           FileResource.setSelectedResource(resource);
-          IJavaElement javaElement = (IJavaElement) adaptable.getAdapter(IJavaElement.class);
-          if (javaElement instanceof IMember) {
-            IMember member = (IMember) javaElement;
-            IFile selectedFile = (IFile) member.getResource();
-            FileResource.setSelectedResource(selectedFile);
-          }
+//          IJavaElement javaElement = (IJavaElement) adaptable.getAdapter(IJavaElement.class);
+//          if (javaElement instanceof IMember) {
+//            IMember member = (IMember) javaElement;
+//            IFile selectedFile = (IFile) member.getResource();
+//            FileResource.setSelectedResource(selectedFile);
+//          }
         }
       }
     }

@@ -7,9 +7,6 @@ import java.text.SimpleDateFormat;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
-import org.eclipse.jdt.core.IJavaElement;
-import org.eclipse.jdt.core.IJavaProject;
-import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.LabelProvider;
@@ -160,7 +157,7 @@ class ViewLabelProvider extends LabelProvider implements ITableLabelProvider {
   public Image getImage(Object object) {
     ReviewIssue codeReview = (ReviewIssue) object;
     IProject project = FileResource.getProject(codeReview.getReviewIFile());
-    IJavaProject javaProject = JavaCore.create(project);
+//    IJavaProject javaProject = JavaCore.create(project);
     String targetFileString = codeReview.getTargetFile();
     IFile targetIFile = null;
     if (!targetFileString.equals("")) {
@@ -169,7 +166,7 @@ class ViewLabelProvider extends LabelProvider implements ITableLabelProvider {
     try {
       URL url = ReviewPlugin.getInstance().getInstallURL();
       url = new URL(url, "icons/link.gif");
-      IJavaElement[] javaElements = new IJavaElement[] {javaProject};
+//      IJavaElement[] javaElements = new IJavaElement[] {javaProject};
       boolean isTargetIFileAvailable = (targetIFile != null) ? targetIFile.exists() : false;
       if (linkImage == null) {
         linkImage = ImageDescriptor.createFromURL(url).createImage();
