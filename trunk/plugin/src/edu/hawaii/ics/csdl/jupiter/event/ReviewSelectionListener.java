@@ -45,7 +45,11 @@ public class ReviewSelectionListener implements ISelectionListener {
     }
     if (selection instanceof IStructuredSelection) {
       structuredSelection = (IStructuredSelection) selection;
-      if (structuredSelection.size() == 1) {
+      if (structuredSelection.isEmpty()) {
+        // clear out selection information
+        FileResource.setSelectedResource(null);
+      }
+      else {
         Object object = structuredSelection.getFirstElement();
         if (object instanceof IAdaptable) {
           IAdaptable adaptable = (IAdaptable) object;
