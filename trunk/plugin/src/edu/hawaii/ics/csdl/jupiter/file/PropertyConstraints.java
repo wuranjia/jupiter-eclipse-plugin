@@ -1,7 +1,7 @@
 package edu.hawaii.ics.csdl.jupiter.file;
 
 /**
- * Provides the property related constraint, especially xml elemnt, attribute, and attribute value.
+ * Provides the property related constraint, especially xml element, attribute, and attribute value.
  * @author Takuya Yamashita
  * @version $Id$
  */
