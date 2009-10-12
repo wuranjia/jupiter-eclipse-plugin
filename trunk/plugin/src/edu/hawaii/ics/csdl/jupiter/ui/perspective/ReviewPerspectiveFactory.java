@@ -60,7 +60,9 @@ public class ReviewPerspectiveFactory implements IPerspectiveFactory {
     
     IFolderLayout folder = layout.createFolder("topLeft", IPageLayout.LEFT, (float) 0.25,
                                                editorArea);
-    folder.addView(IPageLayout.ID_PROJECT_EXPLORER);
+    // TODO Use this constant instead of the string after support for Eclipse 3.4 has been dropped
+//    folder.addView(IPageLayout.ID_PROJECT_EXPLORER);
+    folder.addView("org.eclipse.ui.navigator.ProjectExplorer");
     
 //    folder.addView(JavaUI.ID_PACKAGES);
 //    folder.addView(IPageLayout.ID_RES_NAV);
