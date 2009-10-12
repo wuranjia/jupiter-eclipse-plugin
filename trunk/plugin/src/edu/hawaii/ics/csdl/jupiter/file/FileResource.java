@@ -153,6 +153,9 @@ public class FileResource {
     }
     String relativeFolder = getPathToReviewFolder(project, reviewId);
     if (relativeFolder != null) {
+      // Fix path to use UNIX type slashes
+      relativeFolder = relativeFolder.replaceAll("[/\\\\]+", "\\" + File.separator);
+      
       String fileName = reviewId.getReviewId() + "-" + reviewerId.getReviewerId();
       return relativeFolder + "/" + fileName + ".review";
     }
