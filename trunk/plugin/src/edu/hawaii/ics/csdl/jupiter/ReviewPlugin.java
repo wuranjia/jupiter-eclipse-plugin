@@ -180,7 +180,7 @@ public class ReviewPlugin extends AbstractUIPlugin implements IStartup {
    * @return the <code>IWorkspace</code> instance.
    */
   public IWorkspace getWorkspace() {
-    return this.getWorkspace();
+    return ResourcesPlugin.getWorkspace();
   }
   
   /**
