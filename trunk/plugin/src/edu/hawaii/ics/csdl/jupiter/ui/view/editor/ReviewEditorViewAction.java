@@ -48,6 +48,7 @@ public class ReviewEditorViewAction {
   /** The clear action to clear all fields in the current editing issue. */
   public static final Action CLEAR;
   static {
+    // TODO Delete this undo action
     UNDO = new Action("", Action.AS_DROP_DOWN_MENU) {
       public void run() {
 //        ReviewEditorView view = ReviewEditorView.getInstance();
@@ -96,9 +97,9 @@ public class ReviewEditorViewAction {
       }
       
     };
-    String undoLabelKey = "ReviewTableView.action.label.goto";
+    String undoLabelKey = "ReviewTableView.action.label.undo";
     UNDO.setText(ReviewI18n.getString(undoLabelKey));
-    String undoToolTipKey = "ReviewTableView.action.toolTip.goto";
+    String undoToolTipKey = "ReviewTableView.action.toolTip.undo";
     UNDO.setToolTipText(ReviewI18n.getString(undoToolTipKey));
     ISharedImages sharedImage = PlatformUI.getWorkbench().getSharedImages();
     UNDO.setImageDescriptor(ReviewPlugin.createImageDescriptor("icons/undo.gif"));
