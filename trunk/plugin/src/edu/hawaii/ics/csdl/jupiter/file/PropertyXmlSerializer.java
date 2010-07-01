@@ -163,6 +163,14 @@ public class PropertyXmlSerializer {
         catch (XMLStreamException e) {
           log.error(e);
         }
+        
+        try {
+          // try to refresh the resource since we wrote to it
+          outputPropertyIFile.refreshLocal(IResource.DEPTH_ONE, null);
+        } 
+        catch (CoreException e) {
+          log.error(e);
+        }
       }
     }
   }
