@@ -85,9 +85,9 @@ public class ReviewIdNewAuthorPage extends WizardPage {
     authorLabel.setText(ReviewI18n.getString("ReviewIdNewAuthorPage.label.author"));
     this.authorCombo = new Combo(parent, SWT.READ_ONLY);
     authorCombo.setData(authorCombo);
-    PropertyResource reviewIdResource = PropertyResource.getInstance(this.project, true);
-    String defualtReviewId = PropertyConstraints.DEFAULT_REVIEW_ID;
-    ReviewId reviewId = reviewIdResource.getReviewId(defualtReviewId);
+    PropertyResource propertyResource = PropertyResource.getInstance(this.project, true);
+    String defaultReviewId = PropertyConstraints.DEFAULT_REVIEW_ID;
+    ReviewId reviewId = propertyResource.getReviewId(defaultReviewId);
     Map<String, ReviewerId> reviewers = reviewId.getReviewers();
     String author = reviewId.getAuthor();
     authorCombo.setItems(reviewers.keySet().toArray(new String[] {}));
