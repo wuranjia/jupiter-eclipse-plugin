@@ -146,7 +146,7 @@ public class ReviewIdNewReviewerPage extends WizardPage {
       this.reviewers = new TreeMap<String, ReviewerId>(reviewersMap);
     }
     for (Iterator<String> i = this.reviewers.keySet().iterator(); i.hasNext();) {
-      String reviewerId = (String) i.next();
+      String reviewerId = i.next();
       TableItem item = new TableItem(this.reviewerListTable, SWT.NONE);
       item.setText(reviewerId);
     }
