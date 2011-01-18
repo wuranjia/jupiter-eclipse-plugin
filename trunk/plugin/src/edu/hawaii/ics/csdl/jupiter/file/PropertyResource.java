@@ -166,7 +166,7 @@ public class PropertyResource {
         copiedReviewersEntry.setName(entry.getName());
         copiedReviewers.getEntry().add(copiedReviewersEntry);
       }
-      copiedReview.setReviewers(reviewers);
+      copiedReview.setReviewers(copiedReviewers);
     }
 
     Files files = review.getFiles();
