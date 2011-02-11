@@ -225,7 +225,7 @@ The severity field is used to identify or prioritize the severity of the issue. 
 
 The summary is a short overview of the issue.
 
-The description field if for expanding on the summary.  An extended or more detailed explanation should be given.  If a block of code was selected before right-clicking on the source code, the selected part will be in the description field. 
+The description field is for expanding on the summary.  An extended or more detailed explanation should be given.  If a block of code was selected before right-clicking on the source code, the selected part will be in the description field. 
 
 After filling out the necessary information, click the Save Icon on the right upper side of the window to save the issue.  Note that issues are automatically saved when the review issue editor loses focus.
 
