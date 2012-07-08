@@ -11,7 +11,6 @@ import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
-import org.eclipse.update.ui.UpdateManagerUI;
 
 import edu.hawaii.ics.csdl.jupiter.ReviewI18n;
 import edu.hawaii.ics.csdl.jupiter.ReviewPlugin;
@@ -192,7 +191,7 @@ public class ReviewDialog {
     if (activeWindow != null) {
       Shell shell = workbench.getActiveWorkbenchWindow().getShell();
       
-      UpdateManagerUI.openInstaller(shell);
+//      UpdateManagerUI.openInstaller(shell);
       
       /*IWizard wizard = new InstallWizard(null);
       WizardDialog dialog = new ResizableInstallWizardDialog(shell, wizard, "");

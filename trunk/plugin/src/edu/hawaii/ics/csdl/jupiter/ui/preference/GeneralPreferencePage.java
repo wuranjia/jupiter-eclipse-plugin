@@ -18,6 +18,7 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Group;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 
@@ -67,9 +68,11 @@ public class GeneralPreferencePage extends PreferencePage implements IWorkbenchP
     top.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
     top.setLayout(new GridLayout());
     // Creates review preference group.
-    createGeneralPreferenceGroup(top);
+    // createGeneralPreferenceGroup(top);
     // Loads the preference store.
-    loadFieldEditors(false);
+    // loadFieldEditors(false);
+    Label label = new Label(top, SWT.NONE);
+    label.setText("Please select a sub page to configure Jupiter.");
     return top;
   }
 

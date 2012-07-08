@@ -764,21 +764,19 @@ public class ReviewEditorView extends ViewPart {
    * @param isEnable set <code>true</code> if all the fields are enable.
    */
   public static void setViewEnable(final boolean isEnable) {
-    IWorkbench workbench = PlatformUI.getWorkbench();
-    IWorkbenchWindow window = workbench.getWorkbenchWindows()[0];
-    if (window != null) {
-      final IWorkbenchPage page = window.getActivePage();
-      if (page != null) {
-        Display.getDefault().asyncExec(new Runnable() {
-          public void run() {
-            IViewPart viewPart = page.findView(EDITOR_VIEW_ID);
-            if (viewPart != null && viewPart instanceof ReviewEditorView) {
-              ((ReviewEditorView) viewPart).setEnable(isEnable);
-            }
+    final IWorkbench workbench = PlatformUI.getWorkbench();
+    workbench.getDisplay().asyncExec(new Runnable() {
+      public void run() {
+        IWorkbenchWindow window = workbench.getActiveWorkbenchWindow();
+        if (window != null) {
+          IWorkbenchPage page = window.getActivePage();
+          IViewPart viewPart = page.findView(EDITOR_VIEW_ID);
+          if (viewPart != null && viewPart instanceof ReviewEditorView) {
+            ((ReviewEditorView) viewPart).setEnable(isEnable);
           }
-        });
+        }
       }
-    }
+    });
   }
     
   /**

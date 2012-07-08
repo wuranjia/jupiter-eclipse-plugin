@@ -5,9 +5,9 @@ import java.net.URL;
 import org.eclipse.core.resources.IResourceChangeEvent;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.ListenerList;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.core.runtime.ListenerList;
 import org.eclipse.ui.IStartup;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPage;
@@ -31,7 +31,6 @@ import edu.hawaii.ics.csdl.jupiter.ui.preference.FilterPreferencePage;
 import edu.hawaii.ics.csdl.jupiter.ui.preference.GeneralPreferencePage;
 import edu.hawaii.ics.csdl.jupiter.ui.view.editor.ReviewEditorView;
 import edu.hawaii.ics.csdl.jupiter.util.JupiterLogger;
-import edu.hawaii.ics.csdl.jupiter.util.PluginVersionCheck;
 
 /**
  * Provides one time Code ReviewIssue plug-in instantiation (singleton). Contains the
@@ -94,16 +93,16 @@ public class ReviewPlugin extends AbstractUIPlugin implements IStartup {
    */
   public void earlyStartup() {
     ReviewEditorView.setViewEnable(false);
-    String enableUpdateStoreKey = GeneralPreferencePage.ENABLE_UPDATE_KEY;
-    if (this.getPreferenceStore().getBoolean(enableUpdateStoreKey)) {
-      // Avoids the jupiter startup delay due to the version check connection.
-      Thread versionCheck = new Thread() {
-        public void run() {
-          PluginVersionCheck.processUpdateDialog();
-        }
-      };
-      versionCheck.start();
-    }
+    // String enableUpdateStoreKey = GeneralPreferencePage.ENABLE_UPDATE_KEY;
+    // if (this.getPreferenceStore().getBoolean(enableUpdateStoreKey)) {
+    // // Avoids the jupiter startup delay due to the version check connection.
+    // Thread versionCheck = new Thread() {
+    // public void run() {
+    // PluginVersionCheck.processUpdateDialog();
+    // }
+    // };
+    // versionCheck.start();
+    // }
     // Registers selection listener.
     initializeListeners();
     this.log.info("Jupiter Review Plugin is up.");
