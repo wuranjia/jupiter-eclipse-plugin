@@ -1,0 +1,207 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+  <head>
+    <title>Jupiter README</title>
+  </head>
+
+  
+<body bgcolor="#FFFFFF" text="#000000">
+<center>
+  <h1><font face="Verdana, Arial, Helvetica, sans-serif"> Jupiter ReadMe</font></h1>
+  <p><font face="Verdana, Arial, Helvetica, sans-serif"><A HREF="http://csdl.ics.hawaii.edu/Members/HongbingKou.html">Hongbing
+  Kou<br>
+  </a></font><font face="verdana"><a href="http://csdl.ics.hawaii.edu/">Collaborative Software Development Laboratory</a></font><font face="Verdana, Arial, Helvetica, sans-serif"><br>
+    <A HREF="http://www.hawaii.edu/">University of Hawaii</a><br>
+    <br>
+  $Id$<br>
+    </font>  </p>
+</center>
+<p> <font face="Verdana, Arial, Helvetica, sans-serif"><br>
+  This file introduces you to the major components of the Jupiter (code review plug-in for Eclipse) software 
+  system. It includes information on the contents of the package you have downloaded, 
+  instructions on how to install the system, basic invocation and usage, user 
+  documentation, developer documentation, and contact coordinates for further 
+  information. Please see the following table for links to the different sections 
+  of this README file.</font></p>
+<table width="100%" border="1" bordercolordark="#000000" bordercolorlight="#99CCCC">
+  <tr> 
+    <th><font face="Verdana, Arial, Helvetica, sans-serif">Section</font></th>
+    <th><font face="Verdana, Arial, Helvetica, sans-serif">What this Section Provides 
+      </font></th>
+  </tr>
+  <tr> 
+    <td><font face="Verdana, Arial, Helvetica, sans-serif"><a href="#contents">Contents 
+      of this package </a> </font></td>
+    <td><font face="Verdana, Arial, Helvetica, sans-serif">Provides the contents 
+      of the Jupiter plug-in for Eclipse. </font></td>
+  </tr>
+  <tr> 
+    <td><font face="Verdana, Arial, Helvetica, sans-serif"><a href="#installation">Installation</a></font></td>
+    <td><font face="Verdana, Arial, Helvetica, sans-serif">Provides a detailed 
+      description of how to build the Jupiter plug-in.</font></td>
+  </tr>
+  <tr> 
+    <td><font face="Verdana, Arial, Helvetica, sans-serif"><a href="#userdoc">User 
+      Documentation</a></font></td>
+    <td><font face="Verdana, Arial, Helvetica, sans-serif">Provides a detail description 
+      of what a user may do in the Jupiter plug-in (not completed at this time).</font></td>
+  </tr>
+  <tr> 
+    <td><font face="Verdana, Arial, Helvetica, sans-serif"><a href="#developerdoc">Developer 
+      Documentation</a></font></td>
+    <td><font face="Verdana, Arial, Helvetica, sans-serif">Provides a detail description 
+      of the development rules, processes, design, and build system.</font></td>
+  </tr>
+  <tr> 
+    <td height="21"><font face="Verdana, Arial, Helvetica, sans-serif"><a href="#contact">Contact 
+      Information</a></font></td>
+    <td height="21"><font face="Verdana, Arial, Helvetica, sans-serif">Provides 
+      the contain information for those who wish to comment about the Jupiter plug-in.</font></td>
+  </tr>
+</table>
+<font face="Verdana, Arial, Helvetica, sans-serif"><br>
+<br>
+<a name="contents"></a></font> 
+<h2><font face="Verdana, Arial, Helvetica, sans-serif">A. Contents of this package</font></h2>
+<table width="100%" border="1" bordercolordark="#000000" bordercolorlight="#99CCCC">
+  <tr> 
+    <th align="center"><font face="Verdana, Arial, Helvetica, sans-serif">Directory/File 
+      </font> 
+    <th><font face="Verdana, Arial, Helvetica, sans-serif">Contents </font> 
+  <tr> 
+    <td align="center"><font face="Verdana, Arial, Helvetica, sans-serif">. </font> 
+    <td><font face="Verdana, Arial, Helvetica, sans-serif"> Top-level directory 
+      files include:</font> 
+      <ul>
+        <li> <font face="Verdana, Arial, Helvetica, sans-serif"><A HREF="README.html">README.html</A> 
+          (this document) </font> 
+      </ul>
+  <tr> 
+    <td align="center"><font face="Verdana, Arial, Helvetica, sans-serif">./feature</font> 
+    <td><font face="Verdana, Arial, Helvetica, sans-serif">Contains files to
+      build an Eclipse feature for Jupiter.&nbsp;&nbsp;&nbsp; </font> <ul>
+        <li><font face="Verdana, Arial, Helvetica, sans-serif">feature.xml A
+          feature configuration file for Jupiter.&nbsp;</font></li>
+      </ul>
+  <tr> 
+    <td align="center"><font face="Verdana, Arial, Helvetica, sans-serif">./plugin</font> 
+    <td><font face="Verdana, Arial, Helvetica, sans-serif">Contains files to
+      build Jupiter Eclipse plugin.&nbsp;&nbsp;</font>
+      <ul>
+        <li><font face="Verdana, Arial, Helvetica, sans-serif">plugin.xml A
+          plugin configuration file for Jupiter.</font></li>
+        <li><font face="Verdana, Arial, Helvetica, sans-serif">plugin.properties
+          A resource file for plugin.xml</font></li>
+        <li><font face="Verdana, Arial, Helvetica, sans-serif">build.properties
+          A build configuration file Jupiter Eclipse plugin.&nbsp;&nbsp;</font></li>
+        <li><font face="Verdana, Arial, Helvetica, sans-serif">.project An
+          eclipse project definition file for Jupiter.&nbsp;</font></li>
+        <li><font face="Verdana, Arial, Helvetica, sans-serif">src/ Sources of
+          Jupiter</font></li>
+      </ul>
+  </tr>
+  <tr> 
+    <td align="center">&nbsp;
+      <p><font face="Verdana, Arial, Helvetica, sans-serif">./site</font> 
+    <td><font face="Verdana, Arial, Helvetica, sans-serif">Contain update site
+      definition for Jupiter.</font>
+      <ul>
+        <li><font face="Verdana, Arial, Helvetica, sans-serif">site.xml The
+          configuration file of Jupiter's update site.</font></li>
+        <li><font face="Verdana, Arial, Helvetica, sans-serif">index.html An
+          introduction to the update site.</font></li>
+        <li><font face="Verdana, Arial, Helvetica, sans-serif">features/ Archive
+          file of Jupiter's feature.</font></li>
+        <li><font face="Verdana, Arial, Helvetica, sans-serif">plugin/ Archive
+          file of Jupiter's plugin.&nbsp;</font></li>
+      </ul>
+</table>
+<font face="Verdana, Arial, Helvetica, sans-serif"><a name="installation"></a></font> 
+<h2><font face="Verdana, Arial, Helvetica, sans-serif">B. Installation</font></h2>
+<p><font face="Verdana, Arial, Helvetica, sans-serif">These instructions assume 
+  that you have checked out Jupiter from the SVN repository at:</font></p>
+<p><font face="Verdana, Arial, Helvetica, sans-serif"># Project members authenticate over HTTPS to allow committing changes.<br>
+svn checkout https://hackystat-sensor-eclipse.googlecode.com/svn/trunk/
+hackystat-sensor-eclipse --username &lt;your account&gt;</font></p>
+<p><font face="Verdana, Arial, Helvetica, sans-serif"># Non-members may check out a read-only working copy anonymously over
+HTTP.<br>
+svn checkout http://hackystat-sensor-eclipse.googlecode.com/svn/trunk/ hackystat-sensor-eclipse</font></p>
+<ol>
+  <li><font face="Verdana, Arial, Helvetica, sans-serif"><b>Download and install 
+    the Java SDK version 1.5 or above.&nbsp;&nbsp;</b></font></li>
+  <ul>
+    <li><font face="Verdana, Arial, Helvetica, sans-serif">The canonical site 
+      for obtaining Java SDKs is <a href="http://java.sun.com/">http://java.sun.com/</a>.<br>
+      &nbsp;&nbsp; </font> 
+  </ul>
+  <li><font face="Verdana, Arial, Helvetica, sans-serif"><b>Download and install
+    Eclipse 3.2</b></font><font face="Verdana, Arial, Helvetica, sans-serif"><b>.&nbsp;</b></font></li>
+  <ul>
+    <li><font face="Verdana, Arial, Helvetica, sans-serif">Eclipse's Download
+      site: http://www.eclipse.org/downloads/</font><font face="Verdana, Arial, Helvetica, sans-serif">&nbsp;<br>
+      &nbsp;&nbsp;</font> 
+  </ul>
+  <li><font face="Verdana, Arial, Helvetica, sans-serif"><b>Download and install 
+    Ant 1.5.4 or above.</b></font></li>
+  <ul>
+    <li><font face="Verdana, Arial, Helvetica, sans-serif"> The canonical site 
+      for obtaining Ant is <a href="http://ant.apache.org/">http://ant.apache.org/</a>. </font> 
+  </ul>
+  <li>&nbsp;<font face="Verdana, Arial, Helvetica, sans-serif"><b>Open projects
+    of Jupiter</b></font>
+    <ul>
+      <li><font face="Verdana, Arial, Helvetica, sans-serif">jupiter-eclipse-site</font></li>
+      <li><font face="Verdana, Arial, Helvetica, sans-serif">jupiter-eclipse-plugin</font></li>
+      <li><font face="Verdana, Arial, Helvetica, sans-serif">jupiter-eclipse-feature</font></li>
+    </ul>
+    <p>&nbsp;</li>
+  <li><font face="Verdana, Arial, Helvetica, sans-serif"><b>Build Jupiter&nbsp;</b></font>
+    <ul>
+      <li><font face="Verdana, Arial, Helvetica, sans-serif">Locate project
+        jupiter-eclipse-site</font></li>
+      <li><font face="Verdana, Arial, Helvetica, sans-serif">Open site.xml&nbsp;&nbsp;</font></li>
+      <li><font face="Verdana, Arial, Helvetica, sans-serif">Click build</font></li>
+    </ul>
+    <p><font face="Verdana, Arial, Helvetica, sans-serif">The Eclipse PDE will
+    generate features and plugin in the jupiter-eclipse-site project. You can
+    commit the newly generated archive files to SVN repository to make a new
+    release of Jupiter.&nbsp;&nbsp;</font></li>
+</ol>
+<font face="Verdana, Arial, Helvetica, sans-serif"><a name="invocation"></a></font><font face="Verdana, Arial, Helvetica, sans-serif"><a name="userdoc"></a></font> 
+<h2><font face="Verdana, Arial, Helvetica, sans-serif">D. User documentation</font></h2>
+<p><font face="Verdana, Arial, Helvetica, sans-serif">See the User's Guide at http://code.google.com/p/jupiter-eclipse-plugin/wiki/UserGuide</font></p>
+<font face="Verdana, Arial, Helvetica, sans-serif"><a name="developerdoc"></a></font> 
+<h2><font face="Verdana, Arial, Helvetica, sans-serif">E. Developer documentation</font></h2>
+<p><font face="Verdana, Arial, Helvetica, sans-serif">See developer guide at
+http://code.google.com/p/jupiter-eclipse-plugin/wiki/DeveloperGuide</font></p>
+<font face="Verdana, Arial, Helvetica, sans-serif"><a name="contact"></a></font> 
+<h2><font face="Verdana, Arial, Helvetica, sans-serif">F. Contact information</font></h2>
+<p><font face="Verdana, Arial, Helvetica, sans-serif">If you would like to know 
+  more about this software, or would like to be informed of future releases:</font></p>
+<ul>
+  <li>
+    <table width="100%" border="0">
+      <tr>
+        <td width="23%"><b>Home page:</b></td>
+        <td width="77%"><a href="http://csdl.ics.hawaii.edu/Tools/Jupiter/">http://code.google.com/p/jupiter-eclipse-plugin/</a></td>
+      </tr>
+      <tr>
+        <td width="23%"><b>Developer contact:</b></td>
+        <td width="77%">Takuya Yamashita, Hongbing Kou
+          (hongbing@gmail.com), Julie <a href="mailto:Sakuda(jsakuda@gmail.com">Sakuda(jsakuda@gmail.com</a>),
+          Philip Johnson (johnson@hawaii.edu)</td>
+      </tr>
+      <tr>
+        <td width="23%"><b>SVN repository:</b></td>
+        <td width="77%"><tt><b><i>http</i></b>://jupiter-eclipse-plugin.googlecode.com/svn/trunk/</tt></td>
+      </tr>
+      <tr>
+        <td width="23%"><b>Mailing lists:</b></td>
+        <td width="77%">http://groups.google.com/group/jupiter-users</td>
+      </tr>
+    </table>
+  </li>
+  </ul>
+<pre>&nbsp;</pre>
+</body>
+</html>
